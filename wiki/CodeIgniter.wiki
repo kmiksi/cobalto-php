@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+CodeIgniter é um framework para desenvolvimento ágil
+
+
+= Details =
+
+CodeIgniter utiliza uma licença própria que é uma variante da licença BSD, veja em http://codeigniter.com/user_guide/license.html
