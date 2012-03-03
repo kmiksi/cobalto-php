@@ -1,5 +1,4 @@
 #summary Informações sobre o framework CodeIgniter.
-#usuario carlos
 
 = Introdução =
 
