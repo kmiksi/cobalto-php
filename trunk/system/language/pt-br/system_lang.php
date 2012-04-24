@@ -34,8 +34,8 @@ $lang['loginDadosInvalidos'] = 'Login ou senha inválida';
 $lang['loginCapcthaInvalido'] = 'Informe o código da imagem corretamente';
 
 //-------- Header -------
-$lang['titulo'] = 'Audigital 3.0';
-$lang['sigla'] = 'Audigital 3.0 <br /> Sistema de auditoria digital';
+$lang['titulo'] = 'Cobalto';
+$lang['sigla'] = 'Cobalto <br /> Framework para desenvolvimento ágil';
 $lang['setor'] = 'Setor';
 $lang['modulo'] = 'Módulo';
 $lang['sair'] = 'Sair';
@@ -97,8 +97,8 @@ $lang['pessoaSexo'] = 'Sexo';
 $lang['pessoaSexoMasc'] = 'Masculino';
 $lang['pessoaSexoFem'] = 'Feminino';
 $lang['pessoaDtCadastro'] = 'Dt. cadastro';
-$lang['pessoaOrgaoEmissor'] = 'Orgão expeditor';
-$lang['pessoaUfOrgaoEmissor'] = 'UF do Orgão expeditor';
+$lang['pessoaOrgaoEmissor'] = 'Orgão expedidor';
+$lang['pessoaUfOrgaoEmissor'] = 'UF do Orgão expedidor';
 $lang['pessoaMaoEscrita'] = 'Mão da escrita';
 $lang['pessoaMaoEscritaDestro'] = 'Destro';
 $lang['pessoaMaoEscritaCanhoto'] = 'Canhoto';
