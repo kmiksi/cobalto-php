@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="89"/>
 	<parameter name="IMG_REPORT_1" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/var/www/audigital/static/_img/logo.jpg"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/var/www/cobalto-php/static/_img/logo.jpg"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="INSTITUICAO" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["AuditOne Auditoria de Sistemas"]]></defaultValueExpression>

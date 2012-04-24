@@ -17,7 +17,7 @@ $server = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVE
 $config['base_url']	= $protocolo.$server.'/cobalto-php/';
 
 define('BASE_URL', $config['base_url']);
-define('PATH_COOKIE', '/audigital');
+define('PATH_COOKIE', '/cobalto-php');
 define('IMG', $config['base_url'].'static/_img');
 define('CSS', $config['base_url'].'static/_css');
 define('JS', $config['base_url'].'static/_js');
