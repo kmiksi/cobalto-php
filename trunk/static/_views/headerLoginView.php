@@ -25,7 +25,7 @@
 			</div>
 			<div class="logo"><!-- --></div>
 			<h1 style="float: left; background:none !important; border: none !important; font-size: 21px; padding: 0px; margin-top: 15px; margin-bottom: 0px;" class="ui-widget-content">
-				Cobalto<br />Sistema Integrado de Gestão
+				<?=lang("sigla")?>
 			</h1>
 		</div>
 		<span style="clear:both;"><!-- --></span>
