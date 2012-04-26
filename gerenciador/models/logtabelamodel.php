@@ -3,7 +3,7 @@
 class LogTabelaModel extends Model {
 
     function getTabelas($parametros) {
-        $this->db->select('concat_ws(\'chr9\', table_schema, table_name) as id, table_schema, table_name', false);
+        $this->db->select('\'chr9\'||table_schema||table_name as id, table_schema, table_name', false);
         $this->db->from('information_schema.tables');
         $this->db->where('table_schema', 'public');
         $this->db->where('table_type', 'BASE TABLE');

@@ -64,7 +64,7 @@
 				<?=form_label('lblEmpresa', lang('usuarioEmpresa'), 100);?>
 				<?=form_combo('cmbEmpresa', $empresas, '', 304);?>
 
-				<?=form_checkbox('chkEmpresaBoot', array('id'=>'chkEmpresaBoot'), 'S');?>
+				<?=form_checkbox('chkEmpresaBoot', 'chkEmpresaBoot', 'S');?>
 				<?=form_label('lblEmpresaBoot', lang('usuarioEmpresaBoot'), 100, array('for'=>'chkEmpresaBoot'));?>
 				<?=new_line();?>
 

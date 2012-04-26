@@ -202,7 +202,7 @@ class PerfilModel extends Model {
     function getPerfilProgramas($parametros, $idProgramaPai) {
         $paramsJqGrid = $this->ajax->setParametersJqGrid($parametros);
 
-        $this->db->select('concat_ws(\'chr\', perfis_programas.id, programas.id) as id, nome_programa as nome', false);
+        $this->db->select('\'chr\'||perfis_programas.id||programas.id as id, nome_programa as nome', false);
         $this->db->from('perfis_programas');
         $this->db->join('programas', 'programas.id = perfis_programas.programa_id');
         $this->db->where('perfil_id', $parametros['idPerfil']);
