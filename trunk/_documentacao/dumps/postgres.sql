@@ -6005,7 +6005,7 @@ CREATE TABLE public.usuarios (
 );
 
 
-INSERT INTO public.usuarios VALUES  (1,1,'admin','d033e22ae348aeb5660fc2140aec35850c4da997','2010-02-18 22:00:00',NULL,NULL,'flick');
+INSERT INTO public.usuarios VALUES  (1,1,'admin','d033e22ae348aeb5660fc2140aec35850c4da997','2010-02-18 22:00:00',NULL,NULL,'redmond');
 
 
 
