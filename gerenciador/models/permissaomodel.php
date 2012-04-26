@@ -4,13 +4,9 @@ class PermissaoModel extends Model {
 
     function getMetodosGrid($parametros, $link) {
         $this->db->select('id, classe, metodo, case when privado = 0 then \'Não\' else \'Sim\' end as privado', false);
+        $this->db->from('sys_metodos');
         $this->db->like('classe', $link);
-        $this->db->order_by('classe, metodo');
-        $result = $this->db->get('sys_metodos');
-
-        $paramsJqGrid = $this->ajax->setStartLimitJqGrid($parametros, $result->num_rows());
-        $paramsJqGrid->rows = $result->result();
-        return $paramsJqGrid;
+        $this->db->sendToGrid();
     }
 
     function getMetodos($link) {

@@ -59,16 +59,10 @@ class GrupoAcessoModel extends Model {
 
         $paramsJqGrid = $this->ajax->setStartLimitJqGrid($parametros, $total->total_grupos_acesso);
 
-        $this->db->select('id, nome, date_format(dt_cadastro, \'%d/%m/%Y %H:%i:%s\') as dt_cadastro', false);
+        $this->db->select('id, nome, dt_cadastro', false);
+        $this->db->from('grupos_acessos');
         $this->db->like('upper(nome)', @$parametros['txtNome']);
-        $this->db->order_by($paramsJqGrid->sortField, $paramsJqGrid->sortDirection);
-        if ($pagination) {
-            $this->db->limit($paramsJqGrid->limit, $paramsJqGrid->start);
-        }
-        $result = $this->db->get('grupos_acessos');
-
-        $paramsJqGrid->rows = $result->result();
-        return $paramsJqGrid;
+        $this->db->sendToGrid();
     }
 
     function getEmpresasGrupoAcesso($parametros) {

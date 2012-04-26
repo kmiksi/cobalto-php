@@ -19,7 +19,7 @@ class Usuario extends Controller {
     }
 
     function listaUsuarios() {
-        $this->ajax->returnJqGrid($this->usuarioModel->getUsuarios($_GET));
+        $this->usuarioModel->getUsuarios($_GET);
     }
 
     function novo() {

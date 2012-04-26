@@ -22,6 +22,9 @@ class PessoaModel extends Model {
         if ($retErro) {
             return false;
         }
+
+        $this->db->trans_start();
+
         $gruposUsuario = explode(",", $pessoa['txtGrupos']);
 
         $dados = array('nome' => $pessoa['txtNome'],
@@ -39,7 +42,14 @@ class PessoaModel extends Model {
             $this->db->insert('pessoas_grupos', $dados);
         }
 
-        return true;
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->validate->addError('tab', lang('registroNaoGravado'));
+            return FALSE;
+        }
+
+        return TRUE;
     }
 
     function excluir($id) {
@@ -54,7 +64,7 @@ class PessoaModel extends Model {
         $total = $this->db->get('pessoas')->row();
         $dados['total'] = $total->quant;
 
-        $this->db->select('id, nome as nome, cpf, date_format(dt_cadastro, \'%d/%m/%Y\') as dt_cadastro', false);
+        $this->db->select('id, nome as nome, cpf, dt_cadastro', false);
         $this->db->like('nome', $nomePessoa);
         $this->db->like('cpf', $cpf);
         $this->db->orderby('nome', 'asc');
@@ -69,7 +79,7 @@ class PessoaModel extends Model {
     }
 
     function getPessoa($id) {
-        $this->db->select('id, nome, sexo, date_format(dt_cadastro, \'%d/%m/%Y\') as dt_cadastro,date_format(dt_nascimento, \'%d/%m/%Y\') as dt_nascimento, email, rg, cpf', false);
+        $this->db->select('id, nome, sexo, dt_cadastro, dt_nascimento, email, rg, cpf', false);
         $this->db->where('id', $id);
         return $this->db->get('pessoas')->row();
     }
