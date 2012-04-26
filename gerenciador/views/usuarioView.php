@@ -2,7 +2,7 @@
 
 	<?=path_bread($path_bread);?>
 
-	<?=begin_ToolBar(array('imprimir', 'abrir', 'ajuda', 'pesquisar'));?>
+	<?=begin_ToolBar(array('imprimir', 'excluir', 'abrir', 'ajuda', 'pesquisar'));?>
 		<?=addButtonToolBar('Fazer login como', 'fazerLoginComo()', 'btnLoginComo', 'ui-icon-gear');?>
 	<?=end_ToolBar();?>
 
@@ -146,8 +146,7 @@
         var usuarioId = id.split("chr", 2)[0];
         var empresaId = id.split("chr", 2)[1];
         $('#txtIdUsuarioEmpresa').val(usuarioId);
-        $('#cmbEmpresa').val(empresaId);
-        $("#cmbEmpresa").selectmenu('value', $('#cmbEmpresa').get(0).selectedIndex);
+        cmbEmpresa.val(empresaId);
         $.post(BASE_URL+'gerenciador/usuario/getEmpresaUsuario', {usuarioId: usuarioId, empresaId: empresaId},
         function(data){
             if (data.usuarioEmpresa.empresa_boot == 'S') {
@@ -254,8 +253,7 @@
     }
 
     function novoEmpresa(){
-        $('#cmbEmpresa').val();
-        $("#cmbEmpresa").selectmenu('value', 0);
+        cmbEmpresa.val('');
         document.getElementById('chkEmpresaBoot').checked = false;
         $("#gridEmpresa").setGridParam({url:BASE_URL+'gerenciador/usuario/listaEmpresas?usuarioId='+$('#txtCodigo').val(), page:1}).trigger("reloadGrid");
         $("#gridPerfil").clearGridData();

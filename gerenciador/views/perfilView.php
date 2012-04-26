@@ -138,7 +138,7 @@
 
     function abrirProgramaPai(data){
         $('#txtIdProgramaPerfilPai').val(data.programaPai.id);
-        setValueCombo('cmbProgramaPai', data.programaPai.programa_id);
+        cmbProgramaPai.val(data.programaPai.programa_id);
         $('#txtIdPerfil').val(data.programaPai.perfil_id);
         $('#txtIdProgramaPai').val(data.programaPai.programa_id);
         $("#gridProgramas").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramas/?idPerfil='+$('#txtCodigo').val()+'&programa_pai='+data.programaPai.programa_id, page:1}).trigger("reloadGrid");
