@@ -66,7 +66,7 @@ class GrupoAcessoModel extends Model {
     }
 
     function getEmpresasGrupoAcesso($parametros) {
-        $this->db->select('concat_ws(\'chr\', gae.grupo_acesso_id, gae.empresa_id) as id, e.nome', false);
+        $this->db->select('\'chr\'||gae.grupo_acesso_id||gae.empresa_id as id, e.nome', false);
         $this->db->from('grupos_acessos_empresas as gae');
         $this->db->join('empresas as e', 'gae.empresa_id = e.id');
         $this->db->where('gae.grupo_acesso_id', $parametros['grupo_acesso_id']);

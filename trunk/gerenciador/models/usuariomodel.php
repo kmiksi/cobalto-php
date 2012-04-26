@@ -276,7 +276,7 @@ class UsuarioModel extends Model {
      * @param $usuarioId integer
      */
     function getEmpresasUsuario($parametros) {
-        $sql = 'select concat_ws(\'chr\', ue.usuario_id, ue.empresa_id) as id, e.nome, case when ue.empresa_boot = \'S\' then \'Sim\' else \'Não\' end as empresa_boot
+        $sql = 'select \'chr\'||ue.usuario_id||ue.empresa_id as id, e.nome, case when ue.empresa_boot = \'S\' then \'Sim\' else \'Não\' end as empresa_boot
 						from usuarios_empresas as ue
 						join empresas as e
 							on ue.empresa_id = e.id

@@ -105,7 +105,7 @@ class Usuario extends Controller {
     }
 
     function listaGruposAcessos() {
-        $this->ajax->returnJqGrid($this->grupoAcessoModel->getGruposAcessos($_GET, false));
+        $this->grupoAcessoModel->getGruposAcessos($_GET, false);
     }
 
     function listaGruposAcessosUsuario() {
