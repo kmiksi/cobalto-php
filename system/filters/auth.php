@@ -13,19 +13,15 @@
 		}
 
 		function after() {
-			$CI =& get_instance();
+			$CI =& get_instance();			
 			$isLoadExtensionMongo = array_search('mongo', (get_loaded_extensions() !== false) ? array_map('strtolower', get_loaded_extensions()) : array());
 			$acessoNegado = false;
-			
-			$path = array_reverse(explode('/', $_SERVER['DOCUMENT_ROOT']));
-			$startIndex = ($path[1] != 'cobalto' ? 2 : 1);
-			
 			$url = explode('/', $_SERVER['REQUEST_URI']);
 			$idPrograma = '';
 			$nr_parameters = 0;
 			while($idPrograma == ''){
 				$link = '';
-				for ($i = $startIndex; $i < count($url) - $nr_parameters; $i++)
+				for ($i = 2; $i < count($url) - $nr_parameters; $i++)
 					if($link == '')
 						$link = $url[$i];
 					else
@@ -33,18 +29,12 @@
 
 				$CI->db->where('link', $link);
 				$programa = $CI->db->get('programas')->row();
-				$idPrograma = isset($programa->id) ? $programa->id : '';
+				$idPrograma = @$programa->id;
 				$nr_parameters++;
 			}
 
-			if($link != '' && $idPrograma != ''){
-				if(@json_decode(@$CI->session->userdata('usuario'))->id == ''){
-					$logout  = '<script type=\'text/javascript\'>';			
-					$logout .= "location.href = '".BASE_URL."autenticacao/login/sair';";
-					$logout .= '</script>';
-					echo $logout;					
-				}else{
-					$sql = 'select upa.id
+			if($link != '' && $idPrograma != ''){				
+				$sql = 'select upa.id
 						  from usuarios_programas_acessos as upa
 						  join programas as p
 							on p.id = upa.programa_id
@@ -63,30 +53,26 @@
 						 where u.id = '.json_decode($CI->session->userdata('usuario'))->id.'
 						   and gap.programa_id = '.$idPrograma;
 
-					$usuarioProgramaAcesso = $CI->db->query($sql)->row();
-	
-					if(!isset($usuarioProgramaAcesso->id)){
-						if($isLoadExtensionMongo != ''){
-							$CI->mongo_db->insert('acessos', array('usuario_id' => json_decode($CI->session->userdata('usuario'))->id,
-														 'ip' => $_SERVER['REMOTE_ADDR'],
-														 'url' => $_SERVER['REQUEST_URI'],
-														 'acesso_negado' => true,
-														 'post' => $_POST,
-														 'navegador' => $_SERVER['HTTP_USER_AGENT'],
-														 'dt_acesso' => new MongoDate()));
-						}
-						show_error('<h1 style="float: left; margin: 0px 10px 10px 0px;">ACESSO NEGADO</h1><br /><h2 style="margin: 0px 10px 10px 0px;">'.lang('semPermissaoAcessarMetodo').'</h2>');
-					}
-				}				
+				$usuarioProgramaAcesso = $CI->db->query($sql)->row();
+
+				if(@$usuarioProgramaAcesso->id == ''){
+					/*if($isLoadExtensionMongo != ''){
+						$CI->mongo_db->insert('acessos', array('usuario_id' => json_decode($CI->session->userdata('usuario'))->id,
+													 'ip' => $_SERVER['REMOTE_ADDR'],
+													 'url' => $_SERVER['REQUEST_URI'],
+													 'acesso_negado' => true,
+													 'post' => $_POST,
+													 'navegador' => $_SERVER['HTTP_USER_AGENT'],
+													 'dt_acesso' => new MongoDate()));
+					}*/
+					show_error('<h1 style="float: left; margin: 0px 10px 10px 0px;">ACESSO NEGADO</h1><br /><h2 style="margin: 0px 10px 10px 0px;">'.lang('semPermissaoAcessarMetodo').'</h2>');
+				}
 			}
 			
-			if(@json_decode(@$CI->session->userdata('usuario'))->id == ''){
-				$logout  = '<script type=\'text/javascript\'>';			
-				$logout .= "location.href = '".BASE_URL."autenticacao/login/sair';";
-				$logout .= '</script>';
-				echo $logout;
+			if(@json_decode($CI->session->userdata('usuario'))->id == ''){
+				header("location: ".BASE_URL);
 			}else{
-				if($isLoadExtensionMongo != ''){
+				/*if($isLoadExtensionMongo != ''){
 					$CI->mongo_db->insert('acessos', array('usuario_id' => json_decode($CI->session->userdata('usuario'))->id,
 														 'ip' => $_SERVER['REMOTE_ADDR'],
 														 'url' => $_SERVER['REQUEST_URI'],
@@ -94,7 +80,7 @@
 														 'post' => $_POST,
 														 'navegador' => $_SERVER['HTTP_USER_AGENT'],
 														 'dt_acesso' => new MongoDate()));
-				}
+				}*/
 			}
 		}
 	}
