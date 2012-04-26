@@ -135,40 +135,12 @@ class UsuarioModel extends Model {
      * @param $limit integer
      */
     function getUsuarios($parametros) {
-        $nomes = array();
-        if (isset($parametros['nome']) and !empty($parametros['nome'])) {
-            $nomes = explode(" ", $parametros['nome']);
-        }
-        $login = "";
-        if (isset($parametros['login']) and !empty($parametros['login'])) {
-            $login = $parametros['login'];
-        }
-        $this->db->select('count(*) as quant');
+        $this->db->select('u.id, p.nome as nome, u.login, p.email, p.dt_cadastro');
         $this->db->from('usuarios as u');
         $this->db->join('pessoas as p', 'p.id = u.pessoa_id');
-
-        foreach ($nomes as $nome) {
-            $this->db->like('upper(p.nome)', $nome);
-        }
-        $this->db->like('upper(u.login)', $login);
-        $total = $this->db->get()->row();
-
-        $paramsJqGrid = $this->ajax->setStartLimitJqGrid($parametros, $total->quant);
-
-        $this->db->select('u.id, p.nome as nome, u.login, p.email, p.dt_cadastro', false);
-        $this->db->from('usuarios as u');
-        $this->db->join('pessoas as p', 'p.id = u.pessoa_id');
-        foreach ($nomes as $nome) {
-            $this->db->like('upper(p.nome)', $nome);
-        }
-        $this->db->like('upper(u.login)', $login);
-        $this->db->order_by($paramsJqGrid->sortField, $paramsJqGrid->sortDirection);
-        $this->db->offset($paramsJqGrid->start);
-        $this->db->limit($paramsJqGrid->limit);
-        $result = $this->db->get();
-
-        $paramsJqGrid->rows = $result->result();
-        return $paramsJqGrid;
+        $this->db->likeName('p.nome', @$parametros['nome']);
+        $this->db->likeName('u.login', @$parametros['login']);
+        $this->db->sendToGrid();
     }
 
     /**
@@ -177,7 +149,7 @@ class UsuarioModel extends Model {
      * @param $id integer
      */
     function getUsuario($id) {
-        $this->db->select('u.id, p.nome as nome, p.sexo, u.login, p.cpf, p.rg, p.email, p.dt_nascimento, u.pessoa_id', false);
+        $this->db->select('u.id, p.nome as nome, p.sexo, u.login, p.cpf, p.rg, p.email, p.dt_nascimento, u.pessoa_id');
         $this->db->from('usuarios as u');
         $this->db->join('pessoas as p', 'p.id = u.pessoa_id');
         $this->db->where('u.id', $id);
@@ -185,7 +157,7 @@ class UsuarioModel extends Model {
     }
 
     function getUsuarioByHashId($hash_id) {
-        $this->db->select('u.id, u.pessoa_id, u.login, u.senha, p.nome, p.email', false);
+        $this->db->select('u.id, u.pessoa_id, u.login, u.senha, p.nome, p.email');
         $this->db->from('usuarios as u');
         $this->db->join('pessoas as p', 'p.id = u.pessoa_id');
         $this->db->where('u.hash_id', $hash_id);
@@ -628,17 +600,17 @@ class UsuarioModel extends Model {
         }
 
         $sql = 'delete
-						  from sys_permissoes
-						 where id in (select sp.id
-									  from sys_permissoes as sp
-									  join sys_metodos as sm
-									    on sp.sys_metodo_id = sm.id
-									 where sp.usuario_id = ' . $usuario_programas_acessos['txtIdUsuarioProgramaAcesso'] . '
-									   and sm.classe not in (select p.link
-														       from usuarios_programas_acessos as upa
-														       join programas as p
-															 on upa.programa_id = p.id
-														      where upa.usuario_id = ' . $usuario_programas_acessos['txtIdUsuarioProgramaAcesso'] . '))';
+                from sys_permissoes
+                where id in (select sp.id
+                    from sys_permissoes as sp
+                    join sys_metodos as sm
+                    on sp.sys_metodo_id = sm.id
+                    where sp.usuario_id = ' . $usuario_programas_acessos['txtIdUsuarioProgramaAcesso'] . '
+                    and sm.classe not in (select p.link
+                        from usuarios_programas_acessos as upa
+                        join programas as p
+                        on upa.programa_id = p.id
+                        where upa.usuario_id = ' . $usuario_programas_acessos['txtIdUsuarioProgramaAcesso'] . '))';
         $this->db->query($sql);
 
         if ($this->db->trans_status() === FALSE) {

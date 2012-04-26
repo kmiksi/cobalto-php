@@ -16,7 +16,7 @@ class GrupoAcesso extends Controller {
     }
 
     function listaGrupos() {
-        $this->ajax->returnJqGrid($this->grupoAcessoModel->getGruposAcessos($_GET));
+        $this->grupoAcessoModel->getGruposAcessos($_GET);
     }
 
     function novo() {
@@ -109,7 +109,7 @@ class GrupoAcesso extends Controller {
 
     function listaMetodosGrid($programaId) {
         $programa = $this->programaModel->getPrograma($programaId);
-        $this->ajax->returnJqGrid($this->permissaoModel->getMetodosGrid($_GET, $programa->link));
+        $this->permissaoModel->getMetodosGrid($_GET, $programa->link);
     }
 
     function listaMetodosGrupoAcesso() {
