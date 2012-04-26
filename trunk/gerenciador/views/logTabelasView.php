@@ -34,29 +34,31 @@
 		<?=end_Tab();?>
 	<?=end_TabPanel();?>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
-
 <script type="text/javascript">
 
-	function salvar(){
-		$('#txtColunas').val(gridColunas.serializeSelectedRows());
-		formLogTabela_submit();
-	}
+    function salvar(){
+        $('#txtColunas').val(gridColunas.serializeSelectedRows());
+        formLogTabela_submit();
+    }
 
-	function formLogTabela_callback(data){
-		if(data.success == true)
-			messageBox("<?=lang('registroGravado');?>");
-		else
-			messageErrorBox("<?=lang('registroNaoGravado');?>");
-	}
+    function formLogTabela_callback(data){
+        if (data.success == true) {
+            messageBox("<?= lang('registroGravado'); ?>");
+        } else {
+            messageErrorBox("<?= lang('registroNaoGravado'); ?>");
+        }
+    }
 
-	function gridColunas_loadComplete(){
-		var tabela = $('#txtTabela').val();
-		$.post(BASE_URL+'gerenciador/logTabelas/buscaColunasLogTabela', {tabela: tabela},
-			function(data){
-				for(var i = 0; i < data.colunas.length; i++)
-					gridColunas.setSelectRow(data.colunas[i].field_name);
-			}, 'json');
-	}
+    function gridColunas_loadComplete(){
+        var tabela = $('#txtTabela').val();
+        $.post(BASE_URL+'gerenciador/logTabelas/buscaColunasLogTabela', {tabela: tabela},
+        function(data){
+            for (var i = 0; i < data.colunas.length; i++) {
+                gridColunas.setSelectRow(data.colunas[i].field_name);
+            }
+        }, 'json');
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerGlobalView");?>

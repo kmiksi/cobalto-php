@@ -5,7 +5,7 @@
 			<?=begin_TabPanel();?>
 				<?=begin_Tab(lang('acessoSistema'));?>
 					<?=begin_form('autenticacao/login/entrar', 'formLogin');?>
-						<?=form_label('lblEmail', lang('login'), 60);?>						
+						<?=form_label('lblEmail', lang('login'), 60);?>
 						<?=form_textField('txtEmail', '', 240);?>
 						<?=new_line();?>
 						<?=form_label('lblSenha', lang('usuarioSenha'), 60);?>
@@ -19,25 +19,27 @@
 		</div>
 	</div>
 
-<?=$this->load->view("../../static/_views/footerLoginView");?>
-
 <script type="text/javascript">
-function init(){
-		$("#btnEntrar").bind('click', entrar);
-		$('#txtEmail').focus();
-	}
-	
-	function entrar(){
-		$("#btnEntrar").blur();
-		formLogin_submit();
-	}
-	
-	function formLogin_callback(data){
-		if(data.error != undefined)
-			messageErrorBox(data.error.message, data.error.field);
-		else
-			if(data.success != undefined)
-				location.href = BASE_URL+'dashboard';
-	}
+    function init(){
+        $("#btnEntrar").bind('click', entrar);
+        $('#txtEmail').focus();
+    }
+
+    function entrar(){
+        $("#btnEntrar").blur();
+        formLogin_submit();
+    }
+
+    function formLogin_callback(data){
+        if (data.error != undefined) {
+            messageErrorBox(data.error.message, data.error.field);
+        } else {
+            if (data.success != undefined) {
+                location.href = BASE_URL+'dashboard';
+            }
+        }
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerLoginView");?>

@@ -16,24 +16,26 @@
 
 <script type="text/javascript">
 
-	function salvarPopUp(){
-		$.post(BASE_URL+'gerenciador/grupoAcesso/salvarPermissoes/', {grupoAcessoId: $('#txtGrupoAcessoId').val(), programaId: $('#txtProgramaId').val(), metodos: gridClasseMetodo.serializeSelectedRows()},
-			function(data){
-				if(data.success == 'true')
-					messageBox("<?=lang('registroGravado');?>");
-				else
-					messageErrorBox("<?=lang('registroNaoGravado');?>");
-			});
-	}
-	
-	function gridClasseMetodo_loadComplete(){
-		var programaId = $('#txtProgramaId').val();
-		var grupoAcessoId = $('#txtGrupoAcessoId').val();
-		$.post(BASE_URL+'gerenciador/grupoAcesso/listaMetodosGrupoAcesso', {grupoAcessoId: grupoAcessoId, programaId: programaId},
-			function(data){
-				for(var i = 0; i < data.grupoAcessoPermissoes.length; i++)
-					gridClasseMetodo.setSelectRow(data.grupoAcessoPermissoes[i].sys_metodo_id);
-			}, 'json');
-	}
+    function salvarPopUp(){
+        $.post(BASE_URL+'gerenciador/grupoAcesso/salvarPermissoes/', {grupoAcessoId: $('#txtGrupoAcessoId').val(), programaId: $('#txtProgramaId').val(), metodos: gridClasseMetodo.serializeSelectedRows()},
+        function(data){
+            if (data.success == 'true') {
+                messageBox("<?= lang('registroGravado'); ?>");
+            } else {
+                messageErrorBox("<?= lang('registroNaoGravado'); ?>");
+            }
+        });
+    }
+
+    function gridClasseMetodo_loadComplete(){
+        var programaId = $('#txtProgramaId').val();
+        var grupoAcessoId = $('#txtGrupoAcessoId').val();
+        $.post(BASE_URL+'gerenciador/grupoAcesso/listaMetodosGrupoAcesso', {grupoAcessoId: grupoAcessoId, programaId: programaId},
+        function(data){
+            for (var i = 0; i < data.grupoAcessoPermissoes.length; i++) {
+                gridClasseMetodo.setSelectRow(data.grupoAcessoPermissoes[i].sys_metodo_id);
+            }
+        }, 'json');
+    }
 
 </script>
