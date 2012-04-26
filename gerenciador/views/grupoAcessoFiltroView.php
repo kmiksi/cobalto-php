@@ -1,8 +1,8 @@
 <?=$this->load->view("../../static/_views/headerGlobalView");?>
-	
+
 	<?=path_bread($path_bread);?>
-	
-	<?=begin_ToolBar(array('salvar', 'abrir', 'imprimir', 'ajuda'))?>		
+
+	<?=begin_ToolBar(array('salvar', 'abrir', 'imprimir', 'ajuda'))?>
 	<?=end_ToolBar()?>
 
 	<?=begin_TabPanel();?>
@@ -18,16 +18,16 @@
 		<?=addJqGridColumn('dt_cadastro', 'Dt. cadastro', 80, 'center', array('sortable'=>true));?>
 	<?=end_JqGridPanel();?>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
-
 <script type="text/javascript">
 
-	function novo(){
-		location.href = BASE_URL+'gerenciador/grupoAcesso/novo';
-	}
-	
-	function gridGrupoAcesso_click(id){
-		location.href = BASE_URL+'gerenciador/grupoAcesso/editar/'+id;
-	}
+    function novo(){
+        location.href = BASE_URL+'gerenciador/grupoAcesso/novo';
+    }
+
+    function gridGrupoAcesso_click(id){
+        location.href = BASE_URL+'gerenciador/grupoAcesso/editar/'+id;
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerGlobalView");?>

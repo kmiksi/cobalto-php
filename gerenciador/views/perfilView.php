@@ -48,10 +48,10 @@
 				<?=form_hidden('txtIdPerfil');?>
 				<?=form_hidden('txtIdProgramaPai');?>
 				<?=form_hidden('txtIdProgramaPerfil');?>
-				
-				<?=form_label('lblTituloSubPrograma', lang('perfilSubPrograma'), 100, array('style' => 'font-weight: bold;',))?>			
+
+				<?=form_label('lblTituloSubPrograma', lang('perfilSubPrograma'), 100, array('style' => 'font-weight: bold;',))?>
 				<?=new_line()?>
-				
+
 				<?=form_label('lblProgramas', lang('perfilPrograma'), 80)?>
 				<?=form_combo('cmbPrograma', $programas, '', 453)?>
 				<?=new_line()?>
@@ -64,233 +64,244 @@
 
 				<?=form_button('btnNovoPrograma', lang('novo'), 'novoPrograma()', $width = '80');?>
 				<?=form_button('btnIncluirPrograma', lang('incluir'), 'incluirPrograma()', '80');?>
-				<?=form_button('btnExcluirPrograma', lang('excluir'), 'excluirPrograma()', '80');?>							
+				<?=form_button('btnExcluirPrograma', lang('excluir'), 'excluirPrograma()', '80');?>
 
 			<?=end_form();?>
 		<?=end_Tab();?>
 	<?=end_TabPanel();?>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
-
 <script type="text/javascript">
 
-	var loadGridProgramaPai = false;
-	
-	function init(){
-		if($('#txtCodigo').val() == '')
-			$("#tab").tabs('disable', 1);	
-	}	
+    var loadGridProgramaPai = false;
 
-	function tabShow(index){
-		if(index == 1 && $('#txtCodigo').val() != '' && !loadGridProgramaPai){
-			loadGridProgramaPai = true;
-			$("#gridProgramasPai").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramasPai/?idPerfil='+$('#txtCodigo').val(), page:1}).trigger("reloadGrid");
-		}
-	}
+    function init(){
+        if ($('#txtCodigo').val() == '') {
+            $("#tab").tabs('disable', 1);
+        }
+    }
 
-	function gridProgramasPai_moveRowStop(rows){
-		var idsPerfisProgramasPai = '';
-		var idsProgramasPai = '';
-		for(var i = 1; i < rows.length; i++){
-			if(idsProgramasPai == ''){
-				idsPerfisProgramasPai = rows[i].id.split('chr', 2)[0];
-				idsProgramasPai = rows[i].id.split('chr', 2)[1];
-			}else{
-				idsPerfisProgramasPai += ',' + rows[i].id.split('chr', 2)[0];
-				idsProgramasPai += ',' + rows[i].id.split('chr', 2)[1];
-			}
-		}
+    function tabShow(index){
+        if (index == 1 && $('#txtCodigo').val() != '' && !loadGridProgramaPai) {
+            loadGridProgramaPai = true;
+            $("#gridProgramasPai").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramasPai/?idPerfil='+$('#txtCodigo').val(), page:1}).trigger("reloadGrid");
+        }
+    }
 
-		$.post(BASE_URL+'gerenciador/perfil/alterarProgramasPai/'+$('#txtCodigo').val(),
-				{ids: idsPerfisProgramasPai, idProgramas:  idsProgramasPai},
-				function(data){
-					if(!data.sucess)
-						messageErroBox("<?=lang('registroNaoGravado')?>");});
-	}
+    function gridProgramasPai_moveRowStop(rows){
+        var idsPerfisProgramasPai = '';
+        var idsProgramasPai = '';
+        for (var i = 1; i < rows.length; i++) {
+            if (idsProgramasPai == '') {
+                idsPerfisProgramasPai = rows[i].id.split('chr', 2)[0];
+                idsProgramasPai = rows[i].id.split('chr', 2)[1];
+            } else {
+                idsPerfisProgramasPai += ',' + rows[i].id.split('chr', 2)[0];
+                idsProgramasPai += ',' + rows[i].id.split('chr', 2)[1];
+            }
+        }
 
-	function gridProgramas_moveRowStop(rows){
-		var idsPerfisProgramas = '';
-		var idsProgramas = '';
-		for(var i = 1; i < rows.length; i++){
-			if(idsProgramas == ''){
-				idsPerfisProgramas = rows[i].id.split('chr', 2)[0];
-				idsProgramas = rows[i].id.split('chr', 2)[1];
-			}else{
-				idsPerfisProgramas += ',' + rows[i].id.split('chr', 2)[0];
-				idsProgramas += ',' + rows[i].id.split('chr', 2)[1];
-			}
-		}
+        $.post(BASE_URL+'gerenciador/perfil/alterarProgramasPai/'+$('#txtCodigo').val(),
+        {ids: idsPerfisProgramasPai, idProgramas:  idsProgramasPai},
+        function(data){
+            if (!data.sucess){
+                messageErroBox("<?= lang('registroNaoGravado') ?>");
+            }
+        });
+    }
 
-		$.post(BASE_URL+'gerenciador/perfil/alterarProgramas/'+$('#txtCodigo').val()+'/'+$('#txtIdProgramaPai').val(),
-				{ids: idsPerfisProgramas, idProgramas:  idsProgramas},
-				function(data){
-					if(!data.sucess)
-						messageErroBox("<?=lang('registroNaoGravado')?>");});
-	}
+    function gridProgramas_moveRowStop(rows){
+        var idsPerfisProgramas = '';
+        var idsProgramas = '';
+        for (var i = 1; i < rows.length; i++) {
+            if (idsProgramas == '') {
+                idsPerfisProgramas = rows[i].id.split('chr', 2)[0];
+                idsProgramas = rows[i].id.split('chr', 2)[1];
+            } else {
+                idsPerfisProgramas += ',' + rows[i].id.split('chr', 2)[0];
+                idsProgramas += ',' + rows[i].id.split('chr', 2)[1];
+            }
+        }
 
-	function gridProgramasPai_click(id){
-		var perfil_programa_id = id.split('chr', 2)[0];
-		$.post(BASE_URL+'gerenciador/perfil/buscarProgramaPai/', {id: perfil_programa_id}, abrirProgramaPai);
-	}
+        $.post(BASE_URL+'gerenciador/perfil/alterarProgramas/'+$('#txtCodigo').val()+'/'+$('#txtIdProgramaPai').val(),
+        {ids: idsPerfisProgramas, idProgramas:  idsProgramas},
+        function(data){
+            if (!data.sucess) {
+                messageErroBox("<?= lang('registroNaoGravado') ?>");
+            }
+        });
+    }
 
-	function abrirProgramaPai(data){
-		$('#txtIdProgramaPerfilPai').val(data.programaPai.id);
-		setValueCombo('cmbProgramaPai', data.programaPai.programa_id);		
-		$('#txtIdPerfil').val(data.programaPai.perfil_id);
-		$('#txtIdProgramaPai').val(data.programaPai.programa_id);
-		$("#gridProgramas").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramas/?idPerfil='+$('#txtCodigo').val()+'&programa_pai='+data.programaPai.programa_id, page:1}).trigger("reloadGrid");
-	}
+    function gridProgramasPai_click(id){
+        var perfil_programa_id = id.split('chr', 2)[0];
+        $.post(BASE_URL+'gerenciador/perfil/buscarProgramaPai/', {id: perfil_programa_id}, abrirProgramaPai);
+    }
 
-	function novo(){
-		location.href = BASE_URL+'gerenciador/perfil/novo';
-	}
+    function abrirProgramaPai(data){
+        $('#txtIdProgramaPerfilPai').val(data.programaPai.id);
+        setValueCombo('cmbProgramaPai', data.programaPai.programa_id);
+        $('#txtIdPerfil').val(data.programaPai.perfil_id);
+        $('#txtIdProgramaPai').val(data.programaPai.programa_id);
+        $("#gridProgramas").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramas/?idPerfil='+$('#txtCodigo').val()+'&programa_pai='+data.programaPai.programa_id, page:1}).trigger("reloadGrid");
+    }
 
-	function gridProgramas_click(id){
-		var perfil_programa_id = id.split('chr', 2)[0];
-		$.post(BASE_URL+'gerenciador/perfil/buscarPrograma/', {id: perfil_programa_id}, abrirPrograma);
-	}
+    function novo(){
+        location.href = BASE_URL+'gerenciador/perfil/novo';
+    }
 
-	function abrirPrograma(data){
-		$('#txtIdProgramaPerfil').val(data.programa.id);
-		setValueCombo('cmbPrograma', data.programa.programa_id);
-	}
+    function gridProgramas_click(id){
+        var perfil_programa_id = id.split('chr', 2)[0];
+        $.post(BASE_URL+'gerenciador/perfil/buscarPrograma/', {id: perfil_programa_id}, abrirPrograma);
+    }
 
-	function excluir(){
-		if($("txtCodigo").val() == '')
-			messageErrorBox("<?=lang('nenhumRegistroSelecionado')?>");
-		else
-			messageConfirm("<?=lang('excluirRegistro')?>", excluirPerfil);
-	}
+    function abrirPrograma(data){
+        $('#txtIdProgramaPerfil').val(data.programa.id);
+        setValueCombo('cmbPrograma', data.programa.programa_id);
+    }
 
-	function excluirPerfil(confirmaExclusao){
-		if(confirmaExclusao){
-			$.post(BASE_URL+"gerenciador/perfil/excluir/", {perfis: $('#txtCodigo').val()},
-				function(data){
-					if(data.success)
-						messageBox("<?=lang('registroExcluido')?>", novo);
-					else
-						messageErrorBox("<?=lang('registroNaoExcluido')?>");
-				});
-		}
-	}
+    function excluir(){
+        if ($("txtCodigo").val() == '') {
+            messageErrorBox("<?= lang('nenhumRegistroSelecionado') ?>");
+        } else {
+            messageConfirm("<?= lang('excluirRegistro') ?>", excluirPerfil);
+        }
+    }
 
-	function salvar(){
-		formPerfil_submit();
-	}
-	
-	function formPerfil_callback(data){
-		if(data.error != undefined){
-			messageErrorBox(data.error.message, data.error.field);
-		}else{
-			if(data.success != undefined) {
-				$("#txtCodigo").val(data.perfil.id);
-				$("#txtIdPerfilPai").val(data.perfil.id);
-				$("#txtNome").val(data.perfil.nome_perfil);
-				$("#dtCadastro").val(data.perfil.dt_cadastro);
-	      		messageBox(data.success.message, enableTabProgramas);
-			}
-	    }
-	}
+    function excluirPerfil(confirmaExclusao){
+        if (confirmaExclusao) {
+            $.post(BASE_URL+"gerenciador/perfil/excluir/", {perfis: $('#txtCodigo').val()},
+            function(data){
+                if (data.success) {
+                    messageBox("<?= lang('registroExcluido') ?>", novo);
+                } else {
+                    messageErrorBox("<?= lang('registroNaoExcluido') ?>");
+                }
+            });
+        }
+    }
 
-	function enableTabProgramas(){
-		$("#tab").tabs('enable', 1);
-	}
+    function salvar(){
+        formPerfil_submit();
+    }
 
-	function incluirProgramaPai(){
-		formProgramaPai_submit();
-	}
+    function formPerfil_callback(data){
+        if (data.error != undefined) {
+            messageErrorBox(data.error.message, data.error.field);
+        } else {
+            if (data.success != undefined) {
+                $("#txtCodigo").val(data.perfil.id);
+                $("#txtIdPerfilPai").val(data.perfil.id);
+                $("#txtNome").val(data.perfil.nome_perfil);
+                $("#dtCadastro").val(data.perfil.dt_cadastro);
+                messageBox(data.success.message, enableTabProgramas);
+            }
+        }
+    }
 
-	function formProgramaPai_callback(data){
-		if(data.error != undefined)
-			messageErrorBox(data.error.message, data.error.field);
-		else{
-			if(data.success != undefined) {
-				$('#txtIdProgramaPerfilPai').val(data.programaPai.id);
-				setValueCombo('cmbProgramaPai', data.programaPai.programa_id);
-	     		messageBox(data.success.message, novoProgramaPai);
-		    }
-		}
-	}
+    function enableTabProgramas(){
+        $("#tab").tabs('enable', 1);
+    }
 
-	function novoProgramaPai(){
-		$('#txtIdProgramaPerfilPai').val('');
-		$('#txtIdProgramaPerfil').val('');
-		$('#txtIdProgramaPai').val('');		
-		setValueCombo('cmbProgramaPai', '');
-		setValueCombo('cmbPrograma', '');
-		$('#gridProgramasPai').resetSelection();
-		$('#gridProgramasPai').setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramasPai/?idPerfil='+$('#txtCodigo').val(), page:1}).trigger('reloadGrid');
-		$("#gridProgramas").clearGridData();
-	}
+    function incluirProgramaPai(){
+        formProgramaPai_submit();
+    }
 
-	function excluirProgramaPai(){
-		if(getSelectedRow("gridProgramasPai") != null)
-			messageConfirm("<?=lang('excluirRegistros')?>", confirmaExcluirProgramaPai);
-		else
-			messageErrorBox("<?=lang('nenhumRegistroSelecionado')?>");
-	}
+    function formProgramaPai_callback(data){
+        if (data.error != undefined) {
+            messageErrorBox(data.error.message, data.error.field);
+        } else {
+            if (data.success != undefined) {
+                $('#txtIdProgramaPerfilPai').val(data.programaPai.id);
+                setValueCombo('cmbProgramaPai', data.programaPai.programa_id);
+                messageBox(data.success.message, novoProgramaPai);
+            }
+        }
+    }
 
-	function confirmaExcluirProgramaPai(excluirProgramaPai){
-		if(excluirProgramaPai){
-			var programa = getSelectedRow("gridProgramasPai");
-			var perfil_programa_id = programa.split("chr", 2)[0];
-			var programa_id = programa.split("chr", 2)[1];
-			var perfilId = $('#txtCodigo').val();
-			$.post(BASE_URL+'gerenciador/perfil/excluirProgramaPai/'+ perfil_programa_id +'/'+ programa_id +'/'+ perfilId, programaPaiExcluido);
-		}
-	}
+    function novoProgramaPai(){
+        $('#txtIdProgramaPerfilPai').val('');
+        $('#txtIdProgramaPerfil').val('');
+        $('#txtIdProgramaPai').val('');
+        setValueCombo('cmbProgramaPai', '');
+        setValueCombo('cmbPrograma', '');
+        $('#gridProgramasPai').resetSelection();
+        $('#gridProgramasPai').setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramasPai/?idPerfil='+$('#txtCodigo').val(), page:1}).trigger('reloadGrid');
+        $("#gridProgramas").clearGridData();
+    }
 
-	function programaPaiExcluido(data){
-		if(data.sucess == "false")
-			messageErrorBox("<?=lang('registroNaoExcluido')?>");
-		else
-			messageBox("<?=lang('registroExcluido')?>", novoProgramaPai);
-	}
+    function excluirProgramaPai(){
+        if (getSelectedRow("gridProgramasPai") != null) {
+            messageConfirm("<?= lang('excluirRegistros') ?>", confirmaExcluirProgramaPai);
+        } else {
+            messageErrorBox("<?= lang('nenhumRegistroSelecionado') ?>");
+        }
+    }
 
-	function incluirPrograma(){
-		formPrograma_submit();
-	}
+    function confirmaExcluirProgramaPai(excluirProgramaPai){
+        if (excluirProgramaPai) {
+            var programa = getSelectedRow("gridProgramasPai");
+            var perfil_programa_id = programa.split("chr", 2)[0];
+            var programa_id = programa.split("chr", 2)[1];
+            var perfilId = $('#txtCodigo').val();
+            $.post(BASE_URL+'gerenciador/perfil/excluirProgramaPai/'+ perfil_programa_id +'/'+ programa_id +'/'+ perfilId, programaPaiExcluido);
+        }
+    }
 
-	function formPrograma_callback(data){
-		if(data.error != undefined)
-			messageErrorBox(data.error.message, data.error.field);
-		else{
-			if(data.success != undefined) {
-				$('#txtIdProgramaPerfil').val(data.programa.id);
-				setValueCombo('cmbPrograma', data.programa.programa_id);
-	      		messageBox(data.success.message, novoPrograma);
-		    }
-		}
-	}
+    function programaPaiExcluido(data){
+        if (data.sucess == "false"){
+            messageErrorBox("<?= lang('registroNaoExcluido') ?>");
+        } else {
+            messageBox("<?= lang('registroExcluido') ?>", novoProgramaPai);
+        }
+    }
 
-	function excluirPrograma(){
-		if(getSelectedRow("gridProgramas") != null)
-			messageConfirm("<?=lang('excluirRegistros')?>", confirmaExcluirPrograma);
-		else
-			messageErrorBox("<?=lang('nenhumRegistroSelecionado')?>");
-	}
+    function incluirPrograma(){
+        formPrograma_submit();
+    }
 
-	function confirmaExcluirPrograma(excluirPrograma){
-		if(excluirPrograma){
-			var programa = getSelectedRow("gridProgramas");
-			var idPerfilPrograma = programa.split("chr", 2)[0];
-			var idPrograma = programa.split("chr", 2)[1];
-			$.post(BASE_URL+"gerenciador/perfil/excluirPrograma/"+idPerfilPrograma+"/"+idPrograma, programaExcluido);
-		}
-	}
+    function formPrograma_callback(data){
+        if (data.error != undefined) {
+            messageErrorBox(data.error.message, data.error.field);
+        } else {
+            if (data.success != undefined) {
+                $('#txtIdProgramaPerfil').val(data.programa.id);
+                setValueCombo('cmbPrograma', data.programa.programa_id);
+                messageBox(data.success.message, novoPrograma);
+            }
+        }
+    }
 
-	function programaExcluido(data){
-		if(!data.sucess)
-			messageErrorBox("<?=lang('registroNaoExcluido')?>");
-		else
-			messageBox("<?=lang('registroExcluido')?>", novoPrograma);
-	}
+    function excluirPrograma(){
+        if (getSelectedRow("gridProgramas") != null) {
+            messageConfirm("<?= lang('excluirRegistros') ?>", confirmaExcluirPrograma);
+        } else {
+            messageErrorBox("<?= lang('nenhumRegistroSelecionado') ?>");
+        }
+    }
 
-	function novoPrograma(){		
-		$('#txtIdProgramaPerfil').val('');
-		setValueCombo('cmbPrograma', '');
-		$('#gridProgramas').resetSelection();
-		$("#gridProgramas").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramas/?idPerfil='+$('#txtCodigo').val()+'&programa_pai='+$('#cmbProgramaPai').val(), page:1}).trigger("reloadGrid");
-	}
+    function confirmaExcluirPrograma(excluirPrograma){
+        if (excluirPrograma) {
+            var programa = getSelectedRow("gridProgramas");
+            var idPerfilPrograma = programa.split("chr", 2)[0];
+            var idPrograma = programa.split("chr", 2)[1];
+            $.post(BASE_URL+"gerenciador/perfil/excluirPrograma/"+idPerfilPrograma+"/"+idPrograma, programaExcluido);
+        }
+    }
+
+    function programaExcluido(data){
+        if (!data.sucess) {
+            messageErrorBox("<?= lang('registroNaoExcluido') ?>");
+        } else {
+            messageBox("<?= lang('registroExcluido') ?>", novoPrograma);
+        }
+    }
+
+    function novoPrograma(){
+        $('#txtIdProgramaPerfil').val('');
+        setValueCombo('cmbPrograma', '');
+        $('#gridProgramas').resetSelection();
+        $("#gridProgramas").setGridParam({url:BASE_URL+'gerenciador/perfil/listaProgramas/?idPerfil='+$('#txtCodigo').val()+'&programa_pai='+$('#cmbProgramaPai').val(), page:1}).trigger("reloadGrid");
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerGlobalView");?>

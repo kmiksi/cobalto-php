@@ -10,20 +10,20 @@
 		<?=addColumn('link', lang('gerenciadorRelatorioLink'), 500, true, 'left');?>
 	<?=end_GridPanel();?>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<script type="text/javascript">
 
-<script>
+    function pesquisar(){
+        dsgridRelatorios.reload();
+    }
 
-	function pesquisar(){
-		dsgridRelatorios.reload();
-	}
+    function gridRelatorios_dblClick(id){
+        openWindow('<?= lang('gerenciadorRelatorioTitulo'); ?>', '<?= BASE_URL . 'gerenciador/relatorios/abrir/'; ?>'+id, 600, 380);
+    }
 
-	function gridRelatorios_dblClick(id){
-		openWindow('<?=lang('gerenciadorRelatorioTitulo');?>', '<?=BASE_URL.'gerenciador/relatorios/abrir/';?>'+id, 600, 380);
-	}
-
-	function novo(){
-		openWindow('<?=lang('gerenciadorRelatorioTitulo');?>', '<?=BASE_URL.'gerenciador/relatorios/novo';?>', 600, 380);
-	}
+    function novo(){
+        openWindow('<?= lang('gerenciadorRelatorioTitulo'); ?>', '<?= BASE_URL . 'gerenciador/relatorios/novo'; ?>', 600, 380);
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerGlobalView");?>

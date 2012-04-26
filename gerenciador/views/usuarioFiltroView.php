@@ -4,7 +4,7 @@
 
 	<?=begin_ToolBar(array('salvar', 'abrir', 'imprimir'));?>
 	<?=end_ToolBar();?>
-	
+
 	<?=begin_TabPanel(50);?>
 		<?=begin_Tab(lang('usuarioFiltro'));?>
 			<?=form_label('lblNome', lang('usuarioNome'), 80);?>
@@ -24,34 +24,34 @@
 		<?=addJqGridColumn('dt_cadastro', 'Dt. cadastro', 100, 'center', array('sortable'=>true));?>
 	<?=end_JqGridPanel();?>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<script type="text/javascript">
 
-<script>
-	
-	function pesquisar(){		
-		gridUsuario.addParam('nome', $("#txtNome").val());
-		gridUsuario.addParam('login', $("#txtLogin").val());
-		gridUsuario.load();
-	}
+    function pesquisar(){
+        gridUsuario.addParam('nome', $("#txtNome").val());
+        gridUsuario.addParam('login', $("#txtLogin").val());
+        gridUsuario.load();
+    }
 
-	function novo(){
-		location.href = BASE_URL+'gerenciador/usuario/novo';
-	}
+    function novo(){
+        location.href = BASE_URL+'gerenciador/usuario/novo';
+    }
 
-	function gridUsuario_click(id){
-		location.href = BASE_URL+'gerenciador/usuario/editar/'+id;
-	}
-	
-	function excluir(){
-		if(getSelectedRows('gridUsuario').length == 0){
-			messageErrorBox('Nenhum registro selecionado');
-		}else{
-			messageConfirm('Deseja excluir os registros selecionados ?', confirmaExcluir);
-		}
-	}
-	
-	function confirmaExcluir(confirma){
-		window.alert(confirma);
-	}
+    function gridUsuario_click(id){
+        location.href = BASE_URL+'gerenciador/usuario/editar/'+id;
+    }
+
+    function excluir(){
+        if (getSelectedRows('gridUsuario').length == 0) {
+            messageErrorBox('Nenhum registro selecionado');
+        } else {
+            messageConfirm('Deseja excluir os registros selecionados ?', confirmaExcluir);
+        }
+    }
+
+    function confirmaExcluir(confirma){
+        window.alert(confirma);
+    }
 
 </script>
+
+<?=$this->load->view("../../static/_views/footerGlobalView");?>

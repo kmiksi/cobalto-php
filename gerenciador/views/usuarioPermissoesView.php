@@ -16,32 +16,35 @@
 
 <script type="text/javascript">
 
-	function salvarPopUp(){
-		var metodos = '';
-		var metodosGrid = gridClasseMetodo.getSelectedRows();
-		for(var i = 0; i < metodosGrid.length; i++)
-			if(metodos == '')
-				metodos = metodosGrid[i];
-			else
-				metodos += ',' + metodosGrid[i];
-		
-		$.post(BASE_URL+'gerenciador/usuario/salvarPermissoes/', {usuarioId: $('#txtUsuarioId').val(), programaId: $('#txtProgramaId').val(), metodos: metodos},
-				function(data){
-					if(data.success == 'true')
-						messageBox("<?=lang('registroGravado');?>");
-					else
-						messageErrorBox("<?=lang('registroNaoGravado');?>");
-				});
-	}
-	
-	function gridClasseMetodo_loadComplete(){
-		var programaId = $('#txtProgramaId').val();
-		var usuarioId = $('#txtUsuarioId').val();
-		$.post(BASE_URL+'gerenciador/usuario/listaMetodosUsuario', {usuarioId: usuarioId, programaId: programaId},
-			function(data){
-				for(var i = 0; i < data.usuarioPermissoes.length; i++)
-					gridClasseMetodo.setSelectRow(data.usuarioPermissoes[i].sys_metodo_id);
-			}, 'json');
-	}
+    function salvarPopUp(){
+        var metodos = '';
+        var metodosGrid = gridClasseMetodo.getSelectedRows();
+        for (var i = 0; i < metodosGrid.length; i++) {
+            if (metodos == '') {
+                metodos = metodosGrid[i];
+            } else {
+                metodos += ',' + metodosGrid[i];
+            }
+        }
+        $.post(BASE_URL+'gerenciador/usuario/salvarPermissoes/', {usuarioId: $('#txtUsuarioId').val(), programaId: $('#txtProgramaId').val(), metodos: metodos},
+        function(data){
+            if (data.success == 'true') {
+                messageBox("<?= lang('registroGravado'); ?>");
+            } else {
+                messageErrorBox("<?= lang('registroNaoGravado'); ?>");
+            }
+        });
+    }
+
+    function gridClasseMetodo_loadComplete(){
+        var programaId = $('#txtProgramaId').val();
+        var usuarioId = $('#txtUsuarioId').val();
+        $.post(BASE_URL+'gerenciador/usuario/listaMetodosUsuario', {usuarioId: usuarioId, programaId: programaId},
+        function(data){
+            for (var i = 0; i < data.usuarioPermissoes.length; i++) {
+                gridClasseMetodo.setSelectRow(data.usuarioPermissoes[i].sys_metodo_id);
+            }
+        }, 'json');
+    }
 
 </script>
