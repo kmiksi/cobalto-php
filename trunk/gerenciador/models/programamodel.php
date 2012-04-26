@@ -111,7 +111,7 @@ class ProgramaModel extends Model {
     }
 
     function getProgramasCombo() {
-        $this->db->select('id, concat(nome_programa, \' (\', link, \')\') as nome', false);
+        $this->db->select('id, nome_programa||\' (\'||link||\')\' as nome', false);
         $this->db->orderby('nome_programa', 'asc');
         return $this->db->get('programas')->result_array();
     }
@@ -146,13 +146,15 @@ class ProgramaModel extends Model {
             $nr_parameters++;
         }
 
-        $this->db->select('concat_ws(\' / \', (case when pai.nome_programa is null then \'\' else pai.nome_programa end), p.nome_programa) as path_bread', false);
-        $this->db->from('perfis_programas as pp');
-        $this->db->join('programas as p', 'p.id = pp.programa_id');
-        $this->db->join('programas as pai', 'pai.id = pp.programa_pai', 'left');
-        $this->db->where('pp.programa_id', $idPrograma);
-        $path = $this->db->get()->row();
-        return @$path->path_bread;
+        $this->db->select("case when perfis.nome_perfil is null then '' else perfis.nome_perfil||' / ' end" .
+                            "||case when pai.nome_programa is null then '' else pai.nome_programa||' / ' end" .
+                            "||app.nome_programa as path_bread", false)
+                    ->from('perfis_programas as perfil_app')
+                    ->join('programas as app', 'app.id = perfil_app.programa_id')
+                    ->join('programas as pai', 'pai.id = perfil_app.programa_pai', 'left')
+                    ->join('perfis', 'perfil_app.perfil_id = perfis.id', 'left')
+                    ->where('perfil_app.programa_id', $idPrograma);
+            return @$this->db->get()->row()->path_bread;
     }
 
     function validaPrograma($data) {
