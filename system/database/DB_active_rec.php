@@ -1881,14 +1881,18 @@ class CI_DB_active_record extends CI_DB_driver {
      * @author Carlos Eduardo Alves
      * @since 05/03/2012
      * Efetua um like() removendo os acentos da comparação, e utilizando um lower() nos valores comparados
-     * @param string|array $field Campo da tabela. Opcionalmente pode ser passado um array com pares de campo=>valor
+     * @param string|array $field Campo(s) da tabela. Opcionalmente pode ser passado um array com pares de campo=>valor
      * @param string $match Valor do campo a ser comparado
      * @param string $side Onde o curinga será aplicado. 'before', 'after' ou 'both'
      * @return CI_DB_active_record like()
      * @see like()
      */
     function likeSemAcento($field, $match = '', $side = 'both') {
+        if (empty($match)) {
+            return $this;
+        }
         if (is_array($field)) {
+            $f2 = array();
             foreach ($field as $key => $value) {
                 $f2["retira_acento(lower($field))"] = retira_acentos(strtolower($match));
             }
@@ -1922,8 +1926,8 @@ class CI_DB_active_record extends CI_DB_driver {
     /**
      * @author Carlos Eduardo Alves
      * @since 20/04/2012
-     * @param string|array $field Campo da tabela. Este campo será explodido por espaços
-     * @param string $search Termo para buscar
+     * @param string|array $field Campo(s) da tabela
+     * @param string $search Termo para buscar. Este campo será explodido por espaços
      * @param string $side Onde o curinga será aplicado. 'before', 'after' ou 'both'
      * @return CI_DB_active_record
      */
