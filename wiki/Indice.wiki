@@ -4,13 +4,12 @@
 <ul>
 
 <li>IDE Eclipse</li>
+  <ul>
+  [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
 
-<ul>
-[InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
+  [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
 
-[PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
-
-[ImportandoProjeto Importando o projeto Cobalto-PHP]
-</ul>
+  [ImportandoProjeto Importando o projeto Cobalto-PHP]
+  </ul>
 
 </ul>
