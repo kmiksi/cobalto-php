@@ -3,6 +3,11 @@
 
 [Indice Índice geral]
 
+  * Ambiente de Desenvolvimento
+    * Ubuntu
+      A caminho ;)
+    * Windows
+      Desculpe, não utilizamos este sistema para desenvolvimento
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
