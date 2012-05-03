@@ -2,7 +2,9 @@
 #sidebar Indice
 
   * [Indice Índice geral]
+
 ===Para Iniciantes===
+
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
