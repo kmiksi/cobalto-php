@@ -1,5 +1,5 @@
 #summary Índice Geral
-#sidebar Indice
+#sidebar NULL
 
 [Indice Índice geral]
 
