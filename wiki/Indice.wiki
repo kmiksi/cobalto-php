@@ -2,7 +2,7 @@
 #sidebar TableOfContents
 
 <ul>
-        <ul>IDE Eclipse
+        <li><ul>IDE Eclipse
 
             <li> [InstalandoPHPEclipse] Instalando o plugin PHPEclipse no Eclipse</li>
 
