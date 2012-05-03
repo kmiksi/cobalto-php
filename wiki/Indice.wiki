@@ -1,5 +1,5 @@
 #summary Indice
-#sidebar TableOfContents
+#sidebar NULL
 
 =[Indice Índice]=
 
@@ -12,4 +12,3 @@
 [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
 
 [ImportandoProjeto Importando o projeto Cobalto-PHP]
-
