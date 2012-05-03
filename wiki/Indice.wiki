@@ -1,6 +1,8 @@
 #summary Indice
 #sidebar TableOfContents
 
+<wiki:toc max_depth="1" />
+
 <ul>
         <li><ul>IDE Eclipse
 
