@@ -7,8 +7,6 @@
     * Ubuntu
       * [InstalacaoAmbienteUbuntu Instalando ambiente no Ubuntu]
       * [RodandoDumpBanco Instalando o banco de dados para o Cobalto-PHP]
-    * Windows
-      * Desculpe, não utilizamos este sistema para desenvolvimento ;)
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
