@@ -1,6 +1,6 @@
 #summary Instalando o Cobalto-PHP
 
-= instalação do cobalto-php =
+= Instalação do cobalto-php =
 
 <ol>
   <li> download do googlecode ([http://code.google.com/p/cobalto-php/downloads Downloads]), descompactar na pasta “/var/www”</li>
