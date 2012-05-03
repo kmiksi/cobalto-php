@@ -7,8 +7,12 @@
 
         * IDE Eclipse
 
-[InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
+<ul>
 
-[PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
+<li>[InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
 
-[ImportandoProjeto Importando o projeto Cobalto-PHP]
+<li>[PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
+
+<li>[ImportandoProjeto Importando o projeto Cobalto-PHP]</li>
+
+</ul>
