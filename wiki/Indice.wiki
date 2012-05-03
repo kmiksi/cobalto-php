@@ -5,8 +5,8 @@
 
   * Ambiente de Desenvolvimento
     * Ubuntu
-      * [InstalacaoUbuntu Instalando ambiente no Ubuntu]
-      * [DumpBanco Instalando o banco de dados para o Cobalto-PHP]
+      * [InstalacaoAmbienteUbuntu Instalando ambiente no Ubuntu]
+      * [RodandoDumpBanco Instalando o banco de dados para o Cobalto-PHP]
     * Windows
       * Desculpe, não utilizamos este sistema para desenvolvimento ;)
   * IDE Eclipse
