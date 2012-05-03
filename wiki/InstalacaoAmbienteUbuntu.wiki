@@ -1,0 +1,24 @@
+#summary Instalando ambiente no Ubuntu
+
+
+
+=  instalação do ambiente de desenvolvimento =
+ #  Servidor Web:
+<code language="sh">
+sudo apt-get install apache2 php5 libapache2-mod-php5 #instala aplicativos
+sudo a2enmod rewrite expires headers php5 userdir #habilita módulos
+sudo nano /etc/apache2/mods-enabled/php5.conf #mudar “p3” para “p” no começo
+sudo nano /etc/apache2/mods-enabled/php5.conf #comentar de “<IfModule mod_userdir.c>” a “</IfModule>”
+sudo nano /etc/apache2/sites-enabled/000-default #configurar “AllowOverride All” para /var/www
+</code>
+ #  Banco de dados:
+<code language="sh">
+sudo apt-get install postgresql-8.4 pgadmin3 #instala aplicativos
+echo "ALTER USER postgres WITH PASSWORD 'cophp';" | sudo su postgres -c "psql" #configura senha do usuário postgres
+</code>
+
+ #  IDE para desenvolvimento
+<code language="sh">
+sudo apt-get install eclipse
+</code>
+ Instalar o plugin [InstalandoPHPEclipse PHPEclipse] no Eclipse
