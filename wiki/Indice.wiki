@@ -1,10 +1,6 @@
 #summary Indice
 #sidebar TableOfContents
 
-=[Indice Índice]=
-
-==Para Iniciantes==
-
 * IDE Eclipse
 
     * <li> [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]</li>
