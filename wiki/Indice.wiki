@@ -1,5 +1,5 @@
 #summary Indice
-#sidebar TableOfContents
+#sidebar NULL
 
 <ul> IDE Eclipse
 
