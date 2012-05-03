@@ -2,14 +2,11 @@
 #sidebar TableOfContents
 
 <ul> 
-    <li>
-        IDE Eclipse
-        <ul>
-            <li>[InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]</li>
-        
-            <li>[PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]</li>
-        
-            <li>[ImportandoProjeto Importando o projeto Cobalto-PHP]</li>
-        </ul>
-    </li>
+  <li>IDE Eclipse
+    <ul>
+      <li>[InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]</li>
+      <li>[PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]</li>
+      <li>[ImportandoProjeto Importando o projeto Cobalto-PHP]</li>
+    </ul>
+  </li>
 </ul>
