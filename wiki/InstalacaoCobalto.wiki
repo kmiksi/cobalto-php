@@ -3,12 +3,13 @@
 = Instalação do cobalto-php =
 
 <ol>
-  <li> download do googlecode ([http://code.google.com/p/cobalto-php/downloads Downloads]), descompactar na pasta “/var/www”</li>
-  <li> dump do banco
+  <li> download da ultima versão na página de [http://code.google.com/p/cobalto-php/downloads Downloads]</li>
+  <li> descompactar o arquivo na pasta “/var/www”</li>
+  <li> executar o dump do banco para PostgreSQL
 <code language="sh">
 #cria o banco de dados “cophp”:
 echo "DROP DATABASE cophp; CREATE DATABASE cophp;" | sudo su postgres -c "psql"
 #cria as tabelas no banco cophp:
 echo "\i /var/www/cobalto-php/_documentacao/dumps/postgres.sql" | sudo su postgres -c "psql cophp"</code></li>
-  <li> para testar acesse http://localhost/cobalto-php</li>
+  <li> para testar acesse a url http://localhost/cobalto-php no seu navegador</li>
 </ol>
