@@ -1,12 +1,10 @@
 #summary Indice
-#sidebar NULL
+#sidebar TableOfContents
 
-<ul> IDE Eclipse
+* IDE Eclipse
 
-<li> [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]</li>
+    * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
 
-<li> [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]</li>
+    * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
 
-<li> [ImportandoProjeto Importando o projeto Cobalto-PHP]</li>
-
-</ul>
+    * [ImportandoProjeto Importando o projeto Cobalto-PHP]
