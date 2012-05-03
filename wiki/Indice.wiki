@@ -3,7 +3,7 @@
 
 <ul>
 
-<li>==IDE Eclipse==</li>
+<li>IDE Eclipse</li>
 
 <ul>
 [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
