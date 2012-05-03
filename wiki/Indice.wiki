@@ -5,16 +5,17 @@
 
 
 ===Para Iniciantes===
-
+<ul>
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
       * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
     * [ImportandoProjeto Importando o projeto Cobalto-PHP]
-
+</ul>
 
 
 ===Técnico===
-
+<ul>
   * Derivados
-    * [CodeIgniter Code Igniter Framework]
+    * [CodeIgniter CodeIgniter Framework]
+</ul>
