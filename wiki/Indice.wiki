@@ -1,7 +1,7 @@
 #summary Índice Geral
 #sidebar NULL
 
-===[Indice Índice Geral]===
+=[Indice Índice Geral]=
 
   * ===IDE Eclipse===
     * PHPEclipse
