@@ -5,7 +5,7 @@
 
 ==Para Iniciantes==
 
-* IDE Eclipse
+<ul>IDE Eclipse
 
     <ul>
 
@@ -16,3 +16,5 @@
         <li>[ImportandoProjeto Importando o projeto Cobalto-PHP]</li>
 
     </ul>
+
+</ul>
