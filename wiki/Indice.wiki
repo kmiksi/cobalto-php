@@ -1,9 +1,9 @@
 #summary Índice Geral
 #sidebar NULL
 
-=[Indice Índice Geral]=
+==[Indice Índice Geral]==
 
-  * ===IDE Eclipse===
+  * ==IDE Eclipse==
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
       * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
