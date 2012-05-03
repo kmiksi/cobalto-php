@@ -1,4 +1,4 @@
 #summary Utilizando a Perspectiva PHP
-#labels wikiIndex
+#labels wikiindex
 
 teste
