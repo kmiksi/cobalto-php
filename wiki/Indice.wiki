@@ -12,7 +12,5 @@
       * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
     * [ImportandoProjeto Importando o projeto Cobalto-PHP]
 
-===Técnico===
-
   * Derivados
     * [CodeIgniter CodeIgniter Framework]
