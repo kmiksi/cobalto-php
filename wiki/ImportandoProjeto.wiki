@@ -1,6 +1,9 @@
 #summary Veja como importar o projeto que você descompactou
 
 = Introdução =
+O tutorial a seguir irá mostrar como importar o projeto Cobalto-PHP.
+
+= Passo a Passo =
 
 Para importar o projeto que você acabou de descompactar, abra o Eclipse e clique em *_File>Import_*:
 
