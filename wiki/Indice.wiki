@@ -1,7 +1,7 @@
 #summary Indice
 #sidebar TableOfContents
 
-* IDE Eclipse
+<ul> IDE Eclipse
 
 <li> [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
 
