@@ -5,9 +5,9 @@
 
   * Ambiente de Desenvolvimento
     * Ubuntu
-      A caminho ;)
+      * A caminho ;)
     * Windows
-      Desculpe, não utilizamos este sistema para desenvolvimento
+      * Desculpe, não utilizamos este sistema para desenvolvimento
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
