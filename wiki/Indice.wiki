@@ -5,7 +5,7 @@
 
   * Ambiente de Desenvolvimento
     * Ubuntu
-      * [AmbienteDesenvolvimentoUbuntu Montando o ambiente de desenvolvimento no Ubuntu]
+      * [Apache-php-postgres Apache - PHP - Postgres]
     * Windows
       * Desculpe, não utilizamos este sistema para desenvolvimento ;)
   * IDE Eclipse
