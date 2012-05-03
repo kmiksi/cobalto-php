@@ -10,6 +10,6 @@
 
             <li> [ImportandoProjeto] Importando o projeto Cobalto-PHP</li>
 
-        </ul>
+        </ul></li>
 
 </ul>
