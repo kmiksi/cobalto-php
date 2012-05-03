@@ -2,7 +2,7 @@
 #sidebar NULL
 
 
-  * [CodeIgniter HOWTO articles]
+  * Como fazer?
     * [PerspectivaPHP Web security]
     * [InstalandoPHPEclipse DOM manipulation]
     * [InstalandoPHPEclipse CSS and style]
