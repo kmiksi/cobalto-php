@@ -2,7 +2,7 @@
 #sidebar TableOfContents
 
 <ul>
-        <li><ul><wiki:toc max_depth="1" />IDE Eclipse
+        <li><ul>IDE Eclipse
 
             <li> [InstalandoPHPEclipse] Instalando o plugin PHPEclipse no Eclipse</li>
 
