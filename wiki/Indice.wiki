@@ -14,10 +14,7 @@
 
 
 
-===Para Iniciantes2===
+===Técnico===
 
-  * IDE Eclipse2
-    * PHPEclipse2
-      * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse2]
-      * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse2]
-    * [ImportandoProjeto Importando o projeto Cobalto-PHP2]
+  * Derivados
+    * [CodeIgniter Code Igniter Framework]
