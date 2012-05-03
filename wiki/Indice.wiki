@@ -1,9 +1,7 @@
 #summary Índice Geral
 #sidebar NULL
 
-  * IDE Eclipse?
+  * IDE Eclipse
     * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
     * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
     * [ImportandoProjeto Importando o projeto Cobalto-PHP]
-
-
