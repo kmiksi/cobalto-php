@@ -15,11 +15,11 @@
 </ul>
 
 
-  * [Articles HOWTO articles]
-    * [ArticlesXSS Web security]
-    * [ArticlesDom DOM manipulation]
-    * [ArticlesStyle CSS and style]
-    * [ArticlesTips Tips and tricks]
-  * [DOMReference DOM reference]
-  * [HTMLElements HTML reference]
-  * [CSSReference CSS reference]
+  * [InstalandoPHPEclipse HOWTO articles]
+    * [InstalandoPHPEclipse Web security]
+    * [InstalandoPHPEclipse DOM manipulation]
+    * [InstalandoPHPEclipse CSS and style]
+    * [InstalandoPHPEclipse Tips and tricks]
+  * [InstalandoPHPEclipse DOM reference]
+  * [InstalandoPHPEclipse HTML reference]
+  * [InstalandoPHPEclipse CSS reference]
