@@ -3,7 +3,7 @@
 = instalação do cobalto-php =
 
 <ol>
-  <li> download do googlecode (code.google.com/p/cobalto-php/downloads), descompactar na pasta “/var/www”</li>
+  <li> download do googlecode ([http://code.google.com/p/cobalto-php/downloads Downloads]), descompactar na pasta “/var/www”</li>
   <li> dump do banco
 <code language="sh">
 #cria o banco de dados “cophp”:
