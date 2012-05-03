@@ -1,12 +1,9 @@
 #summary Índice Geral
 #sidebar NULL
 
+  * IDE Eclipse?
+    * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
+    * [PerspectivaPHP Habilitando a perspectiva PHP no Eclipse]
+    * [ImportandoProjeto Importando o projeto Cobalto-PHP]
 
-  * Como fazer?
-    * [PerspectivaPHP Web security]
-    * [InstalandoPHPEclipse DOM manipulation]
-    * [InstalandoPHPEclipse CSS and style]
-    * [InstalandoPHPEclipse Tips and tricks]
-  * [InstalandoPHPEclipse DOM reference]
-  * [InstalandoPHPEclipse HTML reference]
-  * [ImportandoProjeto CSS reference]
+
