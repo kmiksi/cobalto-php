@@ -2,7 +2,7 @@
 #sidebar TableOfContents
 
 <ul>
-        <li><ul>IDE Eclipse
+        <ul>IDE Eclipse
 
             <li> [InstalandoPHPEclipse] Instalando o plugin PHPEclipse no Eclipse</li>
 
@@ -11,6 +11,5 @@
             <li> [ImportandoProjeto] Importando o projeto Cobalto-PHP</li>
 
         </ul>
-        </li>
 
 </ul>
