@@ -1,6 +1,8 @@
 #summary Índice Geral
 #sidebar NULL
 
+===[Indice Índice Geral]===
+
   * IDE Eclipse
     * PHPEclipse
       * [InstalandoPHPEclipse Instalando o plugin PHPEclipse no Eclipse]
