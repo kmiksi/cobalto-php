@@ -1,7 +1,7 @@
 #summary Índice Geral
 #sidebar NULL
 
-[Indice Voltar à página de índice geral]
+[Indice Índice geral]
 
 ===Para Iniciantes===
   * IDE Eclipse
