@@ -1,7 +1,7 @@
 #summary Índice Geral
 #sidebar Indice
 
-  * [Indice Índice geral]
+[Indice Índice geral]
 
 ===Para Iniciantes===
 
