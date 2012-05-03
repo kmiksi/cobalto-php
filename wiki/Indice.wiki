@@ -15,11 +15,11 @@
 </ul>
 
 
-  * [InstalandoPHPEclipse HOWTO articles]
-    * [InstalandoPHPEclipse Web security]
+  * [CodeIgniter HOWTO articles]
+    * [PerspectivaPHP Web security]
     * [InstalandoPHPEclipse DOM manipulation]
     * [InstalandoPHPEclipse CSS and style]
     * [InstalandoPHPEclipse Tips and tricks]
   * [InstalandoPHPEclipse DOM reference]
   * [InstalandoPHPEclipse HTML reference]
-  * [InstalandoPHPEclipse CSS reference]
+  * [ImportandoProjeto CSS reference]
