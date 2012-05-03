@@ -5,7 +5,8 @@
 
   * Ambiente de Desenvolvimento
     * Ubuntu
-      * [Apache_php_postgres Apache - PHP - Postgres]
+      * [ApachePhpPostgres Instalando Apache, PHP e Postgres]
+      * [DumpBanco Instalando o banco de dados para o Cobalto-PHP]
     * Windows
       * Desculpe, não utilizamos este sistema para desenvolvimento ;)
   * IDE Eclipse
