@@ -13,8 +13,8 @@ sudo nano /etc/apache2/sites-enabled/000-default #configurar “AllowOverride Al
 <li>Banco de dados:
 <code language="sh">
 #instala aplicativos:
-sudo apt-get install postgresql pgadmin3
-#configura senha do usuário postgres
+sudo apt-get install postgresql php5-pgsql pgadmin3
+#configura senha do usuário postgres:
 echo "ALTER USER postgres WITH PASSWORD 'cophp';" | sudo su postgres -c "psql"</code></li>
 <li>IDE para desenvolvimento:
 <code language="sh">
