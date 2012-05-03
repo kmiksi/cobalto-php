@@ -1,5 +1,7 @@
 #summary Índice Geral
-#sidebar TOC
+#sidebar NULL
+
+==
 
 * IDE Eclipse
 
