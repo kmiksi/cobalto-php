@@ -1,4 +1,4 @@
-#summary Instalando ambiente no Ubuntu
+#summary Instalando o ambiente de desenvolvimento no Ubuntu
 
 =Instalação do ambiente de desenvolvimento=
 
