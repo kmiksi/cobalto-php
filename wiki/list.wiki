@@ -1,4 +1,0 @@
-#summary Utilizando a Perspectiva PHP
-#labels wikiindex
-
-teste
