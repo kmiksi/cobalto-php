@@ -20,5 +20,5 @@ echo "ALTER USER postgres WITH PASSWORD 'cophp';" | sudo su postgres -c "psql"</
 <li>IDE para desenvolvimento:
 <code language="sh">
 sudo apt-get install eclipse</code></li>
-<li>Instalar o plugin [InstalandoPHPEclipse PHPEclipse] no Eclipse</li>
+<li>Instalar o plugin [http://code.google.com/p/cobalto-php/wiki/InstalandoPHPEclipse?tm=6 PHPEclipse] no Eclipse</li>
 </ol>
