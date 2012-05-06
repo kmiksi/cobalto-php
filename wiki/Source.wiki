@@ -1,5 +1,5 @@
 #summary Índice da aba Source
 #sidebar NULL
 
-  * [http://code.google.com/p/cobalto-php/source/browse/?tm=4 Explorar]
+  * [http://code.google.com/p/cobalto-php/source/browse/?tm=4#svn/trunk Explorar]
   * [http://code.google.com/p/cobalto-php/source/list?tm=4 Revisões]
