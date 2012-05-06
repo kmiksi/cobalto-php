@@ -1,3 +1,4 @@
+#summary Criando uma cópia local dos códigos-fonte
 #sidebar Source
 
 = Acesso por linha de comando =
