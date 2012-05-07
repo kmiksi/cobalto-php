@@ -10,6 +10,6 @@
 #cria o banco de dados “cophp”:
 echo "DROP DATABASE cophp; CREATE DATABASE cophp;" | sudo su postgres -c "psql"
 #cria as tabelas no banco cophp:
-echo "\i /var/www/cobalto-php/_documentacao/dumps/postgres.sql" | sudo su postgres -c "psql cophp"</code></li>
+echo "\i /var/www/cobalto-php/_documentacao/dumps/postgre.sql" | sudo su postgres -c "psql cophp"</code></li>
   <li> para testar acesse a url http://localhost/cobalto-php no seu navegador</li>
 </ol>
