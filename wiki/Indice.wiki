@@ -1,7 +1,7 @@
 #summary Índice Geral da Wiki
 #sidebar Indice
 
-*[http://code.google.com/p/cobalto-php/wiki/Indice?tm=6 Índice geral]*
+[http://code.google.com/p/cobalto-php/wiki/Indice?tm=6 Índice geral]
 
   * Ambiente de Desenvolvimento
     * Ubuntu
