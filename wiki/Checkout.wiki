@@ -3,19 +3,18 @@
 
 = Acesso por linha de comando =
 
-== Acesso anônimo ==
-  Use this command to anonymously check out the latest project source code:
-
+== Acesso em modo anônimo ==
+  Utilize este comando para verificar o código fonte mais recente projeto:
 <code language="sh">
     # Não-membros podem efetuar check out de uma cópia de trabalho somente-leitura anônima via HTTP.
     svn checkout "http://cobalto-php.googlecode.com/svn/trunk/" "cobalto-php"</code>
 
 == Membros do projeto ==
-  If you plan to make changes, use this command to check out the code as yourself using HTTPS:
+  Se você quiser fazer alterações no código, utilize este comando para verificação via HTTPS:
 <code language="sh">
     # Membros do projeto devem autenticar-se via HTTPS para permitir comittar suas alterações.
     svn checkout "https://cobalto-php.googlecode.com/svn/trunk/" "cobalto-php" --username "USERNAME@gmail.com"</code>
-    Quando pedido, informe sua [http://code.google.com/hosting/settings senha automática do GoogleCode].
+    * _Quando pedido, informe sua [http://code.google.com/hosting/settings senha automática do GoogleCode]._
 
 = Acesso via interface gráfica ou IDE =
   This project's Subversion repository may be accessed using [http://subversion.apache.org/packages.html many different client programs and plug-ins]. See your client's documentation for more information.
