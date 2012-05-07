@@ -10,6 +10,7 @@ class Application:
     files_config = ['config/autoload.php', 'config/config.php', 'config/constants.php', 'config/database.php', 'config/doctypes.php',
                     'config/filters.php', 'config/hooks.php', 'config/mimes.php', 'config/smiles.php', 'config/user_agents.php', 'config/mongodb.php']
     files_index = ['config/index.html', 'controllers/index.html', 'errors/index.html', 'hooks/index.html', 'models/index.html', 'views/index.html', 'reports/index.html']
+    files_htaccess = ['config/.htaccess', 'controllers/.htaccess', 'errors/.htaccess', 'hooks/.htaccess', 'language/.htaccess', 'models/.htaccess', 'reports/.htaccess', 'views/.htaccess']
     files_error = ['errors/error_404.php', 'errors/error_db.php', 'errors/error_general.php', 'errors/error_php.php']
     files_filter = ['hooks/filters/Filter.php', 'hooks/filters/init.php', 'hooks/filters/Pipe.php']
     arquives = ['.htaccess', 'index.php', 'config/routes.php']
@@ -77,6 +78,14 @@ class Application:
             file_index_html = open(os.path.join(self.path_application, file_index), 'w')
             file_index_html.write(str_index_html)
             file_index_html.close()
+        
+        # cria e adiciona o script padrão para os arquivos .htaccess
+        for file_htaccess in self.files_htaccess:
+            print os.path.join(self.path_application, file_htaccess)    
+            str_htaccess = "deny from all"
+            file = open(os.path.join(self.path_application, file_htaccess), 'w')
+            file.write(str_htaccess)
+            file.close()
 
         # cria os arquivos de errors e filters
         for file in self.files_error+self.files_filter:
