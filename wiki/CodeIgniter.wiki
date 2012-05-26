@@ -7,4 +7,4 @@
 
 = Licença =
 
-A licença do CodeIgniter está disponível em http://codeigniter.com/user_guide/license.html
+A licença do [http://code.google.com/p/cobalto-php/wiki/CodeIgniter?tm=6 CodeIgniter] está disponível em http://codeigniter.com/user_guide/license.html
