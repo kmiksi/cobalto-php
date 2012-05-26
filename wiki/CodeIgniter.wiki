@@ -2,7 +2,7 @@
 
 = Introdução =
 
-CodeIgniter é um framework para desenvolvimento ágil
+[http://code.google.com/p/cobalto-php/wiki/CodeIgniter?tm=6 CodeIgniter] é um framework para desenvolvimento ágil
 
 
 = Licença =
