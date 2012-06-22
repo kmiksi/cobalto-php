@@ -9,7 +9,8 @@ class UploadModel extends Model {
         $this->db->set('tipo', $arquivo['file_type']);
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('uploads');
-        return $this->getUpload($this->db->insert_id());
+        
+        return $this->getUpload($this->db->insert_id('uploads', 'id'));
     }
 
     function getUpload($id) {
