@@ -27,10 +27,8 @@ class Upload extends Controller {
     }
 
     function enviarArquivo() {
-        $path = array_reverse(explode('/', $_SERVER['DOCUMENT_ROOT']));
-        $pathArchive = $_SERVER['DOCUMENT_ROOT'] . ($path[1] != 'cobalto' ? '/cobalto' : '');
-
         $status = apc_fetch('upload_' . $_POST['APC_UPLOAD_PROGRESS']);
+        
         $config['upload_path'] = '../archives/';
         if ($_POST['paramUploadAllowedTypes'] != '') {
             $config['allowed_types'] = $_POST['paramUploadAllowedTypes'];
@@ -41,10 +39,6 @@ class Upload extends Controller {
         $config['encrypt_name'] = TRUE;
         $config['remove_spaces'] = TRUE;
         $this->load->library('upload', $config);
-
-        $mongo = new Mongo('mongodb://' . $this->config->item('mongo_host'));
-        $db = $mongo->selectDB($this->config->item('mongo_db'));
-        $gridFS = $db->getGridFS();
 
         if (!$files = $this->upload->do_upload()) {
             $this->ajax->addAjaxData('success', false);
@@ -69,13 +63,6 @@ class Upload extends Controller {
                     $this->image_lib->initialize($config);
                     $this->image_lib->resize();
 
-                    $storedfile = $gridFS->storeFile($pathArchive . 'archives/thumbs_48x48/' . $upload->nome_gerado, array('filename' => $upload->nome_gerado,
-                        'filename_original' => $upload->nome_original,
-                        'type' => $upload->tipo,
-                        'thumb' => '48x48'));
-
-                    unlink($pathArchive . 'archives/thumbs_48x48/' . $upload->nome_gerado);
-
                     $config['image_library'] = 'gd2';
                     $config['source_image'] = '../archives/' . $upload->nome_gerado;
                     $config['new_image'] = '../archives/thumbs_80x80/';
@@ -87,13 +74,6 @@ class Upload extends Controller {
 
                     $this->image_lib->initialize($config);
                     $this->image_lib->resize();
-
-                    $storedfile = $gridFS->storeFile($pathArchive . 'archives/thumbs_80x80/' . $upload->nome_gerado, array('filename' => $upload->nome_gerado,
-                        'filename_original' => $upload->nome_original,
-                        'type' => $upload->tipo,
-                        'thumb' => '80x80'));
-
-                    unlink($pathArchive . 'archives/thumbs_80x80/' . $upload->nome_gerado);
 
                     $configResized['image_library'] = 'gd2';
                     $configResized['source_image'] = '../archives/' . $upload->nome_gerado;
@@ -107,24 +87,10 @@ class Upload extends Controller {
                     $this->image_lib->initialize($configResized);
                     $this->image_lib->resize();
 
-                    $storedfile = $gridFS->storeFile($pathArchive . 'archives/resized_640x480/' . $upload->nome_gerado, array('filename' => $upload->nome_gerado,
-                        'filename_original' => $upload->nome_original,
-                        'type' => $upload->tipo,
-                        'thumb' => '640x480'));
-
-                    unlink($_SERVER["DOCUMENT_ROOT"] . '/cobalto/archives/resized_640x480/' . $upload->nome_gerado);
-
                     $this->image_lib->clear();
                 }
                 array_push($uploads, $upload);
             }
-
-            $storedfile = $gridFS->storeFile($pathArchive . 'archives/' . $upload->nome_gerado, array('filename' => $upload->nome_gerado,
-                'filename_original' => $upload->nome_original,
-                'type' => $upload->tipo,
-                'no_thumb' => true));
-
-            unlink($pathArchive . 'archives/' . $upload->nome_gerado);
 
             $status['done'] = 1;
             $this->ajax->addAjaxData('success', true);
