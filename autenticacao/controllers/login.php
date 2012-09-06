@@ -52,7 +52,8 @@ class Login extends Controller {
         setcookie('showMenu', '', time() - 3600, PATH_COOKIE);
         setcookie('tema', '', time() - 3600, PATH_COOKIE);
         setcookie('avatar', '', time() - 3600, PATH_COOKIE);
-        setcookie('redirect', '', time() - 3600, PATH_COOKIE);
+        //setcookie('redirect', '', time() - 3600, PATH_COOKIE);
+		setcookie('logout', '', time()- 3600, PATH_COOKIE);
         redirect('autenticacao/login');
     }
 

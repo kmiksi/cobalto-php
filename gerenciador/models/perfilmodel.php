@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage perfil
+ */
 class PerfilModel extends Model {
 
     function incluirPerfil($perfil) {
@@ -11,7 +15,7 @@ class PerfilModel extends Model {
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('perfis');
 
-        $this->ajax->addAjaxData('perfil', $this->getPerfil($this->db->insert_id()));
+			$this->ajax->addAjaxData('perfil', $this->getPerfil($this->db->insert_id('perfis', 'id')));
         return true;
     }
 
@@ -65,7 +69,7 @@ class PerfilModel extends Model {
         $this->db->set('flg_ativo', 'S');
         $this->db->insert('perfis_programas');
 
-        $this->ajax->addAjaxData('programaPai', $this->getPerfilPrograma($this->db->insert_id()));
+			$this->ajax->addAjaxData('programaPai', $this->getPerfilPrograma($this->db->insert_id('perfis_programas', 'id')));
         return true;
     }
 
@@ -115,7 +119,7 @@ class PerfilModel extends Model {
         $this->db->set('flg_ativo', 'S');
         $this->db->insert('perfis_programas');
 
-        $this->ajax->addAjaxData('programa', $this->getPerfilPrograma($this->db->insert_id()));
+			$this->ajax->addAjaxData('programa', $this->getPerfilPrograma($this->db->insert_id('perfis_programas', 'id')));
         return true;
     }
 

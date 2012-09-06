@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage grupo
+ */
 class Grupo extends Controller {
 
     function __construct() {

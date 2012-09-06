@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Este arquivo contém os metódos relacionados a utilização de diversos componentes
+ */
+
 var isCtrl = false;
 
 $(document).keyup(function (e) {
@@ -91,9 +95,11 @@ $(document).keyup(function (e) {
 })
 
 /**
- * Método executado após carregar todos os elementos da tela
+ * @description Método executado após carregar todos os elementos da tela
  * TODO: Tentar utilizar o método loadComponents para diminuir linhas e simplificar o código
+ * @name ready
  * @author rsantos
+ * @private
  */
 $(document).ready(function(){
     $.ajaxSetup({
@@ -106,6 +112,9 @@ $(document).ready(function(){
         },
         complete: function(){
             $('#carregando').fadeOut('normal');
+            if ($.cookie('logout')) {
+                logout();
+            }
         }
     });
     $(".breadCrumb").jBreadCrumb();
@@ -157,6 +166,7 @@ $(document).ready(function(){
         $('button').blur();
         btnCloseOpenMenu();
     });
+
     if($('#btnCloseOpenMenu').button( "option", 'label') == 'Exibir menu')
         $('#btnCloseOpenMenu').button( "option" , {
             text: true,
@@ -165,7 +175,16 @@ $(document).ready(function(){
                 primary: 'ui-icon-pin-w'
             }
         });
-	
+
+    $('#btnSuporteHelpDesk').button({
+        text: true,
+        icons: {
+            primary: 'ui-icon-wrench'
+        }
+    }).click(function(){
+        $('button').blur();
+        openWindow(BASE_URL+'helpdesk/solicitacao/?link='+location.href, 'Solicitação de suporte para o sistema cobalto', 750);
+    });
     $('.button-hit').button({
         text: false,
         icons: {
@@ -287,7 +306,7 @@ $(document).ready(function(){
             $('#menu > li').removeHighlight();
             if($('#txtBuscaMenu').val() != '')
                 $('#menu > li').highlight(request.term);
-			
+
             var highlights = $('.highlight').parent();
             var programas = new Array();
             for(var i = 0 ; i < highlights.length ; i++)
@@ -318,8 +337,12 @@ $(document).ready(function(){
 });
 
 /**
- * Métodos responsável por montar todas tabs criadas na tela, este método é lokão.
+ * @function
+ * @description Métodos utilizado para montar todas tabs criadas na tela, este método é lokão.
+ * @name generateTabs
  * @author rsantos
+ * @private
+ * @see ready
  */
 function generateTabs(){
     var dialogs = $('.ui-dialog-content').get();
@@ -333,7 +356,7 @@ function generateTabs(){
                 }catch(err){};
         }
     }
-	
+
     var tabs = $('.tabs').get();
     for(var i =0; i < tabs.length; i++) {
         if($("#"+tabs[i].id+" ul:first").html() == ''){
@@ -379,7 +402,7 @@ function generateTabs(){
                         }catch(err){};
                         $("#"+tabs[i].id).width($("#"+tabs[i].id).outerWidth());
                     }
-		   				
+
                 }
             }
             try{
@@ -403,8 +426,12 @@ function generateTabs(){
 }
 
 /**
- * Método responsável por carregar os componentes quando a tela popup é exibida
+ * @function
+ * @description Método utilizado para carregar os componentes quando a tela popup é exibida
+ * @name loadComponents
  * @author rsantos
+ * @private
+ * @see generateTabs
  */
 function loadComponents(){
     $(".breadCrumb").jBreadCrumb();
@@ -530,34 +557,51 @@ function loadComponents(){
 }
 
 /**
- * Metódo utilizado para a busca de palavras no menu de programas do sistema
+ * @function
+ * @description Metódo utilizado para a busca de palavras no menu de programas do sistema
  * @author rsantos
  * @param string url
  * @param string nome
+ * @private
+ * @see ready
  */
 function ClassPrograma(url, nome){
     this.url = url;
     this.nome = nome;
 }
 
+/**
+ * @description Método utilizado para limpar todos os campos de um formulário na view
+ * @example
+ * resetForm('nome_form');
+ */
 function resetForm(form){
     $("#"+form).resetForm();
 }
+
+/**
+ */
 function clearFields(form){
     $("#"+form).clearFields();
 }
 
 /**
- * Método responsável por executar a chamada de logout do sistema
+ * @description Método utilizado para executar a chamada de logout do sistema
+ * @private
  */
-function logout(){	
-    location.href = BASE_URL+'autenticacao/login/sair';
+function logout(){
+    var logout_page = BASE_URL+'autenticacao/login/sair';
+    if (location.href != logout_page) {
+        location.href = logout_page;
+    }
 }
 
 /**
- * Método responsável por executar alguma ação antes de efetuar qualquer chamada AJAX.
+ * @function
+ * @description Método utilizado para executar alguma ação antes de efetuar qualquer chamada AJAX.
  * OBS: AINDA FALTA IMPLEMENTAR ESTE MÉTODO
  * @return boolean
+ * @private
  */
 function beforeSubmit(formData, jqForm, options, formName){
     var submit = true;
@@ -575,15 +619,17 @@ function beforeSubmit(formData, jqForm, options, formName){
 }
 
 /**
- * Método responsável por exibir a tela de configuração do usuário
+ * @description Método utilizado para exibir a tela de configuração do usuário
+ * @private
  */
 function configuracoesUsuario(){
     location.href = BASE_URL+'dashboard/configuracao';
 }
 
 /**
- * Método responsável por ocultar e mostrar o menu do sistema
+ * @description Método utilizado para ocultar e mostrar o menu do sistema
  * @author rsantos
+ * @private
  */
 function btnCloseOpenMenu(){
     if($('.ui-layout-west').hasClass('closed')){
@@ -616,7 +662,8 @@ function btnCloseOpenMenu(){
 }
 
 /**
- * Método responsável por ajustar o tamanho da grid ao tamanho das tabs caso não seja informada a largura da grid.
+ * @function
+ * @description Método utilizado para ajustar o tamanho da grid ao tamanho das tabs caso não seja informada a largura da grid.
  * @author rsantos
  */
 function resizeGridTab(){
@@ -639,12 +686,12 @@ function resizeGridTab(){
 }
 
 /**
- * DEPRECATED since 09/12/2010
- * Método responsável por setar o valor da combo
+ * @function
+ * @description Método utilizado para setar o valor da combo
  * @author rsantos
  * @param string comboName Nome da combo que deseja setar o valor
  * @param string value Valor que deseja selecionar
- * @deprecated
+ * @deprecated since 09/12/2010
  * @ignore
  */
 function setValueCombo(comboName, value){
@@ -652,17 +699,19 @@ function setValueCombo(comboName, value){
 }
 
 /**
- * Método responsável por buscar a informação quando o usuário digita algo no campo código do componente buttonHit
+ * @function
+ * @description Método utilizado para buscar a informação quando o usuário digita algo no campo código do componente buttonHit
  * @author rsantos
- * @param string url URL do controle responsável por buscar a informação
+ * @param string url URL do controle utilizado para buscar a informação
  * @param object functionCallBack Método de retorno com as informações carregadas
  * @param string idComponenteId ID do componente hidden que irá armazenar o Id da informação solicitada
  * @param string idComponenteCodigo Id componente que irá armazenar o Código da informação solicitada
  * @param string idComponenteDescricao Id componente que irá armazenar a Descrição da informação solicitada
+ * @private
  */
 function openInputTextHit(url, functionCallBack, idComponentId, idComponentCodigo, idComponentDescricao){
     if($('#'+idComponentCodigo).val()){
-    	$.post(url, {
+        $.post(url, {
             cod_object: $('#'+idComponentCodigo).val()
         },
         function(data){
@@ -681,12 +730,13 @@ function openInputTextHit(url, functionCallBack, idComponentId, idComponentCodig
             }
         });
     }else{
-    	clearButtonHit(idComponentId, idComponentCodigo, idComponentDescricao, functionCallBack);	
-    }        
+        clearButtonHit(idComponentId, idComponentCodigo, idComponentDescricao, functionCallBack);
+    }
 }
 
 /**
- * Método responsável por limpar todos os campos do componente buttonHit
+ * @function
+ * @description Método utilizado para limpar todos os campos do componente buttonHit
  * @author rsantos;
  * @param string idComponenteId ID do componente hidden
  * @param string idComponenteCodigo Id componente que armazena o Código
@@ -706,21 +756,24 @@ function clearButtonHit(idComponentId, idComponentCodigo, idComponentDescricao, 
 }
 
 /**
- * Método responsável por abrir a janela do componente buttonHit
+ * @description Método utilizado para abrir a janela do componente buttonHit
  * @author rsantos
- * @param string url URL do controle responsável por exibir a tela de filtro para utilização do componente
+ * @param string url URL do controle utilizado para exibir a tela de filtro para utilização do componente
  * @param string title Título da janela
  * @param integer width Largura da janela
+ * @private
  */
 function openButtonHit(url, title, width){
     openWindow(url, title, width);
 }
 
 /**
- * Método responsável por excutar o método de retorno do buttonHit, ou seja, quando o usuário escolher o registro de sua preferência
+ * @function
+ * @description Método utilizado para excutar o método de retorno do buttonHit, ou seja, quando o usuário escolher o registro de sua preferência
  * @author rsantos
  * @param object functionCallBack Método que receberá o retorno que o usuário selecionou
  * @param object returnObject Objeto javascript com no mínimo os campos id, codigo, descricao
+ * @private
  */
 function buttonHitCallBack(functionCallBack, returnObject){
     try{
@@ -735,6 +788,11 @@ function buttonHitCallBack(functionCallBack, returnObject){
     parent.closeWindowSelf();
 }
 
+/**
+ * @function
+ * @private
+ * @ignore
+ */
 function uploadCallBack(functionCallBack){
     if($.isFunction(functionCallBack))
         try{
@@ -744,17 +802,23 @@ function uploadCallBack(functionCallBack){
     closeWindowSelf();
 }
 
+/**
+ *
+ */
 function validateCPF(objectCPF){
     var cpf = objectCPF.value;
     exp = /\.|\-/g
-    cpf = cpf.toString().replace(exp, ""); 
-    if(cpf != '')  
+    cpf = cpf.toString().replace(exp, "");
+    if(cpf != '')
         if(!cpfIsTrue(cpf)){
             objectCPF.value = '';
             messageErrorBox("CPF inválido.", objectCPF.id);
         }
 }
 
+/**
+ * @private
+ */
 function cpfIsTrue(cpf){
     var numeros, digitos, soma, i, resultado, digitos_iguais;
     digitos_iguais = 1;
@@ -789,6 +853,9 @@ function cpfIsTrue(cpf){
         return false;
 }
 
+/**
+ *
+ */
 function validateDate(objectId){
     var objectDate = document.getElementById(objectId);
     var strDate = objectDate.value;
@@ -856,6 +923,9 @@ function validateDate(objectId){
     }
 }
 
+/**
+ * @function
+ */
 function clearDateField(objectId, mask){
     var objectDate = document.getElementById(objectId);
     $("#"+objectId).unmask();
@@ -865,10 +935,13 @@ function clearDateField(objectId, mask){
     });
 }
 
+/**
+ * @function
+ */
 function getIntervalDate(dtInicio, dtFim){
     var dtInicio = dtInicio.split("/");
     var dtFim = dtFim.split("/");
-		
+
     inicio = new Date(dtInicio[2], dtInicio[1]-1, dtInicio[0]);
     fim = new Date(dtFim[2], dtFim[1]-1, dtFim[0]);
     dif = fim.getTime() - inicio.getTime();
@@ -879,11 +952,13 @@ function getIntervalDate(dtInicio, dtFim){
 }
 
 /**
- * Método utilizado para manipular os valores dos elementos sem a utilização explícita da biblioteca jQuery ou de métodos/funções auxiliares.
+ * @function
+ * @description Método utilizado para manipular os valores dos elementos sem a utilização explícita da biblioteca jQuery ou de métodos/funções auxiliares.
+ * @name val
  */
 String.prototype.val = function(value){
     var el = $('#'+this);
-    if(value != undefined){    	
+    if(value != undefined){
         if(el.get(0).tagName == 'SELECT'){
             this.setValueCombo(value);
         }else if(el.attr('type') == 'checkbox'){
@@ -902,61 +977,76 @@ String.prototype.val = function(value){
 }
 
 /**
- * Desabilita componentes de tela utilizando a biblioteca jQuery, isto é um plugin para o jquery
+ * @function
+ * @description Desabilita componentes de tela utilizando a biblioteca jQuery, isto é um plugin para o jquery
+ * @private
  */
 jQuery.fn.disable = function(){
-	return this.each(function(){
-		var el = $(this);
-		if(el.get(0).tagName == 'SELECT'){
-			el.attr('disabled', true).selectmenu('disable');
-		}else{
-			el.attr('disabled', true).addClass('ui-state-disabled');
-		}
-	});
+    return this.each(function(){
+        var el = $(this);
+        if(el.get(0).tagName == 'SELECT'){
+            el.attr('disabled', true).selectmenu('disable');
+        }else{
+            el.attr('disabled', true).addClass('ui-state-disabled');
+        }
+    });
 };
 
 /**
- * Habilita componentes de tela utilizando a biblioteca jQuery, isto é um plugin para o jquery
+ * @function
+ * @description Habilita componentes de tela utilizando a biblioteca jQuery, isto é um plugin para o jquery
+ * @private
  */
 jQuery.fn.enable = function(){
-	return this.each(function(){
-		var el = $(this);
-		if(el.get(0).tagName == 'SELECT'){
-			el.attr('disabled', false).selectmenu('enable');
-		}else{
-			el.attr('disabled', false).removeClass('ui-state-disabled');
-		}
-	});
+    return this.each(function(){
+        var el = $(this);
+        if(el.get(0).tagName == 'SELECT'){
+            el.attr('disabled', false).selectmenu('enable');
+        }else{
+            el.attr('disabled', false).removeClass('ui-state-disabled');
+        }
+    });
 };
 
 /**
- * Desabilita componentes de tela
+ * @function
+ * @description Desabilita componentes de tela
+ * @name disable
  */
 String.prototype.disable = function(){
-	var el = $('#'+this);
-	if(el.get(0).tagName == 'SELECT'){
-		el.attr('disabled', true).selectmenu('disable');
-	}else{
-		el.attr('disabled', true).addClass('ui-state-disabled');
-	}
+    var el = $('#'+this);
+    if(el.get(0).tagName == 'SELECT'){
+        el.attr('disabled', true).selectmenu('disable');
+    }else{
+        el.attr('disabled', true).addClass('ui-state-disabled');
+    }
 }
 
 /**
- * Habilita componentes de tela
+ * @function
+ * @description Habilita componentes de tela
+ * @name enable
  */
 String.prototype.enable = function(){
     $('#'+this).attr("disabled", false).selectmenu('enable');
 }
 
 /**
- * Seta o valor da combo
+ * @function
+ * @description Método utilizado para marcar o valor na combo
+ * @name setValueCombo
  */
 String.prototype.setValueCombo = function(value){
     $('#'+this).val(value).selectmenu('value', value);
 }
 
 /**
- * Remove todos os valores da combo
+ * @function
+ * @description Método utilizado para remover todos os valores da combo, ou seja, limpar a combo.<br /><br />
+ * Abaixo é exibido um exemplo de utilização do método, onde a variável "combo" é o nome do seu componente a ser utilizado.
+ * @example
+ * combo.clearCombo();
+ * @name clearCombo
  */
 String.prototype.clearCombo = function(){
     objectCombo = document.getElementById(this);
@@ -972,6 +1062,10 @@ String.prototype.clearCombo = function(){
     });
 }
 
+/**
+ * @function
+ * @name removeFirst
+ */
 String.prototype.removeFirst = function(){
     objectCombo = document.getElementById(this);
     objectCombo.remove(0);
@@ -983,6 +1077,13 @@ String.prototype.removeFirst = function(){
     });
 }
 
+/**
+ * @function
+ * @name loadCombo
+ * @description Método utilizado para carregar a informações na combo por ajax
+ * @example
+ * aqui exemplo de utilização
+ */
 String.prototype.loadCombo = function(url, param, selectedIndex, functionCallback){
     comboName = this;
     objectCombo = document.getElementById(comboName);
@@ -997,7 +1098,7 @@ String.prototype.loadCombo = function(url, param, selectedIndex, functionCallbac
             selectedIndex = param;
         }
     }
-	
+
     $.post(url, param, function(data){
         for(var i = 0 ; i < data.combo.length ; i++) {
             var value      =  data.combo[i].value;
@@ -1020,10 +1121,65 @@ String.prototype.loadCombo = function(url, param, selectedIndex, functionCallbac
             maxHeight: 150,
             width: parseInt(objectCombo.style.width.replace('px', '')) + 4
         });
-		
+
         if ($.isFunction(functionCallback)){
             functionCallback();
         }
 
     }, 'json');
+}
+
+function loadComboAutoComplete(jqCombo, url, param, selectedIndex, functionCallback){
+    countRows = jqCombo.length;
+    for(var j = jqCombo.length; j > 0 ; j--){
+        jqCombo.remove(j);
+    }
+
+    if(param != undefined){
+        paramSelectedIndex = param + "";
+        if(paramSelectedIndex.substr(0,1) != "{"){
+            selectedIndex = param;
+        }
+    }
+
+    $.post(url, param, function(data){
+        for(var i = 0 ; i < data.combo.length ; i++) {
+            var value      =  data.combo[i].value;
+            var optionName =  data.combo[i].optionName;
+
+            if(optionName!=false){
+                jqCombo.options[jqCombo.options.length] = new Option (optionName, value, true, true);
+            }
+        }
+
+        if(selectedIndex != undefined){
+            jqCombo.value = selectedIndex;
+        } else{
+            jqCombo.value = "";
+        }
+
+        jqCombo.selectmenu('destroy');
+        jqCombo.selectmenu({
+            style:'dropdown',
+            maxHeight: 150,
+            width: parseInt(jqCombo.style.width.replace('px', '')) + 4
+        });
+
+        if ($.isFunction(functionCallback)){
+            functionCallback();
+        }
+
+    }, 'json');
+}
+
+/**
+ * @function
+ * @description Método utilizado para validar se um valor é inteiro
+ * @name isInteger
+ * @param string sNum valor a ser testado se é inteiro
+ * @return boolean retorna true em caso de sucesso e false caso contrário
+ */
+function isInteger(sNum){
+   var reDigits = /^\d+$/;
+   return reDigits.test(sNum);
 }

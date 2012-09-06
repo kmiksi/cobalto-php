@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage empresa
+ */
+/**
+ * librarie responsavel por manipular diversos componentes form do sistema
+ * @package gerenciador
+ * @subpackage empresa
+ */
 class Empresa extends Controller {
 
     function __construct() {

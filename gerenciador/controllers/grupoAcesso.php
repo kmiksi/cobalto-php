@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage grupoacesso
+ */
 class GrupoAcesso extends Controller {
 
     function __construct() {

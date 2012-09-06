@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage relatorios
+ */
 class Relatorios extends Controller {
 
     function __construct() {

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage grupo
+ */
 class GrupoModel extends Model {
 
     function __construct() {
@@ -18,7 +22,7 @@ class GrupoModel extends Model {
             'dt_cadastro' => 'now()');
         $this->db->insert('grupos', $dados);
 
-        $this->ajax->addAjaxData('grupo', $this->getGrupo($this->db->insert_id()));
+        $this->ajax->addAjaxData('grupo', $this->getGrupo($this->db->insert_id('grupos','id')));
         return true;
     }
 
@@ -130,7 +134,7 @@ class GrupoModel extends Model {
         }
         $this->db->insert('grupos_programas', $dados);
 
-        $this->ajax->addAjaxData('programaPai', $this->getProgramaGrupo($this->db->insert_id()));
+			$this->ajax->addAjaxData('programaPai', $this->getProgramaGrupo($this->db->insert_id('grupos_programas', 'id')));
         return true;
     }
 
@@ -182,7 +186,7 @@ class GrupoModel extends Model {
         }
         $this->db->insert('grupos_programas', $dados);
 
-        $this->ajax->addAjaxData('programa', $this->getProgramaGrupo($this->db->insert_id()));
+        $this->ajax->addAjaxData('programa', $this->getProgramaGrupo($this->db->insert_id('grupos_programas', 'id')));
         return true;
     }
 

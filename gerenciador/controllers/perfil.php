@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage perfil
+ */
 class Perfil extends Controller {
 
     function __construct() {

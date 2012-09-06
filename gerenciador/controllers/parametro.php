@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage parametro
+ */
 class Parametro extends Controller {
 
     function __construct() {

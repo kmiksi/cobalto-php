@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package gerenciador
+ */
 class PermissaoModel extends Model {
 
     function getMetodosGrid($parametros, $link) {
