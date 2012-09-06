@@ -19,6 +19,18 @@ select
 translate($1,'áàâãäéèêëíìïóòôõöúùûüÁÀÂÃÄÉÈÊËÍÌÏÓÒÔÕÖÚÙÛÜçÇ','aaaaaeeeeiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcC');
 $_$;
 
+CREATE FUNCTION fnc_get_parametro(nome character varying) RETURNS character varying
+    LANGUAGE plpgsql
+    AS $_$
+	DECLARE
+		v_nome_parametro ALIAS FOR $1;
+		r record;
+	BEGIN
+		select into r p.* from parametros as p where p.nome = v_nome_parametro;
+		
+		RETURN r.valor;
+	END
+$_$;
 
 
 CREATE FUNCTION serialize_array(text[], separador varchar) RETURNS text
