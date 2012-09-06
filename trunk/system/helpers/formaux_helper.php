@@ -870,5 +870,656 @@ function _style_height($height) {
     }
     return $height;
 }
+/**
+ * @ignore
+ * Retorna um map com um marcado de uma localização com coordenadas: Latitude e Longitude
+ *  Tanto mapa como marcador estão centralizados no espaço.
+ * Para retorno de lat e long
+ *  do marcador é necessário implementar a função
+ *      function form_MapWithMarker_position(lat,longi);
+ * Para mudar a posicação do marker
+ *       function form_MapWithMarker_setPosicao($latitude,$longitude) {
+ *          var latlng = new google.maps.LatLng($latitude, $longitude);
+ *          window.marker.setPosition(latlng);
+ *       } 
+ * 
+ * 
+ * @author Glauco Roberto Munsberg dos Santos
+ * 
+ * @param String $nameMarker Nome que o marcador receberá
+ * @param integer|String $latitude varia entre -90º e 90º 
+ * @param integer|String $longitude varia entre -180 e 180º
+ * @param integer|String $width largura da div, padrão 200
+ * @param integer|String $height comprimento da div, padrão 300
+ * @param String $mapTipe tipos de mapas suportados{HYBRID, ROADMAP, SATELLITE, TERRAIN}, default: ROADMAP
+ * @param Boolean|String $draggableMap referente ao arraste do map. Padrão: true
+ * @param Boolean|String $draggableMarker referente ao arraste do marcador. Padrão: false
+ * @return Retorna o style, script e a div com id "map_canvas"
+ */
+function form_MapWithMarker($nameMarker = 'MarcadorNoMapa', $latitude = -31.771083, $longitude = -52.325821, $width = 250, $height = 250, $mapTipe= 'map', $draggableMap = true, $draggableMarker = false){
+    $mapTipe = strtoupper($mapTipe);
+    switch($mapTipe)
+    {
+        case 'HYBRID':
+        case 'ROADMAP':
+        case 'SATELLITE':
+        case 'TERRAIN':
+            break;
+        default: $mapTipe = 'ROADMAP';  
+    }
+    
+    if($draggableMap){
+        $draggableMap = 'true';
+    }else{
+        $draggableMap = 'false';
+    }
+    
+    if($draggableMarker){
+        $draggableMarker = 'true';
+    }else{
+        $draggableMarker = 'false';
+    }
+    
+    // Certifica-se que respeite o tamanho mínimo 250 x 250
+    if(!is_numeric($width)){
+        $width = (int)$width;
+    }
+    if($width < 250)
+            $width = 250;
+    
+    if(!is_numeric($height)){
+        $height = (int)$height;
+    }
+    if($height < 250)
+            $height = 250;
+    
+    
+    $script = "<style type=\"text/css\">
+                    #map_canvas { height: 100% }
+                </style>";
+    $script .= "<script type=\"text/javascript\"
+                    src=\"https://maps.google.com/maps/api/js?sensor=false\">
+                </script>";
+    /*
+     * Certifica que os tipos são válido
+     */    
+    
+    $script .= "    <script type=\"text/javascript\">
+                    var marker;
+                    function init() {
+                    var latlng = new google.maps.LatLng(". $latitude ."," .$longitude .");
+                    var myOptions = {
+                    zoom: 15,
+                    center: latlng,
+                    draggable:". $draggableMap .",
+                    zoomControl:true,
+                    mapTypeId: google.maps.MapTypeId.". $mapTipe ."
+                };";
+   
+    
+    $script .="var map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);
+                    var latitude, logitude;
+                    marker = new google.maps.Marker({ 
+                    position: latlng, 
+                    map: map,
+                    draggable:".$draggableMarker.",
+                    animation: google.maps.Animation.DROP,
+                    title:\"".$nameMarker ."\"
+                });";
+    $script .= "google.maps.event.addListener(marker, 'click', toggleBounce);
+                    google.maps.event.addListener(marker, 'dragend', function() {
+                    latitude = marker.getPosition().lat();
+                    longitude = marker.getPosition().lng();
+                        if(typeof (window.form_MapWithMarker_position) == 'function'){
+                            form_MapWithMarker_position(latitude, longitude);
+                        }
+                    });
+                  }
+                  function toggleBounce() {
+                    if (marker.getAnimation() != null) {
+                        marker.setAnimation(null);
+                    } else {
+                        marker.setAnimation(google.maps.Animation.BOUNCE);
+                        }
+                    }
+                    </script>";
+    $script .= "<div id=\"map_canvas\" style=\"height: ". $height ."px; width: ". $width ."px;\" load=init() class =\"ui-state-default ui-corner-all\" ></div>";
+    return $script;
+}
+
+function form_MapWithRoute($mapNome = 'MapaWithRoute', $PosicaoALatitude = -31.771083, $PosicaoALongitude = -52.325821, $PosicaoBLatitude = -31.771083, $PosicaoBLongitude = -52.325821, $mapTipe= 'map', $width = 250, $height = 250, $contextualizeRoute = true)
+{
+    if($PosicaoALatitude == null)
+        $PosicaoALatitude = -31.771083;
+    if($PosicaoALongitude == null)
+        $PosicaoALongitude = -52.325821;
+    if($PosicaoBLongitude == null)
+        $PosicaoBLongitude = -52.325821;
+    if($PosicaoBLatitude == null)
+        $PosicaoBLatitude = -31.771083;
+        
+    $mapTipe = strtoupper($mapTipe);
+    switch($mapTipe)
+    {
+        case 'BICYCLING':
+        case 'DRIVING':
+        case 'WALKING':
+            break;
+        default: $mapTipe = 'DRIVING';  
+    }
+    
+    // Certifica-se que respeite o tamanho mínimo 250 x 250
+    if(!is_numeric($width)){
+        $width = (int)$width;
+    }
+    if($width < 250)
+            $width = 250;
+    
+    if(!is_numeric($height)){
+        $height = (int)$height;
+    }
+    if($height < 250)
+            $height = 250;
+    
+    if($contextualizeRoute){
+        $contextualizeRoute = 'visible';
+        $tamanhoCanvas = 90;
+        $tamanhoRoute = 9;
+    }else{
+        $contextualizeRoute = 'hidden';
+        $tamanhoCanvas=100;
+        $tamanhoRoute = 0;
+    }
+    
+    $script1 = 
+        "<style type=\"text/css\">
+            #map_canvas { height: 100% }
+        </style>";
+    
+    $script1 .= "<script type=\"text/javascript\"
+            src=\"https://maps.google.com/maps/api/js?sensor=false\">
+        </script>
+        <script type=\"text/javascript\"
+            src=\"https://maps.gstatic.com/intl/pt-BR_ALL/mapfiles/417c/maps2.api/main.js\" >
+        </script>";
+    
+    $script1 .= "<script type=\"text/javascript\">  
+        var mostrarTrajetoria =false;
+        var rendererOptions = {
+            draggable: true
+        };
+        var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
+        var directionsService = new google.maps.DirectionsService();
+        var map;
+        var origem = new google.maps.LatLng(".$PosicaoALatitude .", ".$PosicaoALongitude .");
+        var destino = new google.maps.LatLng(".$PosicaoBLatitude .", ".$PosicaoBLongitude .");
+        var total = 0;
+        var caminhos = \"\";
+        function init() 
+        {
+            var myOptions = {
+                zoom: 18,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: origem
+        };
+        map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById(\"directionsPanel\"));
+        google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+            total_distancia(directionsDisplay.directions);
+            });
+            calcRoute();
+        }
+        function calcRoute() {
+            var request = {
+                origin: origem,
+                destination: destino,
+                travelMode: google.maps.TravelMode.WALKING
+        };
+        directionsService.route(request, function(response, status)
+        {
+            if (status == google.maps.DirectionsStatus.OK)
+            {
+            directionsDisplay.setDirections(response);
+            }
+        });
+        }
+        function total_distancia(result) {
+            var myroute = result.routes[0];
+            for (i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
+
+                for(b = 0; b < myroute.legs[i].steps.length;b++ )
+                    caminhos += myroute.legs[i].steps[b].instructions+\"<br>\";     
+
+            }
+            total = total / 1000;
+            if(typeof (window.form_MapWithRoute_position) == 'function'){          
+                form_MapWithRoute_position(inicio = new google.maps.LatLng(myroute.legs[0].start_location.lat(), myroute.legs[0].start_location.lng()), fiali = new google.maps.LatLng(myroute.legs[0].end_location.lat(),myroute.legs[0].end_location.lng()), total,caminhos );
+            }
+
+        }
+        </script>";
+    
+    $script1 .= "<div id=\"corpo_total_map\" style=\"width:". $width ."px; height:". $height ."px; float:left\">
+            <div id=\"map_canvas\" style=\"width:".$tamanhoCanvas ."%; height:100%; float:left\"></div>
+            <div id=\"directionsPanel\" style=\"float: right; width: ". $tamanhoRoute ."%; height:100%; direction: ltr; visibility:". $contextualizeRoute ." \"> </div>
+        </div>";
+    
+    return $script1;
+}
+
+/**
+ * Form_gallery retorna uma galeria de arquivos que foram selecionados
+ *  Com isso pode-se obter a visualização dos arquivos, informações
+ *  a respeito deles e fazer o download até.
+ * Arquivos suportados: Imagem, PDF, documentos, mp3, mp4 e outros
+ * 
+ * @param String $nomeLabel     - Nome da label
+ * @param comboArray $options   - Combo de arquivos do upload
+ * @param boolean $dowload    - permite ou não fazer o download do arquivo
+ * @param type $SelectionArea   - Habilita um campo de seleção
+ * @param type $nomeDaArea      - Nome da área de seleção
+ * 
+ * @return string 
+ */
+function form_gallery($nomeLabel ='nome' , $options = array(), $dowload=true, $SelectionArea=false, $nomeDaArea='àrea de seleção'){
+    $imagem = lang('galleryImagem');
+    $selecionar = lang('gallerySelecionar');
+    $selecionarEste = lang('gallerySelecionarEste');
+    $deselecionar = lang('galleryRemoverSelecao');
+    $imagemVer = lang('galleryImagemVer');
+    $documentoVer = lang('galleryDocumentoVer');
+    $pdfVer = lang('galleryPdfVer');
+    $arquivoVer = lang('galleryArquivo');
+    $musicaVer= lang('galleryMusica');
+    $compactadoVer = lang('galleryCompactado');
+    $dataCadastro = lang('galleryDtCadastro');
+    $tamanhoDo = lang('galleryTamanho');
+    $nomeDo = lang('galleryNome');
+    $naoSuportaFormato = lang('gallaryNaoSuportaFormato');
+    $retorno = '<style>
+	#gallery { float: left; width: 65%; min-height: 12em; } * html #gallery { height: 12em; } /* IE6 */
+	.gallery.custom-state-active { background: #eee; }
+	.gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+	.gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+	.gallery li a { float: right; }
+
+	.gallery li a.ui-icon-image { float: left; }
+        .gallery li a.ui-icon-document { float: left; }
+        .gallery li a.ui-icon-video { float: left; }
+        .gallery li a.ui-icon-disk { float: left; }
+        .gallery li a.ui-icon-circle-arrow-s { float: left; }
+        .gallery li a.ui-icon-play { float: left; }
+	.gallery li img { width: 100%; cursor: move; }
+
+	#trash { float: right; width: 25%; min-height: 18em; padding: 1%;} * html #trash { height: 18em; } /* IE6 */
+	#trash h4 { line-height: 16px; margin: 0 0 0.4em; }
+	#trash h4 .ui-icon { float: left; }
+	#trash .gallery h5 { display: none; }
+	</style>
+	<script>
+	$(function() {
+		// Aqui está a galeria e o selecionador (trash)
+		var $gallery = $( "#gallery" ),
+                    $trash = $( "#trash" );
+		// let the gallery items be draggable
+		$( "li", $gallery ).draggable({
+			cancel: "a.ui-icon", // clicking an icon won\'t initiate dragging
+			revert: "invalid", // when not dropped, the item will revert back to its initial position
+			containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
+			helper: "clone",
+			cursor: "move"
+		});
+
+		// let the trash be droppable, accepting the gallery items
+		$trash.droppable({
+			accept: "#gallery > li",
+			activeClass: "ui-state-highlight",
+			drop: function( event, ui ) {
+				deleteImage( ui.draggable );
+			}
+		});
+
+		// let the gallery be droppable as well, accepting items from the trash
+		$gallery.droppable({
+			accept: "#trash li",
+			activeClass: "custom-state-active",
+			drop: function( event, ui ) {
+				recycleImage( ui.draggable );
+			}
+                
+		});
+		// image deletion function
+		var recycle_icon = "<a href=\'link/to/recycle/script/when/we/have/js/off\' title=\''.$deselecionar.'\' class=\'ui-icon ui-icon-refresh\'>Recycle image</a>";
+		function deleteImage( $item ) {
+			$item.fadeOut(function() {
+				var $list = $( "ul", $trash ).length ?
+					$( "ul", $trash ) :
+					$( "<ul class=\'gallery ui-helper-reset\'/>" ).appendTo( $trash );
+
+				$item.find( "a.ui-icon-circle-check" ).remove();
+				$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
+					$item
+						.animate({ width: "48px" })
+						.find( "img" )
+							.animate({ height: "36px" });
+				});
+			});
+		}
+
+		// image recycle function
+		var trash_icon = "<a href=\'link/to/trash/script/when/we/have/js/off\' title=\'Delete this image\' class=\'ui-icon ui-icon-circle-check\'>Delete image</a>";
+		function recycleImage( $item ) {
+			$item.fadeOut(function() {
+				$item
+					.find( "a.ui-icon-refresh" )
+						.remove()
+					.end()
+					.css( "width", "96px")
+					.append( trash_icon )
+					.find( "img" )
+						.css( "height", "80px" )
+					.end()
+					.appendTo( $gallery )
+					.fadeIn();
+			});
+		}
+
+                function viewDocument( $link){
+                        var dialogo = "#dialog";
+                        dialogo += $link.attr( "id" );
+                        $( dialogo ).dialog( "open" );
+                }
+		// resolve the icons behavior with event delegation
+		$( "ul.gallery > li" ).click(function( event ) {
+			var $item = $( this ),
+				$target = $( event.target );
+
+			if ( $target.is( "a.ui-icon-circle-check" ) ) {
+				deleteImage( $item );
+			} else if ( $target.is( "a.ui-icon-refresh" ) ) {
+				recycleImage( $item );
+			} else {
+                            viewDocument( $item );
+                        }
+			return false;
+		});         
+	});
+	</script>
+
+
+
+<div class="demo ui-widget ui-helper-clearfix">
+
+<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+	';
+         
+        
+        if (count($options) > 0 && !empty($options)){
+            foreach ($options as $arrayObject) {
+             $nome ='';
+             $endereco='';
+             $id = '';
+             $dt_cadastro='';
+             $tamanho = '';
+             $rest = '';
+             foreach($arrayObject as $theObject =>$value){
+                     
+                     
+                     if($theObject == 'nome_gerado'){
+                         $endereco = $value;
+                     }else if($theObject == 'nome_original'){
+                        $nome = $value;
+                     }else if($theObject == 'id'){
+                         $id = $value;
+                     }else if($theObject == 'dt_cadastro'){
+                         $dt_cadastro = $value;
+                     }else if($theObject == 'tamanho')
+                         $tamanho = $value;
+                     logVar($theObject);
+                }
+                $retorno = $retorno.'<li id="'.$id.'" tamanho="'.$tamanho.'" dt_cadastro="'.$dt_cadastro.'" class="ui-widget-content ui-corner-tr">
+                                    <h5 class="ui-widget-header">'.$nome.'</h5>';
+                
+                
+                //Segundo cada tipo de arquivo então gerará um tipo visualização
+                $rest = substr($nome, -3);
+                $rest = strtolower($rest);
+                switch($rest){
+                    case 'png':
+                    case 'jpg':
+                    case 'gif':
+                    case 'peg':
+                        $retorno = $retorno.'<img src="'.BASE_URL.'archives/thumbs_80x80/'.$endereco  .'"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/resized_640x480/'. $endereco .'" title="'. $imagemVer .'" class="ui-icon ui-icon-image">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                                <p>
+                                    ';
+                        if($dowload){
+                            $retorno = $retorno.'
+                                    <a href="'.BASE_URL.'archives/resized_640x480/'. $endereco .'" alt="download" target="_blank">
+                                    <img  src="'.BASE_URL.'archives/resized_640x480/'. $endereco .'" width="640" height="480" //>
+                                    </a>';
+                        }else{
+                            $retorno = $retorno.'
+                                    <img  src="'.BASE_URL.'archives/resized_640x480/'. $endereco .'" width="640" height="480" //>';
+                        }
+
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true, width:660 });
+                                }); </script>';   
+                        break;
+                    case 'doc':
+                    case 'ocx':
+                    case 'ppt':
+                    case 'ptx':
+                    case 'lsx':
+                    case 'xls':
+                    case 'odt':
+                        $retorno = $retorno.'<img  src="'.BASE_URL.'static/_img/gallery/80x80_document.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $documentoVer .'" class="ui-icon ui-icon-document">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                                <p>
+                                    ';
+                        if($dowload){
+                            $retorno = $retorno.'
+                                    <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                    <img  src="'.BASE_URL.'static/_img/gallery/80x80_document.png" width="80" height="80" //>
+                                    </a>';
+                        }else{
+                            $retorno = $retorno.'
+                                    <img  src="'.BASE_URL.'static/_img/gallery/80x80_document.png" width="80" height="80" //>';
+                        }
+
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true });
+                                }); </script>';   
+                        break;
+                    case 'mp3':
+                        $retorno = $retorno.'<img src="'.BASE_URL.'static/_img/gallery/80x80_mp3.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $musicaVer .'" class="ui-icon ui-icon-play">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                            <p>';
+                                    if($dowload){
+                                        $retorno = $retorno.'
+                                                <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_mp3.png" width="80" height="80" //>
+                                                </a>';
+                                    }else{
+                                        $retorno = $retorno.'
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_mp3.png" width="80" height="80" //>';
+                                    }
+                        $retorno = $retorno.'<br><audio controls="controls">
+                                            <source src="'.BASE_URL.'archives/'. $endereco .'" type="audio/mpeg" />
+                                            '.$naoSuportaFormato.'
+                                            </audio><br>';            
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true,width:350 });
+                                }); </script>';  
+                        break;
+                    case 'mp4':
+                        $retorno = $retorno.'<img src="'.BASE_URL.'static/_img/gallery/80x80_video.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $musicaVer .'" class="ui-icon ui-icon-play">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                            <p>';
+                                    if($dowload){
+                                        $retorno = $retorno.'
+                                                <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_video.png" width="80" height="80" //>
+                                                </a>';
+                                    }else{
+                                        $retorno = $retorno.'
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_video.png" width="80" height="80" //>';
+                                    }         
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true });
+                                }); </script>';  
+                        break;
+                    case 'zip':
+                    case 'rar':
+                        $retorno = $retorno.'<img src="'.BASE_URL.'static/_img/gallery/80x80_zip.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $compactadoVer .'" class="ui-icon ui-icon-disk">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                            <p>';
+                                    if($dowload){
+                                        $retorno = $retorno.'
+                                                <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_zip.png" width="80" height="80" //>
+                                                </a>';
+                                    }else{
+                                        $retorno = $retorno.'
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_zip.png" width="80" height="80" //>';
+                                    }
+
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true });
+                                }); </script>';  
+                        break;
+                    case 'pdf':
+                        $retorno = $retorno.'<img src="'.BASE_URL.'static/_img/gallery/80x80_pdf.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $pdfVer .'" class="ui-icon ui-icon-document">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                                <p>';
+                                    if($dowload){
+                                        $retorno = $retorno.'
+                                                <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_pdf.png" width="80" height="80" //>
+                                                </a>';
+                                    }else{
+                                        $retorno = $retorno.'
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_pdf.png" width="80" height="80" //>';
+                                    }
+
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true });
+                                }); </script>';  
+                        break;
+                    default:
+                        $retorno = $retorno.'<img src="'.BASE_URL.'static/_img/gallery/80x80_outros.png"  alt="'. $nome .'" width="80" height="80" //>';
+                        $retorno = $retorno.'<a href="'.BASE_URL.'archives/'. $endereco .'" title="'. $arquivoVer .'" class="ui-icon ui-icon-circle-arrow-s">View larger</a>';
+                        $retorno = $retorno.'<div id="dialog'.$id.'" title="'. $nome .'">
+                                <p>';
+                                    if($dowload){
+                                        $retorno = $retorno.'
+                                                <a href="'.BASE_URL.'archives/'. $endereco .'" alt="download" target="_blank">
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_outros.png" width="80" height="80" //>
+                                                </a>';
+                                    }else{
+                                        $retorno = $retorno.'
+                                                <img  src="'.BASE_URL.'static/_img/gallery/80x80_outros.png" width="80" height="80" //>';
+                                    }
+                        $retorno = $retorno.'
+                                    <div>'.$nomeDo.':&nbsp;'.$nome.'
+                                    </div>
+                                    <div>'.$tamanhoDo.': '.$tamanho.'&nbsp;Kb
+                                    </div>
+                                    <div>'.$dataCadastro.':&nbsp;'.$dt_cadastro.'
+                                    </div>
+                                </p>
+                                </div>
+                                <script>  $(function() {
+                                $( "#dialog'.$id.'" ).dialog({ autoOpen: false, resizable: "false", modal:true });
+                                }); </script>'; 
+                }
+                if($SelectionArea)
+                    $retorno = $retorno.'<a href="'.BASE_URL.'archives/resized_640x480/'. $endereco .'" title="'.$selecionarEste.'" class="ui-icon ui-icon-circle-check">'.$selecionar.'</a>';
+                $retorno = $retorno.'</li>';
+
+            }
+            
+            
+        }
+       
+        
+    
+        $retorno = $retorno.'
+</ul>
+
+';
+        if($SelectionArea){
+             $retorno= $retorno.'<div id="trash" class="ui-widget-content ui-state-default">
+            <h4 class="ui-widget-header"><span class="ui-icon ui-icon-circle-check">'.$nomeDaArea.'</span>'.$nomeDaArea.'</h4>
+            </div>';
+        }
+        $retorno= $retorno.'
+</div>';
+        return $retorno;
+
+}
 
 ?>
