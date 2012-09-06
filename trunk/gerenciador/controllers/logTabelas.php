@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage logtabelas
+ */
 class LogTabelas extends Controller {
 
     function __construct() {

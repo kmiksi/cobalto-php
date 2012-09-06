@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Classe responsável por manipular as tabelas referentes aos usuários
+ * @package gerenciador
+ * @subpackage usuario
+ * @author rsantos
+ */
 class UsuarioModel extends Model {
 
     function __construct() {
@@ -10,9 +16,9 @@ class UsuarioModel extends Model {
     }
 
     /**
-     *
+	 * Inseri o usuário no sistema
+	 * @param array $usuario $_POST informações do usuário enviados pela view
      * @return boolean
-     * @param $usuario $_POST
      */
     function incluir($usuario) {
         if ($this->validaInclusaoUsuario($usuario)) {
@@ -33,13 +39,13 @@ class UsuarioModel extends Model {
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('pessoas');
 
-        $this->db->set('pessoa_id', $this->db->insert_id());
+			$this->db->set('pessoa_id', $this->db->insert_id('pessoas', 'id'));
         $this->db->set('login', $usuario['txtLogin']);
         $this->db->set('senha', $this->encrypt->sha1($usuario['txtSenha']));
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('usuarios');
 
-        $this->ajax->addAjaxData('usuario', $this->getUsuario($this->db->insert_id()));
+        $this->ajax->addAjaxData('usuario', $this->getUsuario($this->db->insert_id('usuarios', 'id')));
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -51,9 +57,9 @@ class UsuarioModel extends Model {
     }
 
     /**
-     *
+	 * Altera o usuário no sistema
+	 * @param array $usuario $_POST informações do usuário enviados pela view
      * @return boolean
-     * @param $usuario $_POST
      */
     function alterar($usuario) {
         $retErro = $this->validaAlterarUsuario($usuario);
@@ -96,9 +102,9 @@ class UsuarioModel extends Model {
     }
 
     /**
-     *
+	 * Exclui o usuário do sistema
+	 * @param integer $id ID do usuario referente ao campo id da tabela usuarios
      * @return boolean
-     * @param $id integer
      */
     function excluir($id) {
         $pessoaId = $this->getUsuario($id)->pessoa_id;

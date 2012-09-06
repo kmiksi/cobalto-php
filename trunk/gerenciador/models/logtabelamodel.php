@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage logtabelas
+ */
 class LogTabelaModel extends Model {
 
     function getTabelas($parametros) {

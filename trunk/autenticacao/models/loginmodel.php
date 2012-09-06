@@ -1,15 +1,16 @@
 <?php
 
 /**
- * Classe responsavel por buscar as informações do banco
+ * Classe responsável por manipular as tabelas para a autenticação do usuário do sistema
  * @package autenticacao
+ * @subpackage login
  */
 class LoginModel extends Model {
 
     /**
-     *
+	 * Método para validar o usuário e senha do usuário para autenticação no sistema
+	 * @param array $login $_POST com as informações para autenticação enviadas pelo formulário da view 
      * @return boolean
-     * @param $login $_POST
      */
     function validaUsuario($login) {
         if (!$this->validaCampos($login)) {

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage usuario
+ */
 class Usuario extends Controller {
 
     function __construct() {

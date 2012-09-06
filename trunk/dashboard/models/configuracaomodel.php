@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Classe responsável por manipular as tabelas referentes as informações de perfil do usuário
+ * @package dashboard
+ * @subpackage configuracao
+ */
 class ConfiguracaoModel extends Model {
 
     function salvarDadosGerais($dados_gerais, $usuarioId) {

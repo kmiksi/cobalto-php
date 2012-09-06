@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package gerenciador
+ */
 class CidadeModel extends Model {
 
     function getCidadesCombo() {

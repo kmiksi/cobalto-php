@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package dashboard
+ * @subpackage configuracao
+ */
 class Configuracao extends Controller {
 
     function __construct() {

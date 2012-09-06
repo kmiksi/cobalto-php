@@ -5,7 +5,16 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php/$1 [L]
+    Options -Indexes
     
+    <files all-wcprops>
+	  order allow,deny
+	  deny from all
+	</files>
+	<files entries>
+	  order allow,deny
+	  deny from all
+	</files>
     # compress text, html, javascript, css, xml:
 	AddOutputFilterByType DEFLATE text/plain
 	AddOutputFilterByType DEFLATE text/html

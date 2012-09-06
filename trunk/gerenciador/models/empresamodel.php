@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Biblioteca responsável por manipular diversos componentes form do sistema
+ * @package gerenciador
+ * @subpackage empresa
+ */
 class EmpresaModel extends Model {
 
     function inserir($empresa) {
@@ -11,7 +16,7 @@ class EmpresaModel extends Model {
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('empresas');
 
-        $empresa_id = $this->db->insert_id();
+        $empresa_id = $this->db->insert_id('empresas','id');
 
         if ($empresa['txtPerfis'] != '') {
             $perfis = explode(',', $empresa['txtPerfis']);
@@ -86,7 +91,7 @@ class EmpresaModel extends Model {
     function getEmpresas($parametros) {
         $paramsJqGrid = $this->ajax->setParametersJqGrid($parametros);
 
-        $this->db->select('id, nome, dt_cadastro', false);
+        $this->db->select('id, nome, dt_cadastro');
         $this->db->like('upper(nome)', strtoupper(@$parametros['nomeEmpresa']));
         $this->db->order_by($paramsJqGrid->sortField, $paramsJqGrid->sortDirection);
         $result = $this->db->get('empresas');
@@ -97,7 +102,7 @@ class EmpresaModel extends Model {
     }
 
     function getEmpresa($id) {
-        $this->db->select('id, nome, dt_cadastro', false);
+        $this->db->select('id, nome, dt_cadastro');
         $this->db->where('id', $id);
         return $this->db->get('empresas')->row();
     }

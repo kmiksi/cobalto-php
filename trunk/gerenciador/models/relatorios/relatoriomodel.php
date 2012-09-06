@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage relatorios
+ */
 	class RelatorioModel extends Model{
 		
 		function __construct(){
@@ -14,7 +18,7 @@
 			$this->db->set('nome', $relatorio['txtNome']);
 			$this->db->set('link', $relatorio['txtLink']);
 			$this->db->insert('relatorios');
-			$relatorio_id = $this->db->insert_id();
+			$relatorio_id = $this->db->insert_id('relatorios', 'id');
 
 			$perfisRelatorios = explode(',', $relatorio['txtPerfisSelecionados']);
 			for($i = 0; $i < count($perfisRelatorios); $i++){

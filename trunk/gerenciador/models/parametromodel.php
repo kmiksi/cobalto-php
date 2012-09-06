@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage parametro
+ */
 class ParametroModel extends Model {
 
     function inserir($parametro) {

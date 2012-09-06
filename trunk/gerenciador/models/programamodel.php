@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage programa
+ */
+
 class ProgramaModel extends Model {
 
     function inserir($programa) {
@@ -14,7 +19,7 @@ class ProgramaModel extends Model {
         $this->db->set('dt_cadastro', 'NOW()', false);
         $this->db->insert('programas');
 
-        $this->ajax->addAjaxData('programa', $this->getPrograma($this->db->insert_id()));
+			$this->ajax->addAjaxData('programa', $this->getPrograma($this->db->insert_id('programas', 'id')));
         return true;
     }
 
@@ -105,7 +110,7 @@ class ProgramaModel extends Model {
     }
 
     function getProgramasRelatorio() {
-        $this->db->select('id, nome_programa as nome, link, dt_cadastro', false);
+        $this->db->select('id, nome_programa as nome, link, dt_cadastro');
         $this->db->orderby('nome_programa', 'asc');
         return $this->db->get('programas')->result();
     }
@@ -122,7 +127,16 @@ class ProgramaModel extends Model {
         return $this->db->get('programas')->row();
     }
 
-    function pathBread($uri) {
+    /**
+     * Gera um caminho de pão do programa a partir de sua URI com base em seu nome no banco de dados.<br/>
+     * O programa é encontrado a partir da URI passada e então é concatenado com o nome do módulo.
+     * @param string $uri A uri para o programa ( $_SERVER['REQUEST_URI'] )
+     * @return string
+     */
+    function pathBread($uri = "") {
+        if (empty($uri)) {
+            $uri = $_SERVER['REQUEST_URI'];
+        }
         $path = array_reverse(explode('/', $_SERVER['DOCUMENT_ROOT']));
         $startIndex = explode("/", BASE_URL);
         array_pop($startIndex);
@@ -176,7 +190,7 @@ class ProgramaModel extends Model {
         } else {
             $this->db->insert('programas_parametros');
         }
-        $programa_parametro_id = ($programaParametro['txtProgramaParametroId'] != '' ? $programaParametro['txtProgramaParametroId'] : $this->db->insert_id());
+        $programa_parametro_id = ($programaParametro['txtProgramaParametroId'] != '' ? $programaParametro['txtProgramaParametroId'] : $this->db->insert_id('programas_parametros', 'id'));
 
         $this->ajax->addAjaxData('programa_parametro', $this->getProgramaParametro($programa_parametro_id));
         return true;

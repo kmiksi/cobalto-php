@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage pessoa
+ */
 class Pessoa extends Controller {
 
     function __construct() {

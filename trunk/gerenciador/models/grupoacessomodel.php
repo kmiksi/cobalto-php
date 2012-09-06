@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage grupoacesso
+ */
 class GrupoAcessoModel extends Model {
 
     function __construct() {
@@ -23,7 +27,7 @@ class GrupoAcessoModel extends Model {
             return false;
         }
 
-        $this->ajax->addAjaxData('grupoAcesso', $this->getGrupoAcesso($this->db->insert_id()));
+		$this->ajax->addAjaxData('grupoAcesso', $this->getGrupoAcesso($this->db->insert_id('grupos_acessos', 'id')));
         return true;
     }
 
@@ -59,7 +63,7 @@ class GrupoAcessoModel extends Model {
 
         $paramsJqGrid = $this->ajax->setStartLimitJqGrid($parametros, $total->total_grupos_acesso);
 
-        $this->db->select('id, nome, dt_cadastro', false);
+        $this->db->select('id, nome, dt_cadastro');
         $this->db->from('grupos_acessos');
         $this->db->like('upper(nome)', @$parametros['txtNome']);
         $this->db->sendToGrid();

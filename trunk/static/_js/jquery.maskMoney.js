@@ -60,6 +60,8 @@
 						return false;
 					} else if (k==13) { // enter key
 						return true;
+                                        } else if (k==8 || k==9 || k==16 || k==17 || k==18 || k==27 || k==46) { // delete, tab, enter, shift, control, alt, esc, delete keys by kmiksi
+                                                return true;
 					} else { // any other key with keycode less than 48 and greater than 57
 						preventDefault(e);
 						return true;
@@ -89,7 +91,7 @@
 				var selection = input.getInputSelection(x);
 				var startPos = selection.start;
 				var endPos = selection.end;
-				
+
 				if (k==8) { // backspace key
 				preventDefault(e);
 
@@ -259,7 +261,7 @@
 	$.fn.unmaskMoney=function() {
 		return this.trigger('unmaskMoney');
 	};
-	
+
 	$.fn.setCursorPosition = function(pos) {
 		this.each(function(index, elem) {
 			if (elem.setSelectionRange) {
@@ -275,7 +277,7 @@
 		});
 		return this;
 	};
-	
+
 	$.fn.getInputSelection = function(el) {
 		var start = 0, end = 0, normalizedValue, range, textInputRange, len, endRange;
 
@@ -320,5 +322,5 @@
 			end: end
 		};
 	}
-	
+
 })(jQuery);

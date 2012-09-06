@@ -1,8 +1,13 @@
 /**
- * Método responsável por abrir janelas modais, sem a possibilidade de manipular a tela abaixo
- * <code>
+ * @fileoverview Este arquivo contém os metódos relacionados a utilização de janelas
+ */
+
+/**
+ * @function
+ * @description Método utilizado para abrir janelas modais, sem a possibilidade de manipular a tela abaixo
+ * @example
  * openWindow('url_controller', 'titulo da janela', width);
- * </code>
+ * @name openWindow 
  * @author rsantos
  * @param string url URL do controle reponsável por exibir a tela
  * @param string title Título da janela a ser exibida
@@ -87,16 +92,19 @@ function openWindow(url, title, width, iframe){
 }
 
 /**
- * Não sei direito porque existe este método, na verdade achei a chamada no arquivo footerGlobalView.php, quando a tela foi chamada por um buttonHit
- * @deprecated
- * @ignore
+ * @function
+ * @description Não sei direito porque existe este método, na verdade achei a chamada no arquivo footerGlobalView.php, quando a tela foi chamada por um buttonHit, tenho que descobrir como utilizar isso.
+ * @name setHeightWindow 
+ * @private
  */
 function setHeightWindow(objectId, height){
     $('#'+objectId).height(height + 10);
 }
 
 /**
- * Método responsável por fechar ultima janela aberta
+ * @function
+ * @description Método utilizado para fechar ultima janela aberta
+ * @name closeWindowSelf  
  * @author rsantos
  */
 function closeWindowSelf(){
@@ -104,27 +112,31 @@ function closeWindowSelf(){
 }
 
 /**
- * Método utilizado internamente para gerar id HTML válido 
+ * @function
+ * @description Método utilizado internamente para gerar id HTML válido
+ * @name generateNameWindowByUrl
  * @author rsantos
  * @param string url URL que tera seu valor alterado para se tornar um ID html válido
  * @return string
- * @ignore
+ * @private
+ * @see openWindow
  */
 function generateNameWindowByUrl(url){
-    return url.replace(/\:/g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/\|/g, '_');
+    return url.replace(/\:/g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/\|/g, '_').replace(/\?/g, '_').replace(/\=/g, '_');
 }
 
 /**
- * Exibe janela com mensagens de avisos
- * <code>
+ * @function
+ * @description Exibe janela com mensagens de avisos
+ * @example
  * messageBox('mensagem');
- * ou
+ * @example
  * messageBox('mensagem', 'txtNome');
- * ou
+ * @example
  * messageBox('mensagem', 'txtNome', 'metodoCallBack');
- * ou
+ * @example
  * messageBox('mensagem', 'metodoCallBack');
- * </code>
+ * @name messageBox 
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param string field Componente a ser selecionado após o usuário clicar em OK
@@ -150,16 +162,17 @@ function messageBox(message, field, functionCallBack){
 }
 
 /**
- * Exibe janela com mensagens de erros
- * <code>
+ * @function
+ * @description Exibe janela com mensagens de erros
+ * @example
  * messageBox('mensagem');
- * ou
+ * @example
  * messageBox('mensagem', 'txtNome');
- * ou
+ * @example
  * messageBox('mensagem', 'txtNome', metodoCallBack);
- * ou
+ * @example
  * messageBox('mensagem', metodoCallBack);
- * </code>
+ * @name messageErrorBox 
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param string field Componente a ser selecionado após o usuário clicar em OK
@@ -185,10 +198,11 @@ function messageErrorBox(message, field, functionCallBack){
 }
 
 /**
- * Exibe mensagem com a opção para o usuário confirmar
- * <code>
+ * @function
+ * @description Exibe mensagem com a opção para o usuário confirmar
+ * @example
  * messageConfirm('mensagem', metodoResultadoConfirmacao);
- * </code>
+ * @name messageConfirm 
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param object functionCallBack Método a ser executado após o usuário clicar em Sim ou Não
@@ -222,11 +236,17 @@ function messageConfirm(message, functionCallBack){
 }
 
 /**
- * Método responsável por executar a método callback das janelas de mensagens
+ * @function
+ * @description Método utilizado para executar a método callback das janelas de mensagens
+ * @name callBackDialog
+ * @private 
  * @author rsantos
  * @param string field
  * @param object functionCallBack
  * @return boolean
+ * @see messageBox
+ * @see messageErrorBox
+ * @see messageConfirm
  */
 function callBackDialog(field, functionCallBack){
     if ($.isFunction(field)){
@@ -246,10 +266,13 @@ function callBackDialog(field, functionCallBack){
 }
 
 /**
- * Método reponsável por buscar o ID do elemento HTML parent
+ * @function
+ * @description Método reponsável por buscar o ID do elemento HTML parent
+ * @name getParentField 
  * @author rsantos
  * @param string element Elemento HTML que desejo buscar o parentNode
  * @return integer ID do elemento HTML parent
+ * @private
  * @see callBackDialog
  */
 function getParentField(element){
@@ -260,8 +283,10 @@ function getParentField(element){
 }
 
 /**
- * Usado para setar a mensagem de warnings
- * @return this The instance itself
+ * @function
+ * @description Usado para setar a mensagem de warnings
+ * @name setMessageWarning 
+ * @return this The instance itself 
  */
 String.prototype.setMessageWarning = function(message){
     $("#"+this+' p').html(message);
@@ -270,7 +295,9 @@ String.prototype.setMessageWarning = function(message){
 }
 
 /**
- * Usado para ocultar mensagens de warning
+ * @function
+ * @description Usado para ocultar mensagens de warning
+ * @name hideMessageWarning 
  * @return this The instance itself
  */
 String.prototype.hideMessageWarning = function(){
@@ -279,7 +306,9 @@ String.prototype.hideMessageWarning = function(){
 }
 
 /**
- * Usado para ocultar mensagens de warning
+ * @function
+ * @description Usado para exibir mensagens de warning
+ * @name showMessageWarning 
  * @return this The instance itself
  */
 String.prototype.showMessageWarning = function(){
@@ -288,11 +317,14 @@ String.prototype.showMessageWarning = function(){
 }
 
 /**
- * Abre uma página da wiki
+ * @function
+ * @description Abre uma página da wiki
+ * @name wiki
+ * @author carloseduardo 
  * @param string pagina Endereço da página da wiki
  * @return window Uma referência à janela aberta
  */
-function wiki(pagina){
+function wiki(pagina){	
     var name = pagina.split("#"); //remove hashtags
     if (name.length > 1) {
         pagina = name[0]+"#"+wikiNotation(name[1]);
@@ -301,6 +333,14 @@ function wiki(pagina){
     return open(WIKI + pagina, name);
 }
 
+/**
+ * @function
+ * @description converte as letras acentuadas para uma saida que a wiki entende
+ * @name wikiNotation
+ * @author carloseduardo
+ * @private
+ * @see wiki
+ */
 function wikiNotation(text){
     var input = "Â:À:Á:Ä:Ã:â:ã:à:á:ä:Ê:È:É:Ë:ê:è:é:ë:Î:Í:Ì:Ï:î:í:ì:ï:Ô:Õ:Ò:Ó:Ö:ô:õ:ò:ó:ö:Û:Ù:Ú:Ü:û:ú:ù:ü:,:\\.: :-:\\+:\\*:/:\\(:\\):\\[:\\]:{:}:\\?:;:@:#:\\$:%:&:\\|:\\\\:_:ç:Ç".split(":");
     var output = ".C3.82:.C3.80:.C3.81:.C3.84:.C3.83:.C3.A2:.C3.A3:.C3.A0:.C3.A1:.C3.A4:.C3.8A:.C3.88:.C3.89:.C3.8B:.C3.AA:.C3.A8:.C3.A9:.C3.AB:.C3.8E:.C3.8D:.C3.8C:.C3.8F:.C3.AE:.C3.AD:.C3.AC:.C3.AF:.C3.94:.C3.95:.C3.92:.C3.93:.C3.96:.C3.B4:.C3.B5:.C3.B2:.C3.B3:.C3.B6:.C3.9B:.C3.99:.C3.9A:.C3.9C:.C3.BB:.C3.BA:.C3.B9:.C3.BC:.2C:.:_:-:.2B:.2A:.2F:.28:.29:.5B:.5D:.7B:.7D:.3F:.3B:.40:.23:.24:.25:.26:.7C:.5C:_:.C3.A7:.C3.87".split(":");

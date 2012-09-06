@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * @package gerenciador
+ * @subpackage programa
+ */
+/**
+ * Classe responsável por manter o cadastro de programas.
+ * @package gerenciador
+ * @subpackage programa
+ * @author rsantos
+ * @todo vincular restrições ao programa
+ * @todo vincular mais controllers ao mesmo programa
+ */
 class Programa extends Controller {
 
     function __construct() {
