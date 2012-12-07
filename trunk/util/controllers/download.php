@@ -13,6 +13,7 @@ class Download extends Controller {
             $archive = $gridFS->findOne(array('filename' => $nameFile, 'thumb' => $thumb));
         }
         header('Content-type: ' . $archive->file['type']);
+        header("Content-Disposition: filename=" . $archive->file['filename_original']);
         echo $archive->getBytes();
     }
 
@@ -24,6 +25,7 @@ class Download extends Controller {
         $archive = $gridFS->findOne(array('code_validator' => $codeValidator, 'no_thumb' => true));
 
         header('Content-type: ' . $archive->file['type']);
+        header("Content-Disposition: filename=" . $archive->file['filename_original']);
         echo $archive->getBytes();
     }
 

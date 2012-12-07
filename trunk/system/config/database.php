@@ -40,8 +40,8 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
 $db['default']['username'] = "postgres";
-$db['default']['password'] = "cophp";
-$db['default']['database'] = "cophp";
+$db['default']['password'] = "postgres";
+$db['default']['database'] = "cobalto-php";
 $db['default']['dbdriver'] = "postgre";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = FALSE;

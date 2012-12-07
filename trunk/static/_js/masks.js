@@ -16,6 +16,8 @@ function loadMasks(){
         e = event||window.event;
         var k = e.which||e.keyCode||e.charCode;
         return k==8 || k==9 || k==13 || k==16 || k==17 || k==18 || k==27 || k==46 // delete, tab, enter, shift, control, alt, esc, delete keys
+            || (k >= 37 && k <= 40) // direcional arrows
+            || (k >= 112 && k <= 123) // F1 to F12
             || (k >= 48 && k <= 57); // 0 to 9
     });
 }

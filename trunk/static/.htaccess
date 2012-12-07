@@ -50,6 +50,10 @@
 	  order allow,deny
 	  deny from all
 	</files>		
+	<FilesMatch "\.(py|jar|php|tmp|svn-base)$">
+		order allow,deny
+	  	deny from all
+	</FilesMatch>
 	
 </IfModule>
 

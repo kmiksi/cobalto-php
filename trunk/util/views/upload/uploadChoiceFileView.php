@@ -51,7 +51,12 @@
                 var paramUploadName = $("#paramUploadName").val();
                 $("#"+paramUploadId).val(data.uploads[0].id);
                 $("#"+paramUploadName).val(data.uploads[0].nome_original);
-                try{uploadCallBack(<?= (@$methodReturn == '' ? 'none' : @$methodReturn); ?>);}catch(err){}
+				try{
+					if($.isFunction(<?=(@$methodReturn == '' ? 'none' : @$methodReturn);?>)){
+						<?=(@$methodReturn == '' ? 'none' : @$methodReturn).'();';?>
+					}
+				}catch(err){}
+				parent.closeWindowSelf();
             }
         }
     }
