@@ -115,7 +115,7 @@ String.prototype.addColumn = function(column){
  * @private
  */
 String.prototype.addRow = function(row){
-    $('#'+this).jqGrid('addRowData', $("#"+this).jqGrid('getDataIDs').length, row, 'last');
+    $('#'+this).jqGrid('addRowData', row.id, row, 'last');
 }
 
 /**

@@ -17,4 +17,10 @@
 <script type="text/javascript">
 	$(function(){parent.setHeightWindow($.cookie('lastWindow'), $('.content-center-popup').outerHeight());});
 </script>
-<? } ?>
+<? }
+//se não está logado
+if (!getUsuarioSession()->login) {?>
+<script type='text/javascript'>
+    location.href = BASE_URL + "autenticacao/login/sair";
+</script>
+<?}

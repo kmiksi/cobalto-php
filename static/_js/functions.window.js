@@ -7,7 +7,7 @@
  * @description Método utilizado para abrir janelas modais, sem a possibilidade de manipular a tela abaixo
  * @example
  * openWindow('url_controller', 'titulo da janela', width);
- * @name openWindow 
+ * @name openWindow
  * @author rsantos
  * @param string url URL do controle reponsável por exibir a tela
  * @param string title Título da janela a ser exibida
@@ -15,20 +15,20 @@
  * @param boolean iframe Caso informado TRUE a tela terá uma altura fixa de 400px e será exibido a tela dentro de um iframe, caso contrário não terá estes atributos
  */
 function openWindow(url, title, width, iframe){
-    var idWindow = generateNameWindowByUrl(url);	
-    if(iframe == undefined){		
+    var idWindow = generateNameWindowByUrl(url);
+    if(iframe == undefined){
         $("#"+idWindow+" iframe").remove();
         $("#"+idWindow).dialog("destroy");
         $("#"+idWindow).remove();
         $('<div id="'+idWindow+'" style="display:hidden; padding: 0px; overflow: hidden !important"><iframe id="modalIframeId" width="100%" height="100%" marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto" title="Dialog Title">Your browser does not suppr</iframe></div>').appendTo('body');
-        $("#modalIframeId").attr("src", url);	
-	
+        $("#modalIframeId").attr("src", url);
+
         $('#carregando').fadeIn('normal');
         $("#"+idWindow).dialog({
             bgiframe: true,
             modal: true,
             title:title,
-            height: 400,      
+            height: 400,
             width: width,
             position: [50, 50],
             open: function(){
@@ -55,7 +55,7 @@ function openWindow(url, title, width, iframe){
         $("#"+idWindow).dialog("destroy");
         $("#"+idWindow).remove();
         var windowModal = $('<div id="'+idWindow+'" style="display:hidden"></div>').appendTo('body');
-	
+
         windowModal.load(url, {},
             function (responseText, textStatus, XMLHttpRequest){
                 windowModal.dialog({
@@ -77,7 +77,7 @@ function openWindow(url, title, width, iframe){
                         });
                     },
                     close: function(){
-                        $("#"+idWindow).remove();					
+                        $("#"+idWindow).remove();
                         $.cookie('lastWindow', null, {
                             path: PATH_COOKIE
                         });
@@ -87,14 +87,14 @@ function openWindow(url, title, width, iframe){
                     }
                 });
             }
-            );	
-    }		
+            );
+    }
 }
 
 /**
  * @function
  * @description Não sei direito porque existe este método, na verdade achei a chamada no arquivo footerGlobalView.php, quando a tela foi chamada por um buttonHit, tenho que descobrir como utilizar isso.
- * @name setHeightWindow 
+ * @name setHeightWindow
  * @private
  */
 function setHeightWindow(objectId, height){
@@ -104,7 +104,7 @@ function setHeightWindow(objectId, height){
 /**
  * @function
  * @description Método utilizado para fechar ultima janela aberta
- * @name closeWindowSelf  
+ * @name closeWindowSelf
  * @author rsantos
  */
 function closeWindowSelf(){
@@ -136,17 +136,17 @@ function generateNameWindowByUrl(url){
  * messageBox('mensagem', 'txtNome', 'metodoCallBack');
  * @example
  * messageBox('mensagem', 'metodoCallBack');
- * @name messageBox 
+ * @name messageBox
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param string field Componente a ser selecionado após o usuário clicar em OK
  * @param string functionCallBack Método a ser executado após o usuário clicar em OK
  */
 function messageBox(message, field, functionCallBack){
-    $("#dialog-message-info p label").text(message);
+    $("#dialog-message-info p label").html(message.replace(/\n/g, "<br/>"));
     $("#dialog-message-info").dialog({
-        modal: true, 
-        minHeight: 50, 
+        modal: true,
+        minHeight: 50,
         title: 'Atenção',
         open: function(){
             $('button').blur();
@@ -172,17 +172,17 @@ function messageBox(message, field, functionCallBack){
  * messageBox('mensagem', 'txtNome', metodoCallBack);
  * @example
  * messageBox('mensagem', metodoCallBack);
- * @name messageErrorBox 
+ * @name messageErrorBox
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param string field Componente a ser selecionado após o usuário clicar em OK
  * @param object functionCallBack Método a ser executado após o usuário clicar em OK
  */
 function messageErrorBox(message, field, functionCallBack){
-    $("#dialog-message-error p label").text(message);
+    $("#dialog-message-error p label").html(message.replace(/\n/g, "<br/>"));
     $("#dialog-message-error").dialog({
-        modal: true, 
-        minHeight: 50, 
+        modal: true,
+        minHeight: 50,
         title: 'Atenção',
         open: function(){
             $('button').blur();
@@ -202,17 +202,17 @@ function messageErrorBox(message, field, functionCallBack){
  * @description Exibe mensagem com a opção para o usuário confirmar
  * @example
  * messageConfirm('mensagem', metodoResultadoConfirmacao);
- * @name messageConfirm 
+ * @name messageConfirm
  * @author rsantos
  * @param string message Mensagem que deve ser exibida
  * @param object functionCallBack Método a ser executado após o usuário clicar em Sim ou Não
  */
-function messageConfirm(message, functionCallBack){	
-    $("#dialog-confirm p label").text(message);
+function messageConfirm(message, functionCallBack){
+    $("#dialog-confirm p label").html(message.replace(/\n/g, "<br/>"));
     $("#dialog-confirm").dialog({
-        resizable: false, 
-        modal: true, 
-        title: 'Confirmação', 
+        resizable: false,
+        modal: true,
+        title: 'Confirmação',
         width: 350,
         buttons: {
             'Não': function() {
@@ -239,7 +239,7 @@ function messageConfirm(message, functionCallBack){
  * @function
  * @description Método utilizado para executar a método callback das janelas de mensagens
  * @name callBackDialog
- * @private 
+ * @private
  * @author rsantos
  * @param string field
  * @param object functionCallBack
@@ -252,12 +252,12 @@ function callBackDialog(field, functionCallBack){
     if ($.isFunction(field)){
         field();
     }else if(field != undefined){
-        var element = document.getElementById(field);
-        var tabParent = getParentField(element);
-        $('#'+tabParent.split('-', 2)[0]).tabs('select', tabParent.split('-', 2)[1]);
-        try{
+        try {
+            var element = document.getElementById(field);
+            var tabParent = getParentField(element);
+            $('#'+tabParent.split('-', 2)[0]).tabs('select', tabParent.split('-', 2)[1]);
             element.focus();
-        }catch(err){}		
+        }catch(err){}
     }
     if ($.isFunction(functionCallBack)){
         functionCallBack();
@@ -268,7 +268,7 @@ function callBackDialog(field, functionCallBack){
 /**
  * @function
  * @description Método reponsável por buscar o ID do elemento HTML parent
- * @name getParentField 
+ * @name getParentField
  * @author rsantos
  * @param string element Elemento HTML que desejo buscar o parentNode
  * @return integer ID do elemento HTML parent
@@ -285,30 +285,30 @@ function getParentField(element){
 /**
  * @function
  * @description Usado para setar a mensagem de warnings
- * @name setMessageWarning 
- * @return this The instance itself 
+ * @name setMessageWarning
+ * @return this The instance itself
  */
 String.prototype.setMessageWarning = function(message){
     $("#"+this+' p').html(message);
-	$("#"+this).fadeIn(3000);
+    $("#"+this).fadeIn(3000);
     return this;
 }
 
 /**
  * @function
  * @description Usado para ocultar mensagens de warning
- * @name hideMessageWarning 
+ * @name hideMessageWarning
  * @return this The instance itself
  */
 String.prototype.hideMessageWarning = function(){
-	$("#"+this).fadeOut(3000);
+    $("#"+this).fadeOut(3000);
     return this;
 }
 
 /**
  * @function
  * @description Usado para exibir mensagens de warning
- * @name showMessageWarning 
+ * @name showMessageWarning
  * @return this The instance itself
  */
 String.prototype.showMessageWarning = function(){
@@ -320,11 +320,11 @@ String.prototype.showMessageWarning = function(){
  * @function
  * @description Abre uma página da wiki
  * @name wiki
- * @author carloseduardo 
+ * @author carloseduardo
  * @param string pagina Endereço da página da wiki
  * @return window Uma referência à janela aberta
  */
-function wiki(pagina){	
+function wiki(pagina){
     var name = pagina.split("#"); //remove hashtags
     if (name.length > 1) {
         pagina = name[0]+"#"+wikiNotation(name[1]);

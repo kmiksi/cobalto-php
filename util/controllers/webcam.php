@@ -12,5 +12,4 @@ class WebCam extends Controller {
         $data['methodReturn'] = $methodReturn;
         $this->load->view('webcam/webCamView', $data);
     }
-
 }

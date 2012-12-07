@@ -185,6 +185,14 @@ $(document).ready(function(){
         $('button').blur();
         openWindow(BASE_URL+'helpdesk/solicitacao/?link='+location.href, 'Solicitação de suporte para o sistema cobalto', 750);
     });
+
+    $('#btnVoltarAoRoot').button({
+        text: true
+    }).click(function(){
+        $('button').blur();
+        location.href = BASE_URL+'autenticacao/login/root';
+    });
+
     $('.button-hit').button({
         text: false,
         icons: {
@@ -198,7 +206,11 @@ $(document).ready(function(){
         }
     }).live('click', function(){
         $('button').blur();
-        history.go(-1);
+        try{
+            voltar();
+        }catch(err){
+            history.go(-1);
+        }
     });
     $('.ui-layout-center .pesquisar').button({
         text: true,
@@ -319,7 +331,7 @@ $(document).ready(function(){
                     label: item.nome,
                     value: item.nome,
                     valueHidden: item.url
-                }
+                };
             }));
         },
         select: function( event, ui ) {
@@ -587,9 +599,15 @@ function clearFields(form){
 
 /**
  * @description Método utilizado para executar a chamada de logout do sistema
+ * @param clear_cookies Limpa os cookies do navegador, referentes à sessão atual
  * @private
  */
-function logout(){
+function logout(clear_cookies){
+    if (clear_cookies){
+        $.cookie('redirect', null, {
+            path: PATH_COOKIE
+        });
+    }
     var logout_page = BASE_URL+'autenticacao/login/sair';
     if (location.href != logout_page) {
         location.href = logout_page;
@@ -789,20 +807,6 @@ function buttonHitCallBack(functionCallBack, returnObject){
 }
 
 /**
- * @function
- * @private
- * @ignore
- */
-function uploadCallBack(functionCallBack){
-    if($.isFunction(functionCallBack))
-        try{
-            functionCallBack();
-        }catch(err){}
-
-    closeWindowSelf();
-}
-
-/**
  *
  */
 function validateCPF(objectCPF){
@@ -971,7 +975,7 @@ String.prototype.val = function(value){
             el.val(value);
         }
     }else if(el.attr('type') == 'checkbox'){
-        return ( el.attr('checked') == undefined );
+        return el.attr('checked') != undefined;
     }
     return el.val();
 }
@@ -1093,8 +1097,7 @@ String.prototype.loadCombo = function(url, param, selectedIndex, functionCallbac
     }
 
     if(param != undefined){
-        paramSelectedIndex = param + "";
-        if(paramSelectedIndex.substr(0,1) != "{"){
+    	if(!$.isPlainObject(param)){
             selectedIndex = param;
         }
     }
@@ -1136,8 +1139,7 @@ function loadComboAutoComplete(jqCombo, url, param, selectedIndex, functionCallb
     }
 
     if(param != undefined){
-        paramSelectedIndex = param + "";
-        if(paramSelectedIndex.substr(0,1) != "{"){
+    	if(!$.isPlainObject(param)){
             selectedIndex = param;
         }
     }
@@ -1180,6 +1182,6 @@ function loadComboAutoComplete(jqCombo, url, param, selectedIndex, functionCallb
  * @return boolean retorna true em caso de sucesso e false caso contrário
  */
 function isInteger(sNum){
-   var reDigits = /^\d+$/;
-   return reDigits.test(sNum);
+    var reDigits = /^\d+$/;
+    return reDigits.test(sNum);
 }

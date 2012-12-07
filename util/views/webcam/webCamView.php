@@ -32,7 +32,12 @@
                 $("#"+paramUploadId).val(data.upload.id);
                 $("#"+paramUploadName).val(data.upload.nome_original);
                 disableSendImage();
-                try{uploadCallBack(<?= (@$methodReturn == '' ? 'none' : @$methodReturn); ?>);}catch(err){}
+				try{
+					if($.isFunction(<?=(@$methodReturn == '' ? 'none' : @$methodReturn);?>)){
+						<?=(@$methodReturn == '' ? 'none' : @$methodReturn).'();';?>
+					}
+				}catch(err){}
+				parent.closeWindowSelf();
             } else {
                 messageErrorBox(data.error.message, disableSendImage);
             }

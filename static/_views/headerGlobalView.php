@@ -69,7 +69,7 @@
 				<li>
 					<span class="menu">Menu</span>
 					<ul style="background: none !important;"> 
-						<?=$this->session->userdata('menu');?>
+						<?=isset($this->session)?$this->session->userdata('menu'):"";?>
 					</ul>
 				</li>
 			</ul>			
