@@ -1,4 +1,4 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
     <?= path_bread($path_bread) ?>
 	<?=begin_ToolBar(array('imprimir', 'abrir', 'pesquisar'));?>
 	<?=end_ToolBar();?>
@@ -54,4 +54,4 @@
 	}
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView")?>
+<?= footerView() ?>

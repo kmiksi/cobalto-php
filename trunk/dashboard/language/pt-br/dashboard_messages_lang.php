@@ -11,3 +11,4 @@ $lang['configuracaoCofirmacaoSenhaDiferenteSenhaNova'] = 'Confirmação de senha
 $lang['configuracaoSenhaAtualNaoConfere'] = 'Senha atual não confere com a informada no sistema';
 $lang['configuracaoEmailDeveSerInformado'] = 'Email deve ser informado';
 $lang['configuracaoEmailInvalido'] = 'Formato de email inválido, informe seu email corretamente';
+$lang['configuracaoSalvarPrograma'] = '<b>Atenção</b>, para efetivar as alterações feitas no seu perfil clique no botão <b>Salvar</b>';

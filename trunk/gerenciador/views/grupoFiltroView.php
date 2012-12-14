@@ -1,4 +1,4 @@
-<?= $this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=path_bread($path_bread);?>
 
@@ -67,4 +67,4 @@
     function gridGrupo_click(id){}
 </script>
 
-<?= $this->load->view("../../static/_views/footerGlobalView");?>
+<?= footerView() ?>

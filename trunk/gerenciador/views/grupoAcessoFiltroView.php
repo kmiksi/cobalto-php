@@ -1,4 +1,4 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=path_bread($path_bread);?>
 
@@ -30,4 +30,4 @@
 
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<?= footerView() ?>

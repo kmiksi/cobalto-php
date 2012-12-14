@@ -1,11 +1,11 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=path_bread('Configurações do Usuário', false);?>
 
 	<?=begin_ToolBar(array('imprimir', 'abrir', 'pesquisar', 'voltar-pagina', 'novo', 'ajuda', 'excluir'));?>
 	<?=end_ToolBar();?>
 
-	<?=warning('warning', '<b>Atenção</b>, para efetivar as alterações feitas no seu perfil clique no botão <b>Salvar</b>', false);?>
+	<?=warning('warning', lang('configuracaoSalvarPrograma'), false);?>
 
 	<?=begin_TabPanel();?>
 		<?=begin_Tab(lang('configuracaoTab0'));?>
@@ -127,4 +127,4 @@
 
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<?= footerView() ?>

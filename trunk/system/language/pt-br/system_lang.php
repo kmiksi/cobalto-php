@@ -10,6 +10,7 @@ $lang['registroNaoExcluido'] = 'Não foi possível excluir o registro';
 $lang['excluirRegistros'] = 'Deseja realmente excluir os registros selecionados ?';
 $lang['excluirRegistro'] = 'Deseja realmente excluir o registro selecionado ?';
 $lang['semPermissaoAcessarMetodo'] = 'Você não tem permissão para acessar esta funcionalidade.';
+$lang['semPermissaoAcessarGrupo'] = 'Você não tem permissão para acessar este grupo.';
 $lang['incluir'] = 'Incluir';
 $lang['excluir'] = 'Excluir';
 $lang['novo'] = 'Novo';
@@ -39,6 +40,9 @@ $lang['sigla'] = 'Cobalto <br /> Framework para desenvolvimento ágil';
 $lang['setor'] = 'Setor';
 $lang['modulo'] = 'Módulo';
 $lang['sair'] = 'Sair';
+$lang['copyration'] = '2012 Cobalto-PHP';
+$lang['sobre'] = 'Sobre';
+$lang['termos'] = 'Termos de Serviço';
 
 //-------- Tema -----------------
 $lang['tema'] = 'default';

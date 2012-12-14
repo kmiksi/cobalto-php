@@ -1,8 +1,8 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=path_bread($path_bread);?>
 
-	<?=begin_ToolBar(array('imprimir', 'excluir', 'abrir', 'ajuda', 'pesquisar'));?>
+	<?=begin_ToolBar(array('imprimir', 'excluir', 'abrir', 'pesquisar'));?>
 		<?=addButtonToolBar('Fazer login como', 'fazerLoginComo()', 'btnLoginComo', 'ui-icon-gear');?>
 	<?=end_ToolBar();?>
 
@@ -321,7 +321,10 @@
     function fazerLoginComo(){
         location.href = BASE_URL+'gerenciador/usuario/fazerLoginComo/'+$('#txtCodigo').val();
     }
+    function ajuda(){
+      window.open ('<?=WIKI;?>Ajuda');  
+    }
 
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<?= footerView() ?>

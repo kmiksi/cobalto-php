@@ -1,4 +1,4 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=path_bread($path_bread);?>
 
@@ -42,16 +42,19 @@
 
     function excluir(){
         if (getSelectedRows('gridUsuario').length == 0) {
-            messageErrorBox('Nenhum registro selecionado');
+            messageErrorBox('<?=lang('nenhumRegistroSelecionado');?>');
         } else {
-            messageConfirm('Deseja excluir os registros selecionados ?', confirmaExcluir);
+            messageConfirm('<?=lang('excluirRegistros')?>', confirmaExcluir);
         }
     }
 
     function confirmaExcluir(confirma){
         window.alert(confirma);
     }
+    function ajuda(){
+        window.open ('<?=WIKI;?>Ajuda');
+    }
 
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView");?>
+<?= footerView() ?>
