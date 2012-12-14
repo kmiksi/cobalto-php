@@ -76,7 +76,7 @@ class Login extends Controller {
      */
     function semPermissao() {
         if ($this->uri->segment(3) == 'perfil') {
-            $data['mensagem'] = 'Você não tem permissão para acessar este grupo';
+            $data['mensagem'] = lang('semPermissaoAcessarGrupo');
         } else {
             $data['mensagem'] = lang('semPermissaoAcessarMetodo');
         }

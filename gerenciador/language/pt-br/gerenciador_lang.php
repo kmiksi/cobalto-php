@@ -20,8 +20,35 @@ $lang['restricaoSQLNaoInformado'] = 'SQL deve ser informado';
 $lang['gerenciadorGeoCodeNaoInformado'] = 'GeoCode deve ser informado';
 
 $lang['usuarioTabRestricoes'] = 'Restrições de dados';
-//--------- PessoaTipo -----------
+
+//--------- Pessoa -----------
 $lang['pessoaTipoRequerido'] = 'Você precisa informar o nome do tipo de pessoa';
+$lang['pessoaNomeRequerido'] = 'Nome Requerido';
+
+//--------- PessoaTipo -----------
 $lang['tipoPessoa'] = 'Tipo Pessoa';
 $lang['tipoPessoaTipo'] = 'Tipo';
 $lang['tipoPessoaGrid'] = 'Lista de tipos de pessoas';
+
+//--------- Grupo -----------
+$lang['grupo_programa_nao_informado'] = 'Programa não informado';
+$lang['grupo_empresa_nao_informada'] = 'Empresa não Informada';
+$lang['grupo_nome_nao_informado'] = 'Nome mão informado';
+$lang['grupoFiltro'] = 'Filtro';
+$lang['grupoEmpresa'] = 'Empresa';
+$lang['grupoNome'] = 'Nome';
+$lang['grupoDtCadastro'] = 'Dt. Cadastro';
+$lang['grupoTitulo'] = 'Titulo';
+
+//--------- Grupo -----------
+$lang['grupoTab'] = 'Grupo';
+$lang['grupoCodigo'] = 'Código';
+$lang['grupoProgramaTab'] = 'Programa';
+$lang['grupoPrograma'] = 'Programa';
+$lang['grupoProgramaDtEntrada'] = 'Dt. Entrada';
+$lang['grupoProgramaDtSaida'] = 'Dt. Saída';
+$lang['grupoProgramaNome'] = 'Nome';
+$lang['grupoSubPrograma'] = 'Sub. Programa';
+
+//--------- Grupo ----------- 
+$lang['pessoaGrupo'] = 'Grupo Pessoa';

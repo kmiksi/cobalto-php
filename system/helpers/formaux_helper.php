@@ -1317,7 +1317,6 @@ function form_gallery($nomeLabel ='nome' , $options = array(), $dowload=true, $S
                          $dt_cadastro = $value;
                      }else if($theObject == 'tamanho')
                          $tamanho = $value;
-                     logVar($theObject);
                 }
                 $retorno = $retorno.'<li id="'.$id.'" tamanho="'.$tamanho.'" dt_cadastro="'.$dt_cadastro.'" class="ui-widget-content ui-corner-tr">
                                     <h5 class="ui-widget-header">'.$nome.'</h5>';

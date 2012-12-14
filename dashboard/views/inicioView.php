@@ -1,5 +1,5 @@
-<?= $this->load->view("../../static/_views/headerGlobalView"); ?>
+<?= headerView() ?>
 
     <?= path_bread('Início', false); ?>
 
-<?= $this->load->view("../../static/_views/footerGlobalView"); ?>
+<?= footerView() ?>

@@ -1,4 +1,4 @@
-<?=$this->load->view("../../static/_views/headerGlobalView");?>
+<?= headerView() ?>
 
 	<?=begin_ToolBar(array('imprimir', 'abrir', 'ajuda', 'pesquisar'));?>
 	<?=end_ToolBar();?>
@@ -89,4 +89,4 @@
     }
 </script>
 
-<?=$this->load->view("../../static/_views/footerGlobalView")?>
+<?= footerView() ?>
