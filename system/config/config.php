@@ -22,7 +22,7 @@ define('IMG', $config['base_url'].'static/_img');
 define('CSS', $config['base_url'].'static/_css');
 define('JS', $config['base_url'].'static/_js');
 define('WIKI', '');
-define('PRODUCAO', false);
+define('PRODUCAO', TRUE);
 
 /*
 |--------------------------------------------------------------------------

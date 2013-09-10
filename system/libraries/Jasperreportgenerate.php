@@ -62,7 +62,7 @@ class Jasperreportgenerate {
 			$db = $mongo->selectDB($CI->config->item('mongo_db'));
 			$gridFS = $db->getGridFS();
 			
-			$upload = array('file_name' => $outputJasperReportGenerate[0], 'orig_name' => $nameReport.'.pdf', 'file_size' => round(filesize('../archives/reports/'.$outputJasperReportGenerate[0])/1024, 2), 'file_type' => 'application/pdf');
+			@$upload = array('file_name' => $outputJasperReportGenerate[0], 'orig_name' => $nameReport.'.pdf', 'file_size' => round(filesize('../archives/reports/'.$outputJasperReportGenerate[0])/1024, 2), 'file_type' => 'application/pdf');
 			$storedfile = $gridFS->storeFile($pathArchive.'archives/reports/'.$upload['file_name'],
 													array('filename' => $upload['file_name'],
 															'filename_original' => $upload['orig_name'],
