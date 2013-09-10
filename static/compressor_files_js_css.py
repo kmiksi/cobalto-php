@@ -3,21 +3,21 @@ import os, shutil, sys, datetime
 import time
 PROJECT_ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 files_js = ['_js/excanvas.min.js',
-            '_js/jquery-1.7.2.min.js', 
-            '_js/jquery-ui-1.8.19.custom.min.js', 
-            '_js/jquery.easing.1.3.min.js',
-            '_js/jquery.jBreadCrumb.1.1.min.js',        
-            '_js/jquery.ui.selectmenu.min.js',            
-            '_js/jquery.form.2.94.min.js',
-            '_js/jquery.ui.datepicker-pt-BR.min.js', 
-            '_js/i18n/grid.locale-pt-br.js',             
+            '_js/jquery.min.js',
+            '_js/jquery-ui.min.js',
+            '_js/jquery.easing.min.js',
+            '_js/jquery.jBreadCrumb.1.1.min.js',
+            '_js/jquery.ui.selectmenu.min.js',
+            '_js/jquery.form.min.js',
+            '_js/jquery.ui.datepicker-pt-BR.min.js',
+            '_js/i18n/grid.locale-pt-br.js',
             '_js/jquery.jqGrid.min.js',
             '_js/jquery.tablednd.min.js',
-            '_js/jquery.cookie.min.js', 
+            '_js/jquery.cookie.min.js',
             '_js/jquery.treeview.1.5pre.min.js',
             '_js/jquery.highlight-3.min.js',
             '_js/webtoolkit.utf8.min.js',
-            '_js/jquery.maskedinput-1.2.2.min.js',
+            '_js/jquery.maskedinput.min.js',
             '_js/masks.min.js',
             '_js/jquery.maskMoney.min.js',
             '_js/jquery.decimalMask.min.js',
@@ -28,21 +28,22 @@ files_js = ['_js/excanvas.min.js',
             '_js/jquery.jqplot.min.js',
             '_js/require.js',
             '_js/functions.min.js']
-files_js_to_compressor = ['_js/jquery.easing.1.3.js',
+files_js_to_compressor = ['_js/jquery.js',
+                          '_js/jquery-ui.js',
+                          '_js/jquery.jqplot.js',
                           '_js/jquery.jBreadCrumb.1.1.js',
                           '_js/jquery.ui.selectmenu.js',
-                          '_js/jquery.form.2.94.js',
+                          '_js/jquery.form.js',
                           '_js/jquery.ui.datepicker-pt-BR.js',
                           '_js/jquery.tablednd.js',
-                          '_js/jquery.cookie.js',
                           '_js/jquery.treeview.1.5pre.js',
                           '_js/webtoolkit.utf8.js',
-                          '_js/masks.js',
                           '_js/jquery.maskMoney.js',
                           '_js/jquery.decimalMask.js',
                           '_js/jquery.highlight-3.js',
                           '_js/jquery.fixFloat.js',
                           '_js/webcam.js',
+                          '_js/masks.js',
                           '_js/functions.grid.js',
                           '_js/functions.window.js',
                           '_js/functions.js']
@@ -53,23 +54,22 @@ files_css = ['_css/jquery.ui.selectmenu.min.css',
              '_css/agenda.min.css',
              '_css/jquery.jqplot.min.css',
              '_css/global.min.css']
-themes_jqueryui = ['_css/blitzer/', '_css/cupertino/', '_css/flick/',
-                   '_css/hot-sneaks/', '_css/redmond/', '_css/smoothness/', '_css/ui-lightness/',
-                   '_css/humanity/']
+themes_jqueryui = ['_css/blitzer/', '_css/cupertino/', '_css/flick/', '_css/hot-sneaks/', 
+                   '_css/redmond/', '_css/smoothness/', '_css/ui-lightness/', '_css/humanity/']
 files_css_to_compressor = ['_css/jquery.ui.selectmenu.css',
                            '_css/breadcrumb.css',
                            '_css/ui.jqgrid.css',
                            '_css/jquery.treeview.1.5pre.css',
                            '_css/global.css',
-                           '_css/agenda.css',                           
-                           '_css/blitzer/jquery-ui-1.8.19.custom.css',
-                           '_css/cupertino/jquery-ui-1.8.19.custom.css',
-                           '_css/flick/jquery-ui-1.8.19.custom.css',
-                           '_css/hot-sneaks/jquery-ui-1.8.19.custom.css',
-                           '_css/redmond/jquery-ui-1.8.19.custom.css',
-                           '_css/smoothness/jquery-ui-1.8.19.custom.css',
-                           '_css/ui-lightness/jquery-ui-1.8.19.custom.css',
-                           '_css/humanity/jquery-ui-1.8.19.custom.css']
+                           '_css/agenda.css',
+                           '_css/blitzer/jquery-ui.css',
+                           '_css/cupertino/jquery-ui.css',
+                           '_css/flick/jquery-ui.css',
+                           '_css/hot-sneaks/jquery-ui.css',
+                           '_css/redmond/jquery-ui.css',
+                           '_css/smoothness/jquery-ui.css',
+                           '_css/ui-lightness/jquery-ui.css',
+                           '_css/humanity/jquery-ui.css']
 
 for raiz, diretorios, arquivos in os.walk(PROJECT_ROOT_PATH):
     for arquivo in arquivos:
@@ -112,7 +112,7 @@ all_css.close()
 for theme_jqueryui in themes_jqueryui:
     file_all_css = open(os.path.join('', '_css/all.css.'+now+'.css'), 'r')
     all_css_jqueryui = open(os.path.join('', theme_jqueryui+'all.css.jquery-ui.'+now+'.css'), 'w')
-    file = open(os.path.join('', theme_jqueryui+'jquery-ui-1.8.19.custom.min.css'), 'r')    
+    file = open(os.path.join('', theme_jqueryui+'jquery-ui.min.css'), 'r')
     all_css_jqueryui.write(file.read())
     all_css_jqueryui.write(file_all_css.read())
     file.close()
@@ -121,7 +121,7 @@ for theme_jqueryui in themes_jqueryui:
 
 print "css generated file: all.css.%s.css" % now
 
-str_header_html = "<script>\n"
+str_header_html = '<script type="text/javascript">\n'
 str_header_html+= "    var BASE_URL = '<?=base_url()?>';\n"
 str_header_html+= "    var WIKI = '<?=WIKI?>';\n"
 str_header_html+= "    var PATH_COOKIE = '<?=PATH_COOKIE?>';\n"
@@ -130,7 +130,14 @@ str_header_html+= "    var JS = '<?=JS?>';\n"
 str_header_html+= "</script>\n"
 str_header_html+= "<link href='<?=CSS;?>/<?=(@$_COOKIE['tema'] == '' ? 'redmond' : @$_COOKIE['tema']);?>/all.css.jquery-ui."+now+".css' type='text/css' rel='stylesheet'/>\n"
 str_header_html+= "<link rel='shortcut icon' href='<?=IMG;?>/favicon.ico' type='image/ico'/>\n"
-str_header_html+= "<script type='text/javascript' src='<?=JS;?>/all.javascript."+ now +".js'></script>"
+str_header_html+= "<? if (PRODUCAO) { ?>\n"
+str_header_html+= "<script type='text/javascript' src='<?=JS;?>/all.javascript."+ now +".js'></script>\n"
+str_header_html+= "<? } else { ?>\n"
+for file_js in files_js:
+    for item in files_js_to_compressor:
+        file_js = file_js.replace(item.replace(".js", ".min.js"), item)
+    str_header_html+= "    <script type='text/javascript' src='<?=JS;?>/"+ file_js.replace("_js/", "") +"'></script>\n"
+str_header_html+= "<? } ?>\n"
 file_header_html = open(os.path.join('', '_views/headerScripts.php'), 'w')
 file_header_html.write(str_header_html)
 file_header_html.close()
