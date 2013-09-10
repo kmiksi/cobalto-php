@@ -4,14 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<?
-			if(PRODUCAO){
-				if($_SERVER["HTTPS"] != "on") {
-					header("HTTP/1.1 301 Moved Permanently");
-					header("Location: https://". $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
-					exit();
-				}
-			}
+		<?			
 			if(!isset($path_bread)){
 				$path_bread = '';
 			}

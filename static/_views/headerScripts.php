@@ -5,10 +5,10 @@
     var IMG = '<?=IMG?>';
     var JS = '<?=JS?>';
 </script>
-<link href='<?=CSS;?>/<?=(@$_COOKIE['tema'] == '' ? 'redmond' : @$_COOKIE['tema']);?>/all.css.jquery-ui.10092013113206393481.css' type='text/css' rel='stylesheet'/>
+<link href='<?=CSS;?>/<?=(@$_COOKIE['tema'] == '' ? 'redmond' : @$_COOKIE['tema']);?>/all.css.jquery-ui.10092013134409977101.css' type='text/css' rel='stylesheet'/>
 <link rel='shortcut icon' href='<?=IMG;?>/favicon.ico' type='image/ico'/>
 <? if (PRODUCAO) { ?>
-<script type='text/javascript' src='<?=JS;?>/all.javascript.10092013113206393481.js'></script>
+<script type='text/javascript' src='<?=JS;?>/all.javascript.10092013134409977101.js'></script>
 <? } else { ?>
     <script type='text/javascript' src='<?=JS;?>/excanvas.min.js'></script>
     <script type='text/javascript' src='<?=JS;?>/jquery.js'></script>
