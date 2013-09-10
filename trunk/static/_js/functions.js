@@ -101,10 +101,10 @@ $(document).keyup(function (e) {
  * @author rsantos
  * @private
  */
-$(document).ready(function(){
+$(document).ready(function(){	
     $.ajaxSetup({
         global: true,
-        dataType: 'json',
+		dataType: 'json',
         beforeSend: function(){
             $('#carregando').fadeIn('normal', function(){
                 $('input:button').blur();
@@ -117,6 +117,10 @@ $(document).ready(function(){
             }
         }
     });
+    $(".logo").on('click', function(){
+    	location.href = BASE_URL;
+    });
+    $("input:text, div").tooltip({track: true});
     $(".breadCrumb").jBreadCrumb();
     $("form").submit(function(){
         return false;
@@ -185,6 +189,20 @@ $(document).ready(function(){
         $('button').blur();
         openWindow(BASE_URL+'helpdesk/solicitacao/?link='+location.href, 'Solicitação de suporte para o sistema cobalto', 750);
     });
+    
+    $('#btnAcessarConta').button({
+        text: true,
+        icons: {
+            primary: 'ui-icon-locked'
+        }
+    }).click(function(){
+        $('button').blur();        
+        $('#acessar-conta > div').show();
+        $('#acessar-conta').addClass('ui-widget');
+        $('#acessar-conta').addClass('ui-widget-content');
+        $('#txtEmail').focus();
+		$('#btnAcessarConta').hide();
+    });
 
     $('#btnVoltarAoRoot').button({
         text: true
@@ -204,7 +222,7 @@ $(document).ready(function(){
         icons: {
             primary: 'ui-icon-circle-arrow-w'
         }
-    }).live('click', function(){
+    }).on('click', function(){
         $('button').blur();
         try{
             voltar();
@@ -387,18 +405,33 @@ function generateTabs(){
     }
 
     $(".tabs").tabs({
-        show: function(event, ui) {
+    	show: false,
+        activate: function(event, ui){
             try{
-                tabShow(ui.index, ui.tab.title.split('-', 2)[0]);
-            }catch(err){}
-            try{
-                eval(ui.tab.title.split('-', 2)[0]+"Show("+ui.index+");");
-            }catch(err){}
+                eval(ui.newTab.context.accessKey.split('-', 2)[0]+"Show("+ui.newTab.index()+");");
+            }catch(err){
+            	try{
+                	tabShow(ui.newTab.index(), ui.newTab.context.accessKey.split('-', 2)[0]);
+            	}catch(err){}
+            }
+        },
+        beforeLoad: function(event, ui){
+        	ui.ajaxSettings.dataTypes[0] = "html";
+        	if(ui.tab.data("loaded")){
+	            event.preventDefault();
+	            return;
+	        }
+	        ui.jqXHR.error(function(){
+	        	messageErrorBox("Não foi possível carregar as informações");
+	        });
+	        ui.jqXHR.success(function() {
+            	ui.tab.data("loaded", true);
+        	});
         },
         load: function(event, ui){
             loadComponents();
             generateTabs();
-            var tabs = $('#'+ui.tab.title+' > .tabs').get();
+            var tabs = $('#'+ui.tab.accessKey+' > .tabs').get();
             for(var i =0; i < tabs.length; i++) {
                 if($("#"+tabs[i].id+" ul:first").html() == ''){
                     $("#"+tabs[i].id+" ul:first li").remove();
@@ -416,23 +449,14 @@ function generateTabs(){
                     }
 
                 }
-            }
+            }            
             try{
-                tabLoad(ui.index, ui.tab.title.split('-', 2)[0]);
-            }catch(err){
-                try{
-                    eval(ui.tab.title.split('-', 2)[0]+"Load("+ui.index+");");
-                }catch(err){}
-            }
-        },
-        select: function(event, ui) {},
-        cache: true,
-        ajaxOptions: {
-            dataType: 'html',
-            error: function(xhr, status, index, anchor) {
-                $(anchor.hash).html("");
-                messageErrorBox("Não foi possível carregar as informações");
-            }
+				eval(ui.tab.context.id+"Load("+ui.tab.index()+");");
+			}catch(err){
+				try{
+                	tabLoad(ui.tab.index(), ui.tab.context.id);
+            	}catch(err){}
+			}            
         }
     });
 }
@@ -446,10 +470,11 @@ function generateTabs(){
  * @see generateTabs
  */
 function loadComponents(){
+	$("input:text, div").tooltip({track: false});
     $(".breadCrumb").jBreadCrumb();
     $("form").submit(function(){
         return false;
-    });
+    });    
     $('input:button, input:submit').button({
         text:true
     });
@@ -614,6 +639,26 @@ function logout(clear_cookies){
     }
 }
 
+function entrar(){
+	$("#btnEntrar").blur();
+	formLogin_submit();
+}
+
+function formLogin_callback(data){
+	if(data.error != undefined){
+		messageErrorBox(data.error.message, data.error.field);
+	}else{
+		if(data.success != undefined){
+			redirect = $.cookie('redirect');
+			if(!redirect){
+				location.href = BASE_URL+'dashboard'+location.hash;
+			}else{
+				location.href = redirect+location.hash;
+			}
+		}
+    }
+}
+
 /**
  * @function
  * @description Método utilizado para executar alguma ação antes de efetuar qualquer chamada AJAX.
@@ -712,8 +757,8 @@ function resizeGridTab(){
  * @deprecated since 09/12/2010
  * @ignore
  */
-function setValueCombo(comboName, value){
-    $('#'+comboName).val(value).selectmenu('value', value);
+function setValueCombo(comboName, value){	
+    $('#'+comboName).selectmenu("value", value);    
 }
 
 /**
@@ -1041,7 +1086,7 @@ String.prototype.enable = function(){
  * @name setValueCombo
  */
 String.prototype.setValueCombo = function(value){
-    $('#'+this).val(value).selectmenu('value', value);
+    $('#'+this).selectmenu('value', value);
 }
 
 /**
@@ -1064,6 +1109,18 @@ String.prototype.clearCombo = function(){
         maxHeight: 150,
         width: parseInt(objectCombo.style.width.replace('px', '')) + 4
     });
+}
+
+/**
+ * @function
+ * @description Método utilizado para alterar a url de uma quando a mesma utiliza AJAX para carregar coteudo
+ * @example
+ * tab.changeURL(1, "http://cobalto.ufpel.edu.br");
+ * @name changeURL
+ */
+String.prototype.changeURL = function(index, url){
+	var elem = $("#"+this).tabs().find(".ui-tabs-anchor").eq(index);
+	elem.attr('href', url);
 }
 
 /**

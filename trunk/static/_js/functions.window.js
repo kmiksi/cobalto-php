@@ -122,7 +122,7 @@ function closeWindowSelf(){
  * @see openWindow
  */
 function generateNameWindowByUrl(url){
-    return url.replace(/\:/g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/\|/g, '_').replace(/\?/g, '_').replace(/\=/g, '_');
+    return url.split('?')[0].replace(/\:/g, '_').replace(/\./g, '_').replace(/\//g, '_').replace(/\|/g, '_').replace(/\=/g, '_').replace(/%/g, '_');
 }
 
 /**
