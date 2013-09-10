@@ -143,13 +143,13 @@ function begin_JqGridPanel($id = 'grid', $height = '', $width = 0, $url = '', $p
         }
         if (isParameterJqGrid('pager', $parameters)) {
             if ($parameters['pager']) {
-        		$parameters['pager'] = '#' . $id . 'Pager';
-	            if (!isParameterJqGrid('rowNum', $parameters)) {
-	                $parameters['rowNum'] = 10;
-	            }
+                $parameters['pager'] = '#' . $id . 'Pager';
+                if (!isParameterJqGrid('rowNum', $parameters)) {
+                    $parameters['rowNum'] = 10;
+                }
             } else {
                 $parameters['rowNum'] = -1;
-        	}
+            }
         } else {
             $parameters['rowNum'] = -1;
         }

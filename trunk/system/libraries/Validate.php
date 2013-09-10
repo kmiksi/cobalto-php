@@ -184,7 +184,7 @@ class Validate {
             case 'real':
                 return $this->validate_real($data);
             case 'recaptcha':
-            	return $this->validate_recaptcha($data);
+                return $this->validate_recaptcha($data);
         }
         if (is_callable($regexExpression)) {
             return $regexExpression($data);
@@ -359,14 +359,14 @@ class Validate {
         return ($this->validate_max_length($max, $str) && $this->validate_min_length($min, $str));
     }
 
-	/**
-	 * Valida a resposta do desafio do componente recaptcha
-	 * @param string resposta do usuário ao desafio recaptcha
-	 * @return boolean Retorna true caso a resposta seja válida e false caso contrário
-	 */
-    function validate_recaptcha($str){
-    	$returnRecaptcha = recaptcha_check_answer(KEY_PRIVATE_RECAPTCHA, $_SERVER["REMOTE_ADDR"], $this->_data['recaptcha_challenge_field'], $str);
-    	return $returnRecaptcha->is_valid;
+    /**
+     * Valida a resposta do desafio do componente recaptcha
+     * @param string resposta do usuário ao desafio recaptcha
+     * @return boolean Retorna true caso a resposta seja válida e false caso contrário
+     */
+    function validate_recaptcha($str) {
+        $returnRecaptcha = recaptcha_check_answer(KEY_PRIVATE_RECAPTCHA, $_SERVER["REMOTE_ADDR"], $this->_data['recaptcha_challenge_field'], $str);
+        return $returnRecaptcha->is_valid;
     }
 
 }

@@ -31,6 +31,11 @@ class Controller extends CI_Base {
 
 	var $_ci_scaffolding	= FALSE;
 	var $_ci_scaff_table	= FALSE;
+        
+        /** @var Ajax */
+        var $ajax;
+        /** @var CI_Loader */
+        var $load;
 	
 	/**
 	 * Constructor

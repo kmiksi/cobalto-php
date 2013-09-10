@@ -19,7 +19,8 @@ if (!defined('BASEPATH'))
 function begin_TabPanel($name = 'tab') {
     $CI = & get_instance();
     $CI->tabpanel->setTabName($name);
-    $tabpanel = '<div id="' . $name . '" class="tabs"><ul></ul>';
+    $tabpanel = "<script>var $name = '$name';</script>";
+    $tabpanel.= '<div id="' . $name . '" class="tabs"><ul></ul>';
     return $tabpanel;
 }
 
@@ -29,7 +30,7 @@ function begin_TabPanel($name = 'tab') {
  * @param string $url A URL a ser carregada ao clicar na aba (padrão vazio)
  * @param boolean $navigable TRUE para navegação por hashtags na URL
  * @param string $hash Nome da aba (para navegação, use minúsculas e caracteres simples)
- * @return string 
+ * @return string
  */
 function begin_Tab($titulo, $url = '', $navigable = FALSE, $hash = FALSE) {
     $CI = & get_instance();
@@ -51,13 +52,13 @@ function begin_Tab($titulo, $url = '', $navigable = FALSE, $hash = FALSE) {
         $url .= "\" onclick=\"if(! $(this).parent().hasClass('ui-state-disabled') ){ location.hash='$hash'; }";
     }
     $tab = "<div id=\"$hash\" class=\"ui-widget $tabName $tabName-$id $hash\">";
-    $tab .= "<ul><li class=\"label$tabName\"><a href=\"$url\" title=\"$hash\">$titulo</a></li></ul>";
+    $tab .= "<ul><li class=\"label$tabName\"><a href=\"$url\" accessKey=\"$hash\">$titulo</a></li></ul>";
     return $tab;
 }
 
 /**
  * Encerra uma aba
- * @return string 
+ * @return string
  */
 function end_Tab() {
     return '<br /></div>';
@@ -65,7 +66,7 @@ function end_Tab() {
 
 /**
  * Encerra um painel de abas
- * @return string 
+ * @return string
  */
 function end_TabPanel() {
     return '</div>';
@@ -92,9 +93,9 @@ function begin_TabChild($titulo, $url = '') {
 
     $tabChild = '<div id="' . $tabNameChild . '-' . $idChild . '" class="ui-widget ' . $tabNameChild . '">';
     if ($url == '') {
-        $tabChild.= '	<ul><li class="label' . $tabNameChild . '"><a href="#' . $tabNameChild . '-' . $idChild . '" title="' . $tabNameChild . '-' . $idChild . '">' . $titulo . '</a></li></ul>';
+        $tabChild.= '	<ul><li class="label' . $tabNameChild . '"><a href="#' . $tabNameChild . '-' . $idChild . '" accessKey="' . $tabNameChild . '-' . $idChild . '">' . $titulo . '</a></li></ul>';
     } else {
-        $tabChild.= '	<ul><li class="label' . $tabNameChild . '"><a href="' . $url . '" title="' . $tabNameChild . '-' . $idChild . '">' . $titulo . '</a></li></ul>';
+        $tabChild.= '	<ul><li class="label' . $tabNameChild . '"><a href="' . $url . '" accessKey="' . $tabNameChild . '-' . $idChild . '">' . $titulo . '</a></li></ul>';
     }
     return $tabChild;
 }

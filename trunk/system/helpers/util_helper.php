@@ -298,6 +298,13 @@ function footerView() {
 }
 
 /**
+ * Carrega o arquivo javascript para para manipulação de uma view.
+ */
+function loadJavaScript($fileName){
+	return '<script type="text/javascript" src="'.BASE_URL.$fileName.'?'.random_string().'"></script>';
+}
+
+/**
  * Carrega um trecho de uma view.
  * @param string $view O nome da view.
  *  Opcionalmente pode-se utilizar o caminho completo à view desejada
@@ -325,4 +332,129 @@ function loadView($view) {
         $CI = & get_instance();
         return $CI->load->view("$load");
     }
+}
+
+/**
+ * Busca o novo código de matricula utilizando a api-cobalto para a integração entre gol x cobalto
+ * @param integer $ano Ano que será utilizado para gerar nova matricula
+ * @param integer $semestre Semestre que será utilizado para gerar nova matricula
+ */
+function getNovoCodigoMatricula($ano, $semestre){
+	$url         = 'http://api-cobalto.ufpel.edu.br/academico/aluno/get_novo_cod_matricula';
+	$api_key     = 'f14aa0b35ffdca55a5bb42985c508763c4e863a1';
+	$format      = 'json';
+	$parameters  = 'ano='.$ano.'&semestre='.$semestre.'&random='.random_string();
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, $url.'?api_key='.$api_key.'&format='.$format.'&'.$parameters);
+	curl_setopt($curl, CURLOPT_HEADER, 0);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	$result = curl_exec($curl);
+	curl_close($curl);
+
+	$matricula = json_decode($result);
+	if (isset($matricula->error)){
+		return $matricula->error;
+	}else{
+		return $matricula->cod_matricula;
+	}
+}
+
+/**
+ * Monta o menu público do sistema
+ */
+function getMenuPublico()
+{
+	$menu = '';
+	$idSetorMenuPortal = getParametro('ID_SETOR_MENU_PORTAL');
+
+	$CI = & get_instance();
+
+	$CI->db->select('e.id, e.nome');
+	$CI->db->from('empresas as e');
+	$CI->db->where('e.id', $idSetorMenuPortal);
+	$CI->db->order_by('e.nome', 'asc');
+	$empresas = $CI->db->get()->result();
+	
+	foreach ($empresas as $empresa) 
+	{
+		//$menu.= '<li><span>'.$empresa->nome.'</span><ul style="background: none !important;">';
+
+		$CI->db->select('p.id, p.nome_perfil');
+		$CI->db->from('perfis as p');
+		$CI->db->join('empresas_perfis as ep', 'p.id = ep.perfil_id');
+		$CI->db->where('ep.empresa_id', $empresa->id);
+		$CI->db->order_by('p.nome_perfil', 'asc');
+		$perfis = $CI->db->get()->result();
+		
+		foreach ($perfis as $perfil)
+		{
+			$menu.= '<li><span>'.$perfil->nome_perfil.'</span><ul style="background: none !important;">';
+			
+			$programasParent = _getProgramasMenuPublico($perfil->id, 0, $empresa->id);
+			foreach ($programasParent as $programaParent)
+			{
+				$menu.= '<li class="closed"><span>';
+				if($programaParent->link == '')
+				{
+					$menu.= $programaParent->nome_programa;
+				}				
+				else
+				{
+					if($programaParent->flg_link_externo == 'S')
+					{
+						$menu.= '<a href="'.$programaParent->link.'" target="_blank">'.$programaParent->nome_programa.'</a>';
+					}
+					else
+					{
+						$menu.= '<a href="'.base_url().$programaParent->link.'">'.$programaParent->nome_programa.'</a>';	
+					}					
+				}
+				
+				$menu.= '</span>';
+				$programas = _getProgramasMenuPublico($perfil->id, $programaParent->programa_id, $empresa->id);
+				if(count($programas) > 0)
+				{
+					$menu.='<ul style="background: none !important;">';
+					foreach ($programas as $programa)
+					{
+						if($programa->flg_link_externo == 'S')
+						{
+							$menu.= '<li><a href="'.$programa->link.'" target="blank">'.$programa->nome_programa.'</a></li>';
+						}
+						else
+						{
+							$menu.= '<li><a href="'.base_url().$programa->link.'">'.$programa->nome_programa.'</a></li>';	
+						}						
+					}
+
+					$menu.= '</ul></li>';	
+				}
+				
+			}							
+			$menu.= '</ul></li>';
+		}
+		$menu.= '</ul></li>';
+	}
+	return $menu;
+}
+
+/**
+ * Busca os programas referente ao perfil e a empresa com acesso publico
+ * @param integer ID do perfil que deseja ver os programas
+ * @param integer ID do programa pai que deseja ver os programas
+ * @param integer ID da empresa que deseja ver os programas
+ */
+function _getProgramasMenuPublico($perfilId, $programaPaiId=0, $empresaId)
+{
+	$CI = & get_instance();
+	$CI->db->select('p.id as perfil, p.nome_perfil, pp.programa_id, pp.programa_pai, pp.ordem, pr.nome_programa, pr.link, pr.flg_link_externo');
+	$CI->db->from('perfis as p');
+	$CI->db->join('empresas_perfis as ep', 'p.id = ep.perfil_id');
+	$CI->db->join('perfis_programas as pp', 'pp.perfil_id = p.id');
+	$CI->db->join('programas as pr', 'pp.programa_id = pr.id');
+	$CI->db->where('p.id', $perfilId);
+	$CI->db->where('ep.empresa_id', $empresaId);
+	$CI->db->where('pp.programa_pai', $programaPaiId);
+	$CI->db->order_by('pr.nome_programa', 'asc');	
+	return $CI->db->get()->result();	
 }

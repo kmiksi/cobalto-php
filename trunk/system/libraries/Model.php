@@ -27,7 +27,14 @@
 class Model {
 
 	var $_parent_name = '';
-
+        
+        /** @var CI_DB_active_record */
+        var $db;
+        /** @var Ajax */
+        var $ajax;
+        /** @var Validate */
+        var $validate;
+        
 	/**
 	 * Constructor
 	 *
