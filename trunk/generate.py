@@ -6,11 +6,11 @@ class Application:
 
     application = ''
     path_application = ''
-    folders = ['config', 'controllers', 'errors', 'hooks', 'hooks/filters', 'language', 'language/pt-br', 'models', 'views', 'reports']
+    folders = ['assets', 'config', 'controllers', 'errors', 'hooks', 'hooks/filters', 'language', 'language/pt-br', 'models', 'views', 'reports']
     files_config = ['config/autoload.php', 'config/config.php', 'config/constants.php', 'config/database.php', 'config/doctypes.php',
                     'config/filters.php', 'config/hooks.php', 'config/mimes.php', 'config/smiles.php', 'config/user_agents.php', 'config/mongodb.php']
-    files_index = ['config/index.html', 'controllers/index.html', 'errors/index.html', 'hooks/index.html', 'models/index.html', 'views/index.html', 'reports/index.html']
-    files_htaccess = ['config/.htaccess', 'controllers/.htaccess', 'errors/.htaccess', 'hooks/.htaccess', 'language/.htaccess', 'models/.htaccess', 'reports/.htaccess', 'views/.htaccess']
+    files_index = ['assets/index.html', 'config/index.html', 'controllers/index.html', 'errors/index.html', 'hooks/index.html', 'models/index.html', 'views/index.html', 'reports/index.html']
+    files_htaccess = ['assets/.htaccess', 'config/.htaccess', 'controllers/.htaccess', 'errors/.htaccess', 'hooks/.htaccess', 'language/.htaccess', 'models/.htaccess', 'reports/.htaccess', 'views/.htaccess']
     files_error = ['errors/error_404.php', 'errors/error_db.php', 'errors/error_general.php', 'errors/error_php.php']
     files_filter = ['hooks/filters/Filter.php', 'hooks/filters/init.php', 'hooks/filters/Pipe.php']
     arquives = ['.htaccess', 'index.php', 'config/routes.php']
@@ -116,7 +116,7 @@ class Application:
         str_htaccess+= "    RewriteRule ^(.*)$ /index.php/$1 [L]\n"
         str_htaccess+= "    RewriteCond %{REQUEST_FILENAME} !-f\n"
         str_htaccess+= "    RewriteCond %{REQUEST_FILENAME} !-d\n"
-        str_htaccess+= "    RewriteRule ^(.*)$ index.php/$1 [L]\n"
+        str_htaccess+= "    RewriteRule ^(.*)$ index.php?/$1 [L]\n"
         str_htaccess+= "    Options -Indexes\n"
         str_htaccess+= "    <files all-wcprops>\n"
         str_htaccess+= "        order allow,deny\n"

@@ -36,7 +36,7 @@ $lang['loginCapcthaInvalido'] = 'Informe o código da imagem corretamente';
 
 //-------- Header -------
 $lang['titulo'] = 'Cobalto';
-$lang['sigla'] = 'Cobalto <br /> Framework para desenvolvimento ágil';
+$lang['sigla'] = 'Cobalto <br /> Framework para desenvolvimento de aplicações';
 $lang['setor'] = 'Setor';
 $lang['modulo'] = 'Módulo';
 $lang['sair'] = 'Sair';
