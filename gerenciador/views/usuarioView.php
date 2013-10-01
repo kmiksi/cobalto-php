@@ -192,7 +192,7 @@
     }
 
     function salvar(){
-        switch($("#tab").tabs("option", "selected")){
+        switch($("#tab").tabs("option", "active")){
             case 0:
                 formUsuario_submit();
                 break;
