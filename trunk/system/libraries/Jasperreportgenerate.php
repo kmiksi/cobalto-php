@@ -15,7 +15,7 @@ class Jasperreportgenerate {
 	 * @param boolean caso true é enviado para o relatório o código de validação
 	 * @param string tipo de banco de dados a ser utilizado no relatório. 
 	 */
-	public function pdf_create($nameReportJasper, $nameReport='', $params='', $format='PDF', $stream=true, $codeValidator=false, $database='cobalto'){
+	public function pdf_create($nameReportJasper, $nameReport='', $params='', $format='PDF', $stream=true, $codeValidator=false, $database='default'){
 		$path = array_reverse(explode('/', $_SERVER['DOCUMENT_ROOT']));
 		$pathArchive = $_SERVER['DOCUMENT_ROOT'].($path[1] != 'cobalto' ? '/cobalto/' : '');
 		
