@@ -58,14 +58,11 @@
 		<span style="clear:both;"><!-- --></span>
 
 		<div class="ui-layout-west ui-widget ui-widget-content <?=(@$_COOKIE['showMenu'] == 'false' ? 'closed' : '');?>" style="padding-left: 0px; padding-right: 0px; background: none !important; float: left; width: 200px; overflow:hidden !important; <?=(@$_COOKIE['showMenu'] == 'false' ? 'display: none;' : 'display: block;');?>">			
-			<ul id="menu" class="ui-widget treeview treeview-gray" style="background: none !important; background-color:none !important; overflow: auto !important; margin-top: 2px;">
-				<li>
-					<span class="menu">Menu</span>
-					<ul style="background: none !important;"> 
-						<?=isset($this->session)?$this->session->userdata('menu'):"";?>
-					</ul>
-				</li>
-			</ul>			
+			<ul id="menu" class="ui-widget treeview treeview-gray" style="background: none !important; background-color:none !important; overflow: auto !important; margin-top: 2px;">				
+				<ul style="background: none !important;"> 
+					<?=isset($this->session)?$this->session->userdata('menu'):"";?>
+				</ul>
+			</ul>		
 		</div>		
 		<div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
 <?	}else{ ?>
