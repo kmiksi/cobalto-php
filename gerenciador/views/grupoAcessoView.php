@@ -96,8 +96,8 @@
         location.href = BASE_URL+'gerenciador/grupoAcesso/novo';
     }
 
-    function salvar(){
-        switch($("#tab").tabs("option", "selected")){
+    function salvar(){        
+		switch($("#tab").tabs("option", "active")){        	
             case 0:
                 formGrupoAcesso_submit();
                 break;
