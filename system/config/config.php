@@ -22,7 +22,8 @@ define('IMG', $config['base_url'].'static/_img');
 define('CSS', $config['base_url'].'static/_css');
 define('JS', $config['base_url'].'static/_js');
 define('WIKI', '');
-define('PRODUCAO', TRUE);
+define('FILE_SETTINGS_JASPER', 'settings_jasper.properties');
+define('PRODUCAO', FALSE);
 
 /*
 |--------------------------------------------------------------------------
