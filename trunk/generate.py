@@ -10,7 +10,7 @@ class Application:
     files_config = ['config/autoload.php', 'config/config.php', 'config/constants.php', 'config/database.php', 'config/doctypes.php',
                     'config/filters.php', 'config/hooks.php', 'config/mimes.php', 'config/smiles.php', 'config/user_agents.php', 'config/mongodb.php']
     files_index = ['assets/index.html', 'config/index.html', 'controllers/index.html', 'errors/index.html', 'hooks/index.html', 'models/index.html', 'views/index.html', 'reports/index.html']
-    files_htaccess = ['assets/.htaccess', 'config/.htaccess', 'controllers/.htaccess', 'errors/.htaccess', 'hooks/.htaccess', 'language/.htaccess', 'models/.htaccess', 'reports/.htaccess', 'views/.htaccess']
+    files_htaccess = ['config/.htaccess', 'controllers/.htaccess', 'errors/.htaccess', 'hooks/.htaccess', 'language/.htaccess', 'models/.htaccess', 'reports/.htaccess', 'views/.htaccess']
     files_error = ['errors/error_404.php', 'errors/error_db.php', 'errors/error_general.php', 'errors/error_php.php']
     files_filter = ['hooks/filters/Filter.php', 'hooks/filters/init.php', 'hooks/filters/Pipe.php']
     arquives = ['.htaccess', 'index.php', 'config/routes.php']
