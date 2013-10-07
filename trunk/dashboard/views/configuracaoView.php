@@ -53,7 +53,7 @@
     }
 
     function salvar(){
-        switch($("#tab").tabs( "option", "selected")){
+        switch($("#tab").tabs( "option", "active")){
             case 0:
                 formGeral_submit();
                 break;
@@ -100,7 +100,7 @@
     }
 
     function finishUploadAvatar(){
-        switch($("#tab").tabs( "option", "selected")){
+        switch($("#tab").tabs( "option", "active")){
             case 0:
                 $.post(BASE_URL+'util/archive/getArchiveByUploadId/'+$('#avatarId').val(), '',
                 function(data){
@@ -113,7 +113,7 @@
     }
 
     function finishUploadWebCamCarteira(){
-        switch($("#tab").tabs( "option", "selected")){
+        switch($("#tab").tabs( "option", "active")){
             case 0:
                 $.post(BASE_URL+'util/archive/getArchiveByUploadId/'+$('#carteiraId').val(), '',
                 function(data){
