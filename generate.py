@@ -116,7 +116,7 @@ class Application:
         str_htaccess+= "    RewriteRule ^(.*)$ /index.php/$1 [L]\n"
         str_htaccess+= "    RewriteCond %{REQUEST_FILENAME} !-f\n"
         str_htaccess+= "    RewriteCond %{REQUEST_FILENAME} !-d\n"
-        str_htaccess+= "    RewriteRule ^(.*)$ index.php?/$1 [L]\n"
+        str_htaccess+= "    RewriteRule ^(.*)$ index.php/$1 [L]\n"
         str_htaccess+= "    Options -Indexes\n"
         str_htaccess+= "    <files all-wcprops>\n"
         str_htaccess+= "        order allow,deny\n"
